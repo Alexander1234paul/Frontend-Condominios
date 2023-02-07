@@ -17,6 +17,9 @@ import { SeguridadComponent } from './components/seguridad/seguridad.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule,
+    MatPaginatorModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
