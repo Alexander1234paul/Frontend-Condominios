@@ -21,12 +21,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BienComponent } from './components/bien/bien.component';
+import { ServiciosComponent } from './components/servicios/servicios.component';
+import { AlquilerComponent } from './components/alquiler/alquiler.component';
+import { SubAlquilerComponent } from './components/sub-alquiler/sub-alquiler.component';
+import { SubServicioComponent } from './components/sub-servicio/sub-servicio.component';
+import { DetalleServicioComponent } from './components/detalle-servicio/detalle-servicio.component';
+import { TipoServicioComponent } from './components/tipo-servicio/tipo-servicio.component';
+import { SubContabilidadComponent } from './components/sub-contabilidad/sub-contabilidad.component';
+import { SubReporteComponent } from './components/sub-reporte/sub-reporte.component';
+import { ReporteComponent } from './components/reporte/reporte.component';
+import { MultaComponent } from './components/multa/multa.component';
+import { DetallePagoComponent } from './components/detalle-pago/detalle-pago.component';
+import { CuentasPendientesComponent } from './components/cuentas-pendientes/cuentas-pendientes.component';
+import { MovimientoContableComponent } from './components/movimiento-contable/movimiento-contable.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-
     ResidenteComponent,
     UsuarioexternoComponent,
     ContabilidadComponent,
@@ -37,6 +49,19 @@ import { BienComponent } from './components/bien/bien.component';
     HeaderComponent,
     FooterComponent,
     BienComponent,
+    ServiciosComponent,
+    AlquilerComponent,
+    SubAlquilerComponent,
+    SubServicioComponent,
+    DetalleServicioComponent,
+    TipoServicioComponent,
+    SubContabilidadComponent,
+    SubReporteComponent,
+    ReporteComponent,
+    MultaComponent,
+    DetallePagoComponent,
+    CuentasPendientesComponent,
+    MovimientoContableComponent
 
   ],
   imports: [

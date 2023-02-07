@@ -11,6 +11,19 @@ import { SeguridadComponent } from './components/seguridad/seguridad.component';
 import { UsuarioexternoComponent } from './components/usuarioexterno/usuarioexterno.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { BienComponent } from './components/bien/bien.component';
+import { ServiciosComponent } from './components/servicios/servicios.component';
+import { AlquilerComponent } from './components/alquiler/alquiler.component';
+import { SubAlquilerComponent } from './components/sub-alquiler/sub-alquiler.component';
+import { SubServicioComponent } from './components/sub-servicio/sub-servicio.component';
+import { TipoServicioComponent } from './components/tipo-servicio/tipo-servicio.component';
+import { DetalleServicioComponent } from './components/detalle-servicio/detalle-servicio.component';
+import { DetallePagoComponent } from './components/detalle-pago/detalle-pago.component';
+import { SubContabilidadComponent } from './components/sub-contabilidad/sub-contabilidad.component';
+import { MultaComponent } from './components/multa/multa.component';
+import { ReporteComponent } from './components/reporte/reporte.component';
+import { SubReporteComponent } from './components/sub-reporte/sub-reporte.component';
+import { CuentasPendientesComponent } from './components/cuentas-pendientes/cuentas-pendientes.component';
+import { MovimientoContableComponent } from './components/movimiento-contable/movimiento-contable.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
@@ -22,15 +35,52 @@ const routes: Routes = [
       path: "residente", component: ResidenteComponent
     }]
   },
-  { path: "contabilidad", component: ContabilidadComponent },
-  { path: "reservaciones", component: ReservacionesComponent },
+  {
+    path: "contabilidad", component: ContabilidadComponent, children: [
+      {
+        path: "subContabilidad", component: SubContabilidadComponent, children: [
+          { path: "detPago", component: DetallePagoComponent },
+          { path: "multa", component: MultaComponent }
+        ]
+      },
+      {
+        path: "reporte", component: ReporteComponent, children: [
+          { path: "subReporte", component: SubReporteComponent }
+        ]
+      }
+
+    ]
+  },
+  {
+    path: "reservaciones", component: ReservacionesComponent, children: [
+      {
+        path: "servicios", component: ServiciosComponent, children: [
+          { path: "subServicio", component: SubServicioComponent },
+          { path: "tipoServico", component: TipoServicioComponent },
+          { path: "detalleServicio", component: DetalleServicioComponent }
+        ]
+      },
+      {
+        path: "alquiler", component: AlquilerComponent, children: [{
+          path: "bien", component: BienComponent
+        }, {
+          path: "subAlquiler", component: SubAlquilerComponent
+        }]
+      }
+    ]
+  },
   {
     path: "seguridad", component: SeguridadComponent, children: [{
       path: "usuarioE", component: UsuarioexternoComponent
     }]
   },
-  { path: "usuarios", component: UsuariosComponent },
-  {path:"bien",component:BienComponent}
+  {
+    path: "usuarios", component: UsuariosComponent, children: [
+      { path: "cuentasPendientes", component: CuentasPendientesComponent },
+      { path: "movimientoContable", component: MovimientoContableComponent }
+    ]
+  },
+  { path: "bien", component: BienComponent }
 
 ];
 

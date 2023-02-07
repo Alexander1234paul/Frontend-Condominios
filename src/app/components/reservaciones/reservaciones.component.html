@@ -1,3 +1,22 @@
 <app-header></app-header>
+<br>
+<ul class="nav justify-content-center">
 
-<app-footer></app-footer>
+    <li class="nav-item">
+
+        <a style="border: solid 1px; border-radius: 7px;" class="nav-link active"
+            [routerLink]="['/reservaciones/servicios']">Servicio</a>
+            
+    </li>
+    <li class="nav-item">
+
+        <a style="border: solid 1px; border-radius: 7px;" class="nav-link active"
+            [routerLink]="['/reservaciones/alquiler']">Alquiler</a>
+            
+    </li>
+
+</ul>
+<br>
+<router-outlet></router-outlet>
+<!-- <app-footer></app-footer> -->
+

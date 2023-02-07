@@ -8,17 +8,24 @@ export class UsuarioEService {
   url: string = 'http://localhost:3000/';
   constructor(private http: HttpClient) { }
 
-  getAllUsuariosExternos() {
-    let direccion = this.url + "usuarioExterno";
-    return this.http.get(direccion);
+  public getAllBien() {
+    const url = this.url + `usuarioExterno`
+    return this.http.get(url)
   }
 
-  // Login(form: any) {
-  //   let direccion = this.url + "auth";
-  //   return this.http.post(direccion, form);
-  // }
-  // updateAutoridad(form: any) {
-  //   let direccion = this.url + "autoridades";
-  //   return this.http.put(direccion, form);
-  // }
+  public postCreateBien(body: any) {
+    const url = this.url + `usuarioExterno`
+    return this.http.post(url, body)
+  }
+
+  public putUpdateBien(body: any) {
+    console.log(body)
+    const url = this.url + `usuarioExterno/` + body.bien_id
+    return this.http.put(url, body)
+  }
+
+  public deleteBien(bien_id: any) {
+    const url = this.url + `usuarioExterno/` + bien_id
+    return this.http.delete(url)
+  }
 }
