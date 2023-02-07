@@ -10,6 +10,7 @@ import { ReservacionesComponent } from './components/reservaciones/reservaciones
 import { SeguridadComponent } from './components/seguridad/seguridad.component';
 import { UsuarioexternoComponent } from './components/usuarioexterno/usuarioexterno.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { BienComponent } from './components/bien/bien.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
@@ -29,9 +30,7 @@ const routes: Routes = [
     }]
   },
   { path: "usuarios", component: UsuariosComponent },
-
-
-
+  {path:"bien",component:BienComponent}
 
 ];
 

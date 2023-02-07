@@ -20,6 +20,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { BienComponent } from './components/bien/bien.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     SeguridadComponent,
     HeaderComponent,
     FooterComponent,
+    BienComponent,
 
   ],
   imports: [
