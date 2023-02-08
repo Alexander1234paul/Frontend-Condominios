@@ -5,29 +5,29 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   providedIn: 'root'
 })
 
-export class BienService {
+export class TipoServicioService {
 
   url: string = 'https://condominio-api.up.railway.app/';
   constructor(private http: HttpClient) { }
   
-  public getAllBien(){
-    const url=this.url+`bienes`
+  public getAllTipoServicio(){
+    const url=this.url+`tipo_servicios`
     return this.http.get(url)
   }
 
-  public postCreateBien(body:any){
-    const url=this.url+`bienes`
+  public postCreateTipoServicio(body:any){
+    const url=this.url+`tipo_servicio`
     return this.http.post(url,body)
   }
 
-  public putUpdateBien(body:any){
+  public putUpdateTipoServicio(body:any){
     console.log(body)
-    const url=this.url+`bienes/`+body.bien_id
+    const url=this.url+`tipo_servicio/`+body.tser_id
     return this.http.put(url,body)
   }
   
-  public deleteBien(bien_id:any){
-    const url= this.url+`bienes/`+bien_id
+  public deleteTipoServicio(tser_id:any){
+    const url= this.url+`tipo_servicio/`+tser_id
     return this.http.delete(url)
   }
 

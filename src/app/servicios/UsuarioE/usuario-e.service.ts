@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UsuarioEService {
-  url: string = 'http://localhost:3000/';
+  url: string = 'https://condominio-api.up.railway.app/';
   constructor(private http: HttpClient) { }
 
   public getAllBien() {

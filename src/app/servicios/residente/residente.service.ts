@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class ResidenteService {
 
-  // url: string = 'http://localhost:3000/';
+  // url: string = 'https://condominio-api.up.railway.app/';
   // constructor(private http: HttpClient, private cookieService: CookieService) { }
 
   // getAllResidente() {
@@ -28,7 +28,7 @@ export class ResidenteService {
   //     })
   // }
 
-  url: string = 'http://localhost:3000/';
+  url: string = 'https://condominio-api.up.railway.app/';
   constructor(private http: HttpClient) { }
   
   public getAllBien(){
