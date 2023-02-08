@@ -34,6 +34,9 @@ import { MultaComponent } from './components/multa/multa.component';
 import { DetallePagoComponent } from './components/detalle-pago/detalle-pago.component';
 import { CuentasPendientesComponent } from './components/cuentas-pendientes/cuentas-pendientes.component';
 import { MovimientoContableComponent } from './components/movimiento-contable/movimiento-contable.component';
+import { CondominoComponent } from './components/condomino/condomino.component';
+import { RolcondominoComponent } from './components/rolcondomino/rolcondomino.component';
+import { AsignacionesCondominosComponent } from './components/asignaciones-condominos/asignaciones-condominos.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,10 @@ import { MovimientoContableComponent } from './components/movimiento-contable/mo
     MultaComponent,
     DetallePagoComponent,
     CuentasPendientesComponent,
-    MovimientoContableComponent
+    MovimientoContableComponent,
+    CondominoComponent,
+    RolcondominoComponent,
+    AsignacionesCondominosComponent
 
   ],
   imports: [

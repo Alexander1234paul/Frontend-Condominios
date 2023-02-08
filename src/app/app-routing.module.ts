@@ -24,6 +24,9 @@ import { ReporteComponent } from './components/reporte/reporte.component';
 import { SubReporteComponent } from './components/sub-reporte/sub-reporte.component';
 import { CuentasPendientesComponent } from './components/cuentas-pendientes/cuentas-pendientes.component';
 import { MovimientoContableComponent } from './components/movimiento-contable/movimiento-contable.component';
+import { CondominoComponent } from './components/condomino/condomino.component';
+import { AsignacionesCondominosComponent } from './components/asignaciones-condominos/asignaciones-condominos.component';
+import { RolcondominoComponent } from './components/rolcondomino/rolcondomino.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
@@ -31,9 +34,19 @@ const routes: Routes = [
   { path: "residente", component: ResidenteComponent, canActivate: [UserGuardGuard] },
   { path: "main", component: MainComponent },
   {
-    path: "administracion", component: AdministracionComponent, children: [{
-      path: "residente", component: ResidenteComponent
-    }]
+    path: "administracion", component: AdministracionComponent, children: [
+      {
+        path: "condomino", component: CondominoComponent, children: [
+          { path: "residente", component: ResidenteComponent },
+          { path: "rolCondomino", component: RolcondominoComponent }
+        ]
+      }, {
+        path: "asignacionCondominos", component: AsignacionesCondominosComponent
+      }
+      // , {
+      //   path: "adminCondomino", component: a
+      // }
+    ]
   },
   {
     path: "contabilidad", component: ContabilidadComponent, children: [
