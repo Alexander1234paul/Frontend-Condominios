@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { ModelResidenteI } from '../../modelos/modelo.residente';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.prod';
 
 
 @Injectable({
@@ -10,45 +11,32 @@ import { Observable } from 'rxjs';
 })
 export class ResidenteService {
 
-  // url: string = 'https://condominio-api.up.railway.app/';
-  // constructor(private http: HttpClient, private cookieService: CookieService) { }
 
-  // getAllResidente() {
-  //   let httpHeaders: HttpHeaders = new HttpHeaders();
-  //   const token = this.cookieService.get('token');
-  //   httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token)
-  //   let direccion = this.url + "Residente";
-  //   return this.http.get(direccion, {
-  //     headers: httpHeaders,
-  //     observe: 'response'
-  //   })
-  //     .subscribe(res => {
-  //       console.log(res.body)
-  //       return res
-  //     })
-  // }
-
-  url: string = 'https://condominio-api.up.railway.app/';
   constructor(private http: HttpClient) { }
-  
-  public getAllBien(){
-    const url=this.url+`Residente`
+
+  public getAllResidente() {
+    const url = environment.base_url + `Residente`
+    return this.http.get(url)
+  }
+  public getAllDepartamento() {
+    const url = environment.base_url + `Departamento`
     return this.http.get(url)
   }
 
-  public postCreateBien(body:any){
-    const url=this.url+`Residente`
-    return this.http.post(url,body)
+  public postCreateResidente(body: any) {
+    const url = environment.base_url + `Residente`
+    return this.http.post(url, body)
   }
 
-  public putUpdateBien(body:any){
+  public putUpdateResidente(body: any) {
     console.log(body)
-    const url=this.url+`Residente/`+body.bien_id
-    return this.http.put(url,body)
+    const url = environment.base_url + `Residente/` + body.res_id
+    return this.http.put(url, body)
   }
-  
-  public deleteBien(bien_id:any){
-    const url= this.url+`Residente/`+bien_id
+
+  public deleteResidente(res_id: any) {
+    const url = environment.base_url + `Residente/` + res_id
     return this.http.delete(url)
   }
+
 }

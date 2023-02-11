@@ -37,6 +37,13 @@ import { MovimientoContableComponent } from './components/movimiento-contable/mo
 import { CondominoComponent } from './components/condomino/condomino.component';
 import { RolcondominoComponent } from './components/rolcondomino/rolcondomino.component';
 import { AsignacionesCondominosComponent } from './components/asignaciones-condominos/asignaciones-condominos.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { DropdownModule } from 'primeng/dropdown';
+import { DetallecuotaComponent } from './components/detallecuota/detallecuota.component';
+import { MontoComponent } from './components/monto/monto.component';
+
+
 
 @NgModule({
   declarations: [
@@ -67,7 +74,9 @@ import { AsignacionesCondominosComponent } from './components/asignaciones-condo
     MovimientoContableComponent,
     CondominoComponent,
     RolcondominoComponent,
-    AsignacionesCondominosComponent
+    AsignacionesCondominosComponent,
+    DetallecuotaComponent,
+    MontoComponent
 
   ],
   imports: [
@@ -79,7 +88,11 @@ import { AsignacionesCondominosComponent } from './components/asignaciones-condo
     RouterModule,
     BrowserAnimationsModule,
     MatPaginatorModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MatSelectModule,
+    MatInputModule,
+    FormsModule,
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

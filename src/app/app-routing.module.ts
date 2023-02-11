@@ -27,10 +27,16 @@ import { MovimientoContableComponent } from './components/movimiento-contable/mo
 import { CondominoComponent } from './components/condomino/condomino.component';
 import { AsignacionesCondominosComponent } from './components/asignaciones-condominos/asignaciones-condominos.component';
 import { RolcondominoComponent } from './components/rolcondomino/rolcondomino.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { MontoComponent } from './components/monto/monto.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
   { path: "login", component: LoginComponent },
+  { path: "monto", component: MontoComponent },
+  { path: "multa", component: MultaComponent },
+  { path: "detallepago", component: DetallePagoComponent },
+  { path: "footer", component: FooterComponent },
   { path: "residente", component: ResidenteComponent, canActivate: [UserGuardGuard] },
   { path: "main", component: MainComponent },
   {

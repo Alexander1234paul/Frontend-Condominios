@@ -192,34 +192,65 @@ a {
 
 
 
-/* Desing footer */
-
-
+  
 footer {
-    /* position: absolute; */
+    height: 30px;
+    background-color: #333;
+    color: #fff;
+    position: fixed;
     bottom: 0;
-    width: 100%;
-}
-
-.decoration {
-    margin-top: 1.5em;
-    background: #111;
-    height: 8px;
-}
-
-.footer-bottom {
-    background: #000;
-    width: 100%;
-    padding: 5px 0;
-    text-align: center;
-}
-
-.footer-bottom__copyright {
-    /* text-transform: uppercase; */
-    font-family: 'Roboto', sans-serif;
-    opacity: .4;
-    font-weight: 200;
-    color: white;
-    opacity: 0.5;
-    font-size: 0.9rem;
-}
+    left: 0;
+    right: 0;
+  }
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+ 
+  
+  .footer-links ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .footer-links ul li {
+    margin-right: 20px;
+  }
+  
+  .footer-links ul li:last-child {
+    margin-right: 0;
+  }
+  
+  .footer-links ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .footer-social ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  .footer-social ul li {
+    margin-right: 20px;
+  }
+  
+  .footer-social ul li:last-child {
+    margin-right: 0;
+  }
+  
+  .footer-social ul li a {
+    color: #fff;
+    font-size: 18px;
+  }
+  
