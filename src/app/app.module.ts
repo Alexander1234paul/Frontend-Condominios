@@ -42,6 +42,7 @@ import { MatInputModule } from '@angular/material/input';
 import { DropdownModule } from 'primeng/dropdown';
 import { DetallecuotaComponent } from './components/detallecuota/detallecuota.component';
 import { MontoComponent } from './components/monto/monto.component';
+import { DepartamentoComponent } from './components/departamento/departamento.component';
 
 
 
@@ -76,7 +77,8 @@ import { MontoComponent } from './components/monto/monto.component';
     RolcondominoComponent,
     AsignacionesCondominosComponent,
     DetallecuotaComponent,
-    MontoComponent
+    MontoComponent,
+    DepartamentoComponent
 
   ],
   imports: [

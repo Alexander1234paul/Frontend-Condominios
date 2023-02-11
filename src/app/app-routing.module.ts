@@ -29,12 +29,14 @@ import { AsignacionesCondominosComponent } from './components/asignaciones-condo
 import { RolcondominoComponent } from './components/rolcondomino/rolcondomino.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MontoComponent } from './components/monto/monto.component';
+import { DepartamentoComponent } from './components/departamento/departamento.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
   { path: "login", component: LoginComponent },
   { path: "monto", component: MontoComponent },
   { path: "multa", component: MultaComponent },
+  { path: "departamento", component: DepartamentoComponent },
   { path: "detallepago", component: DetallePagoComponent },
   { path: "footer", component: FooterComponent },
   { path: "residente", component: ResidenteComponent, canActivate: [UserGuardGuard] },
