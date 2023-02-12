@@ -43,6 +43,10 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DetallecuotaComponent } from './components/detallecuota/detallecuota.component';
 import { MontoComponent } from './components/monto/monto.component';
 import { DepartamentoComponent } from './components/departamento/departamento.component';
+import { SubcondominoComponent } from './components/subcondomino/subcondomino.component';
+import { AsigancionesComponent } from './components/asiganciones/asiganciones.component';
+import { VehiculoComponent } from './components/vehiculo/vehiculo.component';
+import { PagoComponent } from './components/pago/pago.component';
 
 
 
@@ -78,7 +82,11 @@ import { DepartamentoComponent } from './components/departamento/departamento.co
     AsignacionesCondominosComponent,
     DetallecuotaComponent,
     MontoComponent,
-    DepartamentoComponent
+    DepartamentoComponent,
+    SubcondominoComponent,
+    AsigancionesComponent,
+    VehiculoComponent,
+    PagoComponent
 
   ],
   imports: [

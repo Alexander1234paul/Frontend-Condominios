@@ -30,11 +30,17 @@ import { RolcondominoComponent } from './components/rolcondomino/rolcondomino.co
 import { FooterComponent } from './components/footer/footer.component';
 import { MontoComponent } from './components/monto/monto.component';
 import { DepartamentoComponent } from './components/departamento/departamento.component';
+import { SubcondominoComponent } from './components/subcondomino/subcondomino.component';
+import { AsigancionesComponent } from './components/asiganciones/asiganciones.component';
+import { VehiculoComponent } from './components/vehiculo/vehiculo.component';
+import { PagoComponent } from './components/pago/pago.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
   { path: "login", component: LoginComponent },
   { path: "monto", component: MontoComponent },
+  { path: "vehiculo", component: VehiculoComponent },
+  { path: "pago", component: PagoComponent },
   { path: "multa", component: MultaComponent },
   { path: "departamento", component: DepartamentoComponent },
   { path: "detallepago", component: DetallePagoComponent },
@@ -44,12 +50,17 @@ const routes: Routes = [
   {
     path: "administracion", component: AdministracionComponent, children: [
       {
-        path: "condomino", component: CondominoComponent, children: [
-          { path: "residente", component: ResidenteComponent },
-          { path: "rolCondomino", component: RolcondominoComponent }
+        path: "Habitantes", component: CondominoComponent, children: [
+          { path: "Habitante", component: ResidenteComponent },
+
         ]
       }, {
-        path: "asignacionCondominos", component: AsignacionesCondominosComponent
+        path: "asignacionCondominos", component: AsignacionesCondominosComponent, children: [
+          { path: "rolCondomino", component: RolcondominoComponent },
+          { path: "Condomino", component: SubcondominoComponent },
+          { path: "Asignar", component: AsigancionesComponent }
+
+        ]
       }
       // , {
       //   path: "adminCondomino", component: a
