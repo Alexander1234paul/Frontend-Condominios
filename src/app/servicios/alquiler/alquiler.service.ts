@@ -18,13 +18,13 @@ export class AlquilerService {
 
 
   public postCreateAlquiler(body: any) {
-    const url = environment.base_url + `Alquiler_residente`
+    const url = environment.base_url + `alquileres`
     return this.http.post(url, body)
   }
 
   public putUpdateAlquiler(body: any) {
     console.log(body)
-    const url = environment.base_url + `Alquiler_residente/` + body.Alquiler_id
+    const url = environment.base_url + `alquileres/` + body.alq_id
     return this.http.put(url, body)
   }
 
