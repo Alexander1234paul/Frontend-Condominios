@@ -13,6 +13,11 @@ export class RolresService {
     const url = environment.base_url + `rol_residentes`
     return this.http.get(url)
   }
+  
+  public getAllRolA() {
+    const url = environment.base_url + `rol_residentesA`
+    return this.http.get(url)
+  }
 
   public postCreateRol(body: any) {
     const url = environment.base_url + `rol_residente`

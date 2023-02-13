@@ -1,1 +1,22 @@
-<p>asignaciones-condominos works!</p>
+<div style="text-align: center; background: rgba(89, 159, 199);">
+    <h1>Condominos</h1>
+</div>
+<ul class="nav nav-tabs">
+    <li class="nav-item" (click)="changeActiveA()">
+        <a class="nav-link" [ngClass]="{'active':activoA==true}"
+            [routerLink]="['/administracion/asignacionCondominos/Condomino']">Asignar acceso al sistema</a>
+    </li>
+    <li class="nav-item" (click)="changeActiveC()">
+        <a class="nav-link" [ngClass]="{'active':activoC==true}"
+            [routerLink]="['/administracion/asignacionCondominos/Asignar']">Control</a>
+    </li>
+    <li class="nav-item" (click)="changeActiveB()">
+        <a class="nav-link" [ngClass]="{'active':activoB==true}"
+            [routerLink]="['/administracion/asignacionCondominos/rolCondomino']">Rol condomino</a>
+    </li>
+    
+</ul>
+<br>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>

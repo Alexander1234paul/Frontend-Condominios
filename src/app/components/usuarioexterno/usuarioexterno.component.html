@@ -1,12 +1,186 @@
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a class="nav-link active" >Usuario Externo</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" >Detalle</a>
-      </li>
-   
-    
-  </ul>
+<div class="content-body">
 
-  <app-footer></app-footer>
+  <div class="heading_container heading_center" style="background-color: #4C4C6D; height: 150px;padding-top:2px;">
+    <h2 style="text-align: center; padding-top: 50px; color: white;font-style:italic;font-size: 70px;">
+      Usuarios Externos
+    </h2>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-header">
+          <h2 style="text-align: center; padding-top: 20px;"> Administrador de Usuarios Externos</h2>
+        </div>
+        <div class="card-body">
+          <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+            style="background-color: #85C1E9; border-color: #4C4C6D; color: white; font-size: large;"
+            data-target="#crearUsuarioExterno">Nuevo Usuario Externo</button>
+        </div>
+        <div class="modal fade" id="crearUsuarioExterno" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Crear nuevo Usuario Externo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="form">
+
+                  <div class="form-group">
+                    <div class="form-inline">
+                      <div class="form-group mb-2">
+                        <Label style="padding-right: 10px; font-weight: bold;">Cédula: </Label>
+                        <input type="text" name="Cédula" formControlName="per_id" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-inline">
+                      <div class="form-group mb-2">
+                        <Label style="padding-right: 10px; font-weight: bold;">Nombres: </Label>
+                        <input type="text" name="Nombres" formControlName="per_nombres" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-inline">
+                      <div class="form-group mb-2">
+                        <Label style="padding-right: 10px; font-weight: bold;">Apellidos: </Label>
+                        <input type="text" name="Apellidos" formControlName="per_apellidos" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-inline">
+                      <div class="form-group mb-2">
+                        <Label style="padding-right: 10px; font-weight: bold;">Fecha: </Label>
+                        <input type="date" name="Fecha" formControlName="use_fecha" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="form-inline">
+                      <div class="form-group mb-2">
+                        <Label style="padding-right: 10px;font-weight: bold;">Descripción: </Label>
+                        <input type="text" name="Descripción" formControlName="use_descripcion" class="form-control"
+                          placeholder="Insertar Descripción">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" (click)="crearUsuarioExterno()"
+                      data-dismiss="modal">Crear</button>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <table class="table table-bordered table-hover bg-white">
+        <thead>
+          <tr>
+            <th>Id Usuario Externo</th>
+            <th>Fecha</th>
+            <th>Id Persona</th>
+            <th>Descripción</th>
+            <th class="d-flex justify-content-center">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of usuariosexternos">
+            <td>
+              {{i.use_id}}
+            </td>
+            <td>
+              {{i.use_fecha}}
+            </td>
+            <td>
+              {{i.per_id}}
+            </td>
+            <td>
+              {{i.use_descripcion}}
+            </td>
+            <td class="d-flex justify-content-center">
+              <a class="btn btn-danger" (click)="eliminarUsuarioExterno(i.use_id)">
+                <i class="fas fa-trash-alt"></i>
+              </a>
+              <a class="btn btn-success" data-toggle="modal" data-target="#actualizarUsuarioExterno"
+                (click)="infoUpdateUsuarioExterno(i.use_id,i.per_id,i.per_nombres,i.per_apellidos,i.use_fecha,i.use_descripcion)">
+                <i class="fas fa-edit"></i>
+              </a>
+
+              <div class="modal fade" id="actualizarUsuarioExterno" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Actualizar Usuario Externo</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form [formGroup]="form">
+                        <div class="form-group">
+                          <label>
+                            <h6>Id Usuario Externo:{{informacionUsuariosExternos.use_id}}</h6>
+                          </label>
+                        </div>
+
+                        <div class="form-group">
+                          <input type="text" name="Cédula" formControlName="per_id"
+                            placeholder="{{informacionUsuariosExternos.per_id}}" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                          <input type="text" name="Nombres" formControlName="per_nombres"
+                            placeholder="{{informacionUsuariosExternos.per_nombres}}" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                          <input type="text" name="Cédula" formControlName="per_apellidos"
+                            placeholder="{{informacionUsuariosExternos.per_apellidos}}" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                          <input type="date" name="Fecha" formControlName="use_fecha"
+                            placeholder="{{informacionUsuariosExternos.use_fecha}}"
+                            value="{{informacionUsuariosExternos.use_fecha}}" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                          <input type="text" name="Descripción" formControlName="use_descripcion"
+                            placeholder="{{informacionUsuariosExternos.use_descripcion}}"
+                            value="{{informacionUsuariosExternos.use_descripcion}}" class="form-control">
+                        </div>
+
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                          <button type="button" class="btn btn-primary"
+                            (click)="actualizarUsuarioExterno(informacionUsuariosExternos.use_id)"
+                            data-dismiss="modal">Actualizar</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="col-md-12">
+
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearCliente">Nueva
+        Tina</button> -->
+    <br><br>
+    <table class="table table-bordered table-hover bg-white" style="text-align: center">
+        <thead>
+            <tr>
+                <th>Cédula</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Rol</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <!-- <th>Teléfono</th> -->
+                <th style="width: 200px;">Opciones</th>
+
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of condominos">
+                <td>
+                    {{i.per_id}}
+                </td>
+                <td>
+                    {{i.per_nombres}}
+                </td>
+                <td>
+                    {{i.per_apellidos}}
+                </td>
+                <td>
+                    {{i.rol_descripcion}}
+                </td>
+                <td>
+                    {{i.res_correo}}
+                </td>
+                <td>
+                    {{i.res_telefono}}
+                </td>
+
+                <td class="d-flex justify-content-center">
+                    <a class="btn btn-primary" (click)="updatetoCondomino(i.res_id)">
+                        <!-- <i class="fas fa-trash-alt"></i> -->
+                         Reasignar a condómino
+                    </a>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>

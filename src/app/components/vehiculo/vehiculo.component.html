@@ -1,0 +1,156 @@
+<div class="content-body">
+
+    <div class="heading_container heading_center" style="background-color: #4C4C6D; height: 150px;padding-top:2px;">
+        <h2 style="text-align: center; padding-top: 50px; color: white;font-style:italic;font-size: 70px;">
+            Vehículos
+        </h2>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header" >
+                    <h2 style="text-align: center; padding-top: 20px;"> Administrador de Vehículos</h2>
+                </div>
+                <div class="card-body">
+                    <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" style="background-color: #85C1E9; border-color: #4C4C6D; color: white; font-size: large;"
+                        data-target="#crearCuota">Nuevo Vehículo</button>
+                </div>
+                <div class="modal fade" id="crearCuota" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Crear nuevo Vehículo</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form [formGroup]="form">
+                                    <div class="form-group">
+                                        <input type="text" name="Placa" formControlName="txtplaca"
+                                            placeholder="Insertar una placa del Vehículo" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="Marca" formControlName="txtmarca"
+                                            placeholder="Insertar una marca del Vehículo" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="Modelo" formControlName="txtmodelo"
+                                            placeholder="Insertar un modelo del Vehículo" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="Color" formControlName="txtcolor"
+                                            placeholder="Insertar un color del Vehículo" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="Residente" formControlName="txtres"
+                                            placeholder="Insertar un residente del Vehículo" class="form-control">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary" (click)="crearVehiculo()"
+                                            data-dismiss="modal">Crear</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <table class="table table-bordered table-hover bg-white">
+                <thead>
+                    <tr>
+                        <th>Placa</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Color</th>
+                        <th>Residente</th>
+                        <th class="d-flex justify-content-center">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of vehiculos">
+                        <td>
+                            {{i.veh_placa}}
+                        </td>
+                        <td>
+                            {{i.veh_marca}}
+                        </td>
+                        <td>
+                            {{i.veh_modelo}}
+                        </td>
+                        <td>
+                            {{i.veh_color}}
+                        </td>
+                        <td>
+                            {{i.resi}}
+                        </td>
+                        <td class="d-flex justify-content-center">
+                            <a class="btn btn-danger" (click)="eliminarVehiculo(i.veh_placa)">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                            <a class="btn btn-success" data-toggle="modal" data-target="#actualizarVehiculo"
+                                (click)="infoUpdateVehiculo(i.veh_placa,i.veh_marca,i.veh_modelo,i.veh_color,i.res_id)">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <div class="modal fade" id="actualizarVehiculo" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Actualizar Vehiculo</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form [formGroup]="form">
+                                                <div class="form-group">
+                                                    <label>
+                                                        <h6>ID Vehículo:{{informacionVehiculos.veh_placa}}</h6>
+                                                    </label>
+                                                    <input type="text" name="Marca del vehículo"
+                                                        formControlName="txtmarca"
+                                                        value="{{informacionVehiculos.veh_marca}}"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="Modelo del vehículo" formControlName="txtmodelo"
+                                                        value="{{informacionVehiculos.veh_modelo}}"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="Color del vehículo" formControlName="txtcolor"
+                                                        value="{{informacionVehiculos.veh_color}}"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="Residente del vehículo" formControlName="txtres"
+                                                        value="{{informacionVehiculos.res_id}}"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Cerrar</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                        (click)="actualizarVehiculo(informacionVehiculos.veh_placa)"
+                                                        data-dismiss="modal">Actualizar</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
