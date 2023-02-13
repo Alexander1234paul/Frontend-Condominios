@@ -6,9 +6,9 @@ import { BienService } from '../../servicios/bien/bien.service';
 import { ModelBien } from '../../modelos/bien/bien.module';
 import { ModelResidenteI } from '../../modelos/modelo.residente';
 import { ResidenteService } from '../../servicios/residente/residente.service';
-import Swal from 'sweetalert2';
 import {HttpClientModule} from '@angular/common/http';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import Swal from 'sweetalert2';
 import { DropdownModule } from 'primeng/dropdown';
 @Component({
   selector: 'app-sub-alquiler',
@@ -17,7 +17,7 @@ import { DropdownModule } from 'primeng/dropdown';
 })
 export class SubAlquilerComponent implements OnInit {
   constructor(private aquilerServices: AlquilerService, private bienService: BienService,
-    private residenteService: ResidenteService,HttpClientModule:HttpClientModule,HttpClientTestingModule:HttpClientTestingModule,HttpTestingController:HttpTestingController,
+    private residenteService: ResidenteService,HttpClientModule:HttpClientModule,HttpClientTestingModule:HttpClientTestingModule,
     DropdownModule:DropdownModule) { }
 
   alquileres: ModelAlquilerI[] = [];
