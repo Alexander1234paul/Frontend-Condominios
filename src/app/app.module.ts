@@ -18,7 +18,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BienComponent } from './components/bien/bien.component';
 import { ServiciosComponent } from './components/servicios/servicios.component';
@@ -47,6 +47,8 @@ import { SubcondominoComponent } from './components/subcondomino/subcondomino.co
 import { AsigancionesComponent } from './components/asiganciones/asiganciones.component';
 import { VehiculoComponent } from './components/vehiculo/vehiculo.component';
 import { PagoComponent } from './components/pago/pago.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+
 
 
 
@@ -91,6 +93,8 @@ import { PagoComponent } from './components/pago/pago.component';
   ],
   imports: [
     BrowserModule,
+    [MatDatepickerModule],
+
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
