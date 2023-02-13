@@ -43,7 +43,7 @@ export class MontoComponent{
     );
   }
 
-  public createMonto(form: any) {
+  public createMonto() {
     this.montoService.postCreateMonto({
       mon_precio:this.form.value.txtprecio
     }).subscribe(res=>{
