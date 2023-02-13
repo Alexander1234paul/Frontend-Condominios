@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ModelCuota } from 'src/app/modelos/adminitración/pago.module';
 import { ModelDetallePago } from 'src/app/modelos/Contabilidad/detallepago';
 import { ModelResidenteI } from 'src/app/modelos/modelo.residente';
 import { DetallepagoService } from 'src/app/servicios/detallepago/detallepago.service';
+import { CuotaService } from 'src/app/servicios/pago/pago.servicie';
 import { ResidenteService } from 'src/app/servicios/residente/residente.service';
 import Swal from 'sweetalert2';
 
@@ -15,7 +17,7 @@ export class DetallePagoComponent implements OnInit {
 
   detpagos: ModelDetallePago[]=[];
   residentes: ModelResidenteI[]=[];
-  pagos: ModelDetallePago[]=[];
+  pagos: ModelCuota[]=[];
 
   formDetallePago = new FormGroup({
     res_id: new FormControl('',Validators.required),
@@ -33,7 +35,7 @@ export class DetallePagoComponent implements OnInit {
   });
 
   constructor(private detallePagoService:DetallepagoService, private residenteService:ResidenteService,
-    private pagoService:DetallepagoService, private formBuilder:FormBuilder){}
+    private pagoService:CuotaService, private formBuilder:FormBuilder){}
 
   ngOnInit(): void {
       this.getDetallePago()
@@ -61,7 +63,7 @@ export class DetallePagoComponent implements OnInit {
   }
 
   public getPago(){
-    this.pagoService.getAllDetPago().subscribe(
+    this.pagoService.getAllCuota().subscribe(
       (pago:any)=>{
         this.pagos=pago
         console.log(this.pagos)
