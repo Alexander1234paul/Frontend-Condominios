@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {tap} from 'rxjs/operators';
+import { Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class TipoServicioService {
+
+  public _refresh$ = new Subject<void>()
 
   url: string = 'https://condominio-api.up.railway.app/';
   constructor(private http: HttpClient) { }
@@ -18,8 +22,12 @@ export class TipoServicioService {
   public postCreateTipoServicio(body:any){
     const url=this.url+`tipo_servicio`
     return this.http.post(url,body)
+    .pipe(
+      tap(() =>{
+        this._refresh$.next();
+      }) 
+    );
   }
-
   public putUpdateTipoServicio(body:any){
     console.log(body)
     const url=this.url+`tipo_servicio/`+body.tser_id

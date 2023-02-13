@@ -14,6 +14,10 @@ export class ServicioService {
     const url=this.url+`servicios`
     return this.http.get(url)
   }
+  public getAllTipoServicio(){
+    const url=this.url+`tipo_servicios`
+    return this.http.get(url)
+  }
 
   public postCreateServicio(body:any){
     const url=this.url+`servicio`

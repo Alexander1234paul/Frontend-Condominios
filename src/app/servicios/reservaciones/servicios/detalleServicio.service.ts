@@ -15,6 +15,11 @@ export class DetalleServicioService {
     return this.http.get(url)
   }
 
+  public getAllServicio(){
+    const url=this.url+`servicios`
+    return this.http.get(url)
+  }
+
   public postCreateDetalleServicio(body:any){
     const url=this.url+`detalle_servicio`
     return this.http.post(url,body)

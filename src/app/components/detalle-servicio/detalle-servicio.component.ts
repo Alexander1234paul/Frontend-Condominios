@@ -9,6 +9,8 @@ import { DetalleServicioService } from 'src/app/servicios/reservaciones/servicio
 import { ImgService } from 'src/app/servicios/image/image.service';
 import { ModelDetalleServicio } from 'src/app/modelos/reservaciones/servicios/detalleServicio.module';
 import { ModelImg } from 'src/app/modelos/reservaciones/servicios/img.module';
+import { ModelServicio } from 'src/app/modelos/reservaciones/servicios/servicio.module';
+
 import {
   HttpClientModule,
   HttpClient,
@@ -28,6 +30,10 @@ export class DetalleServicioComponent {
   ImgServicios: ModelImg[] = [];
   public form!: FormGroup;
   files: any;
+  ModelServicio: ModelServicio[]=[]
+  selectedOption: string = ""
+  selectedOption2: string = ""
+
 
   public informaciondetalleServicio = {
     dser_id: -1,
@@ -58,6 +64,7 @@ export class DetalleServicioComponent {
   ngOnInit(): void {
     this.cargardetalleServicio();
     this.cargarImg();
+    this.cargarServicio();
     this.form = this.formBuilder.group({
       txtevidencia: [''],
       txtser_id: [''],
@@ -75,6 +82,16 @@ export class DetalleServicioComponent {
       (error) => console.warn(error)
     );
   }
+  public cargarServicio() {
+    this.detalleServicioService.getAllServicio().subscribe(
+      (detalleServicio: any) => {
+        this.ModelServicio = detalleServicio;
+        console.log(this.ModelServicio);
+      },
+      (error) => console.warn(error)
+    );
+  }
+
 
   public creardetalleServicio() {
     let fd = new FormData();
@@ -85,7 +102,7 @@ export class DetalleServicioComponent {
     });
     this.detalleServicioService
       .postCreateDetalleServicio({
-        dser_evidencia: this.form.value.txtevidencia,
+        dser_evidencia: this.form.value.txtname,
         ser_id: this.form.value.txtser_id,
       })
       .subscribe((res) => {

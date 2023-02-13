@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ServicioService } from 'src/app/servicios/reservaciones/servicios/servicio.service';
 import { ModelServicio} from 'src/app/modelos/reservaciones/servicios/servicio.module';
+import { ModelTipoServicio} from 'src/app/modelos/reservaciones/servicios/tipoServicio.module';
 
 
 @Component({
@@ -12,7 +13,9 @@ import { ModelServicio} from 'src/app/modelos/reservaciones/servicios/servicio.m
 export class SubServicioComponent {
 
   Servicios:ModelServicio[]=[];
+  tipoServicio:ModelTipoServicio[]=[]
   public form!: FormGroup;
+  selectedOption: string = ""
 
   public informacionServicio={
     ser_id:-1,
@@ -27,6 +30,7 @@ export class SubServicioComponent {
 
   ngOnInit(): void {
     this.cargarServicio()
+    this.cargarTipoServicio()
     this.form=this.formBuilder.group({
       txtfecha:[''],
       txtdescripcion:[''],
@@ -45,6 +49,16 @@ export class SubServicioComponent {
       (error)=>console.warn(error)
     )
   }
+  public cargarTipoServicio(){
+    this.ServicioService.getAllTipoServicio().subscribe(
+      (Servicio:any)=>{
+        this.tipoServicio=Servicio
+        console.log(this.tipoServicio)
+      },
+      (error)=>console.warn(error)
+    )
+  }
+
 
   public crearServicio(){
     this.ServicioService.postCreateServicio({

@@ -13,6 +13,7 @@ export class TipoServicioComponent {
   tipoServicios:ModelTipoServicio[]=[];
   public form!: FormGroup;
 
+
   public informacionTipoServicio={
     tser_id:-1,
     tser_descripcion:""
@@ -42,9 +43,10 @@ export class TipoServicioComponent {
     this.tipoServicioService.postCreateTipoServicio({
       tser_descripcion:this.form.value.txtdescripcion,
     }).subscribe(res=>{
+      this.form.reset();
+      this.cargarTipoServicio()
       console.log('Nuevo Tipo Servicio insertado')
     })
-    this.form.reset();
     this.cargarTipoServicio()
   }
 

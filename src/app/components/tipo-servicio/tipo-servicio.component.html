@@ -2,34 +2,12 @@
     <div class="col-md-5">
         <div class="card">
             <div class="card-header">
-                <h2 style="text-align: center; padding-top: 20px;"> Tipo Servicio</h2>
+                <h2 style="text-align: center; padding-top: 20px;">Servicio</h2>
             </div>
             <div class="card-body">
-                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" style="background-color: #85C1E9; border-color: #4C4C6D; color: white; font-size: large;" data-target="#crearBien">Nuevo Tipo Servicio</button>
-            </div>
-            <div class="modal fade" id="crearBien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Crear nuevo Tipo Servicio</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form [formGroup]="form">
-                                <div class="form-group">
-                                    <input type="text" name="Descripción" formControlName="txtdescripcion" placeholder="Insertar una descripción del Tipo de Servicio" class="form-control">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                    <button type="button" class="btn btn-primary" (click)="crearTipoServicio()" data-dismiss="modal">Crear</button>
-                                </div>
-                            </form>
+                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" style="background-color: #0c1548; border-color: #4C4C6D; color: white; font-size: large;" data-target="#crearTipoServicio">Nuevo Servicio</button>
+                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" style="background-color: #ab6a2d; border-color: #4C4C6D; color: white; font-size: large;" (click)="cargarTipoServicio()">Recargar</button>
 
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -63,7 +41,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Actualizar Bien</h5>
+                                        <h1 class="modal-title" id="exampleModalLabel">Actualizar Servicio</h1>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -71,12 +49,9 @@
                                     <div class="modal-body">
                                         <form [formGroup]="form">
                                             <div class="form-group">
-                                                <label>
-                                                    <h6>Id Tipo Servicio:{{informacionTipoServicio.tser_id}}</h6>
-                                                </label>
                                                 <input type="text" name="Descripción del bien" formControlName="txtdescripcion" placeholder="{{informacionTipoServicio.tser_descripcion}}" class="form-control">
-                                            </div>
 
+                                            </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                                 <button type="button" class="btn btn-primary" (click)="actualizarTipoServicio(informacionTipoServicio.tser_id)" data-dismiss="modal">Actualizar</button>
@@ -90,5 +65,32 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+</div>
+<!-- Crear Tipo Servicio -->
+<div class="modal fade" id="crearTipoServicio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLabel">Nuevo Servicio</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form">
+                    <div class="form-group">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="Descripción" class="form-control" id="descripcion_" formControlName="txtdescripcion" placeholder="Descripción">
+                            <label for="descripcion_">Descripción </label>
+                        </div>
+                        <div class=" modal-footer ">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="crearTipoServicio()">Crear</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
