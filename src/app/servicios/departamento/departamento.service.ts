@@ -5,31 +5,28 @@ import { environment } from 'src/environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
-
-export class BienService {
-
+export class DepartamentoService {
   url: string = 'https://condominio-api.up.railway.app/';
   constructor(private http: HttpClient) { }
   
-  public getAllBien(){
-    const url=environment.base_url+`bienes`
+  public getAllDepartamento(){
+    const url=environment.base_url+`departamentos`
     return this.http.get(url)
   }
 
-  public postCreateBien(body:any){
-    const url=environment.base_url+`bienes`
+  public postCreateDepartamento(body:any){
+    const url=environment.base_url+`departamentos`
     return this.http.post(url,body)
   }
 
-  public putUpdateBien(body:any){
+  public putUpdateDepartamento(body:any){
     console.log(body)
-    const url=environment.base_url+`bienes/`+body.bien_id
+    const url=environment.base_url+`departamentos/`+body.dep_id
     return this.http.put(url,body)
   }
   
-  public deleteBien(bien_id:any){
-    const url= environment.base_url+`bienes/`+bien_id
+  public deleteDepartamento(dep_id:any){
+    const url= environment.base_url+`departamentos/`+dep_id
     return this.http.delete(url)
   }
-
 }

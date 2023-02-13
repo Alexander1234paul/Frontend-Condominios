@@ -112,7 +112,8 @@ const routes: Routes = [
       { path: "movimientoContable", component: MovimientoContableComponent }
     ]
   },
-  { path: "bien", component: BienComponent }
+  { path: "bien", component: BienComponent },
+  {path: "usuarioE", component: UsuarioexternoComponent}
 
 ];
 
