@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
         this.resp = data.resp;
       } else {
         this.estado = false;
+        localStorage.setItem('tokenAC',data.token)
         this.cookieService.set('token', data.token, 4, '/');
         this.router.navigate(['/main']);
       }

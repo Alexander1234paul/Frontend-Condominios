@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment.prod';
 
 
 @Injectable({
@@ -16,7 +17,7 @@ export class LoginService {
   // }
 
   Login(form: any) {
-    let direccion = this.url + "auth";
+    let direccion = environment.base_url + "auth";
     return this.http.post(direccion, form);
   }
   // updateAutoridad(form: any) {

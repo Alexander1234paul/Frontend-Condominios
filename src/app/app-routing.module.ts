@@ -46,7 +46,7 @@ const routes: Routes = [
   { path: "detallepago", component: DetallePagoComponent },
   { path: "footer", component: FooterComponent },
   { path: "residente", component: ResidenteComponent, canActivate: [UserGuardGuard] },
-  { path: "main", component: MainComponent },
+  { path: "main", component: MainComponent , canActivate: [UserGuardGuard]},
   {
     path: "administracion", component: AdministracionComponent, children: [
       {
