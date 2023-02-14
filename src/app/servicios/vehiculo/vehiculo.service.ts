@@ -15,6 +15,11 @@ export class VehiculoService {
     return this.http.get(url)
   }
 
+  public getAllResidente(){
+    const url=this.url+`Residente`
+    return this.http.get(url)
+  }
+
   public postCreateVehiculo(body:any){
     const url=this.url+`vehiculo`
     return this.http.post(url,body)

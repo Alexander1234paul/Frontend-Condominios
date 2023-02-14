@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { VehiculoService } from 'src/app/servicios/vehiculo/vehiculo.service';
 import { ModelVehiculo } from 'src/app/modelos/reservaciones/servicios/vehiculo.module';
+import { ModelResidenteI } from 'src/app/modelos/modelo.residente';
 
 @Component({
   selector: 'app-vehiculo',
@@ -10,6 +11,7 @@ import { ModelVehiculo } from 'src/app/modelos/reservaciones/servicios/vehiculo.
 })
 export class VehiculoComponent {
   vehiculos:ModelVehiculo[]=[];
+  residentes: ModelResidenteI[] = [];
   public form!: FormGroup;
 
   public informacionVehiculos={
@@ -17,20 +19,25 @@ export class VehiculoComponent {
     veh_marca:'',
     veh_modelo:'',
     veh_color:'',
-    res_id:0
+    res_id:-1,
+    resi:''
   }
+
+  selectedOption: string = ""
+  per_nombres: String = "";
 
   constructor(private vehiculoService:VehiculoService,private formBuilder:FormBuilder){}
 
   ngOnInit(): void {
-    this.cargarVehiculos()
+    this.cargarVehiculos(),
+    this.showAllResidentes()
 
     this.form=this.formBuilder.group({
       txtplaca:[''],
       txtmarca:[''],
       txtmodelo:[''],
       txtcolor:[''],
-      txtres:['']
+      txtresidente:['']
     })
     
   }
@@ -45,13 +52,23 @@ export class VehiculoComponent {
     )
   }
 
+  showAllResidentes() {
+    this.vehiculoService.getAllResidente().subscribe(
+      (residentes: any) => {
+        this.residentes = residentes
+        console.log(residentes)
+      },
+      (error) => console.log(error)
+    );
+  }
+
   public crearVehiculo(){
     this.vehiculoService.postCreateVehiculo({
       veh_placa:this.form.value.txtplaca,
       veh_marca:this.form.value.txtmarca,
       veh_modelo:this.form.value.txtmodelo,
       veh_color:this.form.value.txtcolor,
-      res_id:this.form.value.txtres
+      res_id:this.form.value.txtresidente
     }).subscribe(res=>{
       console.log('Nuevo vehículo insertado')
       //Formulario reseteado
@@ -91,4 +108,5 @@ export class VehiculoComponent {
     this.informacionVehiculos.veh_color=veh_color;
     this.informacionVehiculos.res_id=res_id;
   }
+
 }
