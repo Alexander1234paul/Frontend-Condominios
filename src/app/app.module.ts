@@ -48,6 +48,7 @@ import { AsigancionesComponent } from './components/asiganciones/asiganciones.co
 import { VehiculoComponent } from './components/vehiculo/vehiculo.component';
 import { PagoComponent } from './components/pago/pago.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { IndenmizacionComponent } from './components/indenmizacion/indenmizacion.component';
 
 
 
@@ -88,7 +89,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     SubcondominoComponent,
     AsigancionesComponent,
     VehiculoComponent,
-    PagoComponent
+    PagoComponent,
+    IndenmizacionComponent
 
   ],
   imports: [

@@ -34,11 +34,13 @@ import { SubcondominoComponent } from './components/subcondomino/subcondomino.co
 import { AsigancionesComponent } from './components/asiganciones/asiganciones.component';
 import { VehiculoComponent } from './components/vehiculo/vehiculo.component';
 import { PagoComponent } from './components/pago/pago.component';
+import { IndenmizacionComponent } from './components/indenmizacion/indenmizacion.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
   { path: "login", component: LoginComponent },
   { path: "monto", component: MontoComponent },
+  { path: "indenmizacion", component: IndenmizacionComponent },
   { path: "vehiculo", component: VehiculoComponent },
   { path: "pago", component: PagoComponent },
   { path: "multa", component: MultaComponent },
