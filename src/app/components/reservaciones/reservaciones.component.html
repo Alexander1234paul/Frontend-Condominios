@@ -1,22 +1,29 @@
 <app-header></app-header>
 <br>
-<ul class="nav justify-content-center">
+<div class="container">
+    <h1 style="text-align: center;font-size: 30px; font-weight: 900px;">RESERVACIONES</h1>
+</div>
 
+<ul class="nav justify-content-center">
+    <li class="nav-item" style="margin-left:10px;margin-right: 10px;">
+
+        <a style="border: solid 1px; border-radius: 7px; font-size: 20px;" class="nav-link active"
+            [routerLink]="['/main']">Inicio</a>
+    </li>
     <li class="nav-item">
 
         <a style="border: solid 1px; border-radius: 7px;" class="nav-link active"
             [routerLink]="['/reservaciones/servicios']">Servicio</a>
-            
+
     </li>
     <li class="nav-item">
 
         <a style="border: solid 1px; border-radius: 7px;" class="nav-link active"
             [routerLink]="['/reservaciones/alquiler']">Alquiler</a>
-            
+
     </li>
 
 </ul>
 <br>
-<router-outlet></router-outlet>
-<!-- <app-footer></app-footer> -->
+<div class="container"><router-outlet></router-outlet></div>
 

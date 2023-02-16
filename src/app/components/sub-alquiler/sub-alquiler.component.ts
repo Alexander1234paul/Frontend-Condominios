@@ -34,7 +34,7 @@ export class SubAlquilerComponent implements OnInit {
   });
 
   formAlquilerUpdate = new FormGroup({
-    alq_id: new FormControl('', Validators.required),
+    alq_id: new FormControl(''),
     res_id: new FormControl('', Validators.required),
     bien_id: new FormControl('', Validators.required),
     alq_fecha: new FormControl('', Validators.required),
@@ -119,6 +119,18 @@ export class SubAlquilerComponent implements OnInit {
 
   getDataAlquiler(alq_id: any) {
 
+    this.aquilerServices.getAlquiler(alq_id).subscribe((data: any) => {
+      this.formAlquilerUpdate.setValue({
+        res_id: data[0].res_id,
+        bien_id: data[0].bien_id,
+        alq_fecha: data[0].alq_fecha,
+        alq_hora_inicio: data[0].alq_hora_inicio,
+        alq_hora_fin: data[0].alq_hora_fin,
+        alq_total: data[0].alq_total,
+        alq_id: data[0].alq_id,
+      })
+
+    })
 
   }
   updateAlquiler(form: any) {

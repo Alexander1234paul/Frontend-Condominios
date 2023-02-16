@@ -29,8 +29,12 @@ export class AlquilerService {
   }
 
   public deleteAlquiler(Alquiler_id: any) {
-    const url = environment.base_url + `Alquiler_residente/` + Alquiler_id
+    const url = environment.base_url + `alquileres/` + Alquiler_id
     return this.http.delete(url)
+  }
+  public getAlquiler(Alquiler_id: any) {
+    const url = environment.base_url + `alquileres/` + Alquiler_id
+    return this.http.get(url)
   }
 
 }
