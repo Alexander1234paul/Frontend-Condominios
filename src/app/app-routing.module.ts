@@ -35,6 +35,8 @@ import { AsigancionesComponent } from './components/asiganciones/asiganciones.co
 import { VehiculoComponent } from './components/vehiculo/vehiculo.component';
 import { PagoComponent } from './components/pago/pago.component';
 import { IndenmizacionComponent } from './components/indenmizacion/indenmizacion.component';
+import { EditalicuotaComponent } from './components/editalicuota/editalicuota.component';
+import { AlicuotaComponent } from './components/alicuota/alicuota.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
@@ -46,6 +48,8 @@ const routes: Routes = [
   { path: "multa", component: MultaComponent },
   { path: "departamento", component: DepartamentoComponent },
   { path: "detallepago", component: DetallePagoComponent },
+  { path: "editalicuota", component: EditalicuotaComponent },
+  { path: "alicuota", component: AlicuotaComponent },
   { path: "footer", component: FooterComponent },
   { path: "residente", component: ResidenteComponent, canActivate: [UserGuardGuard] },
   { path: "main", component: MainComponent , canActivate: [UserGuardGuard]},
@@ -111,7 +115,7 @@ const routes: Routes = [
   {
     path: "usuarios", component: UsuariosComponent, children: [
       { path: "cuentasPendientes", component: CuentasPendientesComponent },
-      { path: "movimientoContable", component: MovimientoContableComponent }
+      { path: "reservaciones", component: MovimientoContableComponent }
     ]
   },
   { path: "bien", component: BienComponent },

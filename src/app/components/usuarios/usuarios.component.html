@@ -1,17 +1,17 @@
 <app-header></app-header>
 <br>
 
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['/usuarios/cuentasPendientes']">Cuentas</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/usuarios/reservaciones']">Reservaciones</a>
+        </li>
+    
+    </ul>
+</div>
 
-<ul class="nav nav-tabs">
-    <li class="nav-item">
-        <a class="nav-link active" [routerLink]="['/usuarios/cuentasPendientes']">Cuentas pendientes</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/usuarios/movimientoContable']">Movimiento contable</a>
-    </li>
-
-
-
-</ul>
 <br>
-<router-outlet></router-outlet>
+<div class="container"><router-outlet></router-outlet></div>

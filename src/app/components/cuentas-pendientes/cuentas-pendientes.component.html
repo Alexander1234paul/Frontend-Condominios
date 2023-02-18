@@ -1,1 +1,128 @@
-<p>cuentas-pendientes works!</p>
+<div class="container">
+    <div class="container__categories">
+        <div class="card" (click)="getDataAlicuota()" data-toggle="modal" data-target="#crearDepartamento">
+            <div class="card-header">
+                <h2>ALICUOTA</h2>
+
+            </div>
+            <div class="card-body">
+                <p><span>$</span>{{alicuota}}</p>
+                <div class="" style="display: flex;
+        text-align: center;justify-content: center;">
+                    <label style="margin-left: 3px;margin-right: 3px;">Estado: </label>
+                    <label
+                        [ngClass]="{'green':colorEstadoAlicuotaA, 'brown':colorEstadoAlicuotaB, 'plomo':colorEstadoAlicuotaC}">
+                        {{estadoAlicuota}}</label>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>RESERVACIONES</h2>
+
+            </div>
+            <div class="card-body">
+
+                <p><span>$</span>{{reservaciones}}</p>
+
+                <div class="" style="display: flex;
+        text-align: center;justify-content: center;">
+                    <label style="margin-left: 3px;margin-right: 3px;">Estado: </label>
+                    <label
+                        [ngClass]="{'green':colorEstadoReservacionA, 'brown':colorEstadoReservacionB, 'plomo':colorEstadoReservacionC}">
+                        {{estadoReservaciones}}</label>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div style="display: flex;">
+    <h1 style="margin: 10px;">DETALLE EGRESOS</h1>
+  
+</div>
+<div class="modal-body">
+
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover bg-white" style="width: 1000px;">
+            <thead>
+                <tr style="background: rgb(29, 61, 118);">
+                    <th style="font-weight: 900px; font-size: 19px;color: aliceblue;"> Descripción</th>
+                    <th style="font-weight: 900px; font-size: 19px;color: aliceblue;">Fecha</th>
+                    <th style="font-weight: 900px; font-size: 19px;color: aliceblue;">Total</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of resServicio">
+                    <td>
+                        {{i.ser_descripcion}}
+                    </td>
+                    <td>
+                        {{i.ser_fecha | date:"yyyy-MM-dd"}}
+                    </td>
+                    <td>
+                        {{i.ser_total}}
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h1 style="margin: 10px;">TOTAL <span></span> <span>$</span>{{sumEgresos}}</h1>
+
+
+
+</div>
+
+
+<!-- modal detalle alicuota -->
+<div class="modal fade" id="crearDepartamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLabel">DETALLE</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="col-md-12">
+                    <table class="table table-bordered table-hover bg-white">
+                        <thead>
+                            <tr>
+                                <th>Descripción</th>
+                                <th>Total</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let i of detAlicuota">
+                                <td>
+                                    {{i.pag_descripcion}}
+                                </td>
+                                <td>
+                                    {{i.pag_costo}}
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

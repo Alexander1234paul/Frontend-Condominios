@@ -49,6 +49,8 @@ import { VehiculoComponent } from './components/vehiculo/vehiculo.component';
 import { PagoComponent } from './components/pago/pago.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { IndenmizacionComponent } from './components/indenmizacion/indenmizacion.component';
+import { AlicuotaComponent } from './components/alicuota/alicuota.component';
+import { EditalicuotaComponent } from './components/editalicuota/editalicuota.component';
 
 
 
@@ -90,7 +92,9 @@ import { IndenmizacionComponent } from './components/indenmizacion/indenmizacion
     AsigancionesComponent,
     VehiculoComponent,
     PagoComponent,
-    IndenmizacionComponent
+    IndenmizacionComponent,
+    AlicuotaComponent,
+    EditalicuotaComponent
 
   ],
   imports: [
