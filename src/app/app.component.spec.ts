@@ -127,12 +127,75 @@ describe('AppComponent', () => {
     expect(value).toBeFalsy();
   });
 
+  it(`Verificar si el formulario de actualizar alquiler es inválido no tiene datos`, () => {
+    const fixture = TestBed.createComponent(SubAlquilerComponent);
+    const app = fixture.componentInstance;
+    let value = app.formAlquilerUpdate.valid
+    expect(value).toBeFalsy();
+  });
+
+  it(`Verificar si el formulario de actualizar alquiler esta incializado`, () => {
+    const fixture = TestBed.createComponent(SubAlquilerComponent);
+    const app = fixture.componentInstance;
+    let value = app.formAlquilerUpdate.value
+    console.log(value)
+    let empty = false
+    if (value != null || value != undefined) {
+      empty = true
+    }
+    expect(empty).toBeTruthy();
+  });
+
+
+  it(`Debe existir un método llamado deleteAlquiler()`, () => {
+    const fixture = TestBed.createComponent(SubAlquilerComponent);
+    const app = fixture.componentInstance;
+    let metodo = spyOn(app, "deleteAlquiler")
+    app.deleteAlquiler("Verificar")
+    expect(metodo).toHaveBeenCalled();
+  });
+
+  it(`Debe existir un método llamado updateAlquiler()`, () => {
+    const fixture = TestBed.createComponent(SubAlquilerComponent);
+    const app = fixture.componentInstance;
+    let metodo = spyOn(app, "updateAlquiler")
+    app.updateAlquiler("Verificar")
+    expect(metodo).toHaveBeenCalled();
+  });
+
+
+  it(`Debe existir un método llamado getDataAlquiler()`, () => {
+    const fixture = TestBed.createComponent(SubAlquilerComponent);
+    const app = fixture.componentInstance;
+    let metodo = spyOn(app, "getDataAlquiler")
+    app.getDataAlquiler("Verificar")
+    expect(metodo).toHaveBeenCalled();
+  });
+
+  it(`Debe existir un método llamado createAlquiler()`, () => {
+    const fixture = TestBed.createComponent(SubAlquilerComponent);
+    const app = fixture.componentInstance;
+    let metodo = spyOn(app, "createAlquiler")
+    app.createAlquiler("Verificar")
+    expect(metodo).toHaveBeenCalled();
+  });
 
 
 
-
-
-
-
+  it(`Verificar si la lista de bienes tiene almenos un valor'`, () => {
+    const fixture = TestBed.createComponent(SubAlquilerComponent);
+    const app = fixture.componentInstance;
+    const Bien = {
+      bien_id: 3,
+      bien_descripcion: "canchas de volley",
+      bien_costo: 12.00,
+    }
+    app.bienes.push(Bien)
+    let lleno = false
+    if (app.bienes.length > 0) {
+      lleno = true
+    }
+    expect(lleno).toBeTruthy()
+  });
 
 });
