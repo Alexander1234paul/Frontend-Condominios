@@ -44,7 +44,7 @@
                 <th>Hora fin</th>
                 <th>Total</th>
 
-                <th>Opciones</th>
+                <!-- <th>Opciones</th> -->
 
             </tr>
 
@@ -69,7 +69,7 @@
                 <td>
                     {{i.alq_total}}
                 </td>
-                <td><a class="btn btn-success" data-toggle="modal" data-target="#actualizarRol"
+                <!-- <td><a class="btn btn-success" data-toggle="modal" data-target="#actualizarRol"
                         (click)="getDataAlquiler(i.alq_id)">
 
                         <i class="fas fa-edit"></i>
@@ -91,14 +91,14 @@
                                 <div class="modal-body">
 
                                     <form [formGroup]="formAlquilerUpdate">
-                                        <!-- <div class="form_group"><label for="">Bienes</label></div> -->
+                                    
                                         <div class="form-group" style="text-align: center;justify-content: center;">
                                             <p-dropdown [options]="bienes" [(ngModel)]="selectedOptionA"
                                                 optionLabel="bien_descripcion" formControlName="bien_id"
                                                 placeholder="Seleccione el bien" optionValue="bien_id" [filter]="true"
                                                 [style]="{  'width':'460px','background-color': '#f1f1f1' }"></p-dropdown>
                                         </div>
-                                        <!-- <div class="form_group"><label for="">Condónimo</label></div> -->
+                                       
                                        
                                         <div class="form_group"><label for="">Fecha</label></div>
                                         <div class="form-group">
@@ -136,7 +136,7 @@
                             </div>
                         </div>
                     </div>
-                </td>
+                </td> -->
 
 
 
@@ -184,11 +184,7 @@
                             class="form-control">
                     </div>
 
-                    <div class="form_group"><label for="">Precio total</label></div>
-                    <div class="form-group">
-                        <input type="number" formControlName="alq_total" placeholder="Ingrese el total"
-                            class="form-control">
-                    </div>
+                  
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal"

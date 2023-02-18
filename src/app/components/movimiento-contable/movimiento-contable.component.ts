@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
   templateUrl: './movimiento-contable.component.html',
   styleUrls: ['./movimiento-contable.component.css']
 })
-export class MovimientoContableComponent implements OnInit{
+export class MovimientoContableComponent implements OnInit {
   constructor(private aquilerServices: AlquilerService, private bienService: BienService,
     private residenteService: ResidenteService) { }
 
@@ -29,7 +29,7 @@ export class MovimientoContableComponent implements OnInit{
     alq_fecha: new FormControl('', Validators.required),
     alq_hora_inicio: new FormControl('', Validators.required),
     alq_hora_fin: new FormControl('', Validators.required),
-    alq_total: new FormControl('', Validators.required),
+
 
   });
 
@@ -47,15 +47,16 @@ export class MovimientoContableComponent implements OnInit{
 
   ngOnInit(): void {
     this.showAllAlquileres()
-  
+
     this.showAllBienes()
   }
 
 
 
   showAllAlquileres() {
-    this.aquilerServices.getAllAlquiler().subscribe(
+    this.aquilerServices.getAllAlquileru(localStorage.getItem("tokenAC")).subscribe(
       (alquileres: any) => {
+        console.log(alquileres)
         this.alquileres = alquileres
 
       },
@@ -63,7 +64,7 @@ export class MovimientoContableComponent implements OnInit{
     );
   }
 
-  
+
 
   showAllBienes() {
     this.bienService.getAllBien().subscribe(
@@ -77,20 +78,45 @@ export class MovimientoContableComponent implements OnInit{
   }
   createAlquiler(form: any) {
     console.log(form)
-    // if (this.formAlquiler.valid) {
-    //   this.aquilerServices.postCreateAlquiler(form).subscribe((data: any) => {
-    //     if (data.status == "Error") {
-    //       this.showModalMore('center', 'info', data.resp, false, 2000);
-    //     } else {
-    //       this.showModalMore('center', 'success', data.resp, false, 2000);
-    //       this.showAllAlquileres();
-    //       this.formAlquiler.reset();
-    //     }
-    //   })
-    // } else {
-    //   this.ShowModal('', 'Algún campo se encuentra vació', 'error');
+    if (this.formAlquiler.valid) {
+      this.aquilerServices.postCreateAlquilerv(form).subscribe((data: any) => {
+        if (data.status == "Error") {
+          this.showModalMore('center', 'info', data.resp, false, 3000);
+          this.formAlquiler.reset();
+        } else {
+          Swal.fire({
+            title: data.resp,
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Continuar',
+            denyButtonText: `No continuar`,
+          }).then((result) => {
 
-    // }
+            if (result.isConfirmed) {
+              this.aquilerServices.postCreateAlquileru(form).subscribe((data: any) => {
+                if (data.status == "Error") {
+                  this.showModalMore('center', 'info', data.resp, false, 3000);
+                } else {
+                  this.showAllAlquileres();
+                  this.formAlquiler.reset();
+                  this.showModalMore('center', 'success', data.resp, false, 2000);
+                }
+              })
+
+            } else if (result.isDenied) {
+              this.formAlquiler.reset();
+              this.ShowModal('Información', 'Proceso finalizado', 'info');
+            }
+          })
+
+          // this.showAllAlquileres();
+          // this.formAlquiler.reset();
+        }
+      })
+    } else {
+      this.ShowModal('', 'Algún campo se encuentra vació', 'error');
+
+    }
 
   }
   selectedOptionA: string = ""

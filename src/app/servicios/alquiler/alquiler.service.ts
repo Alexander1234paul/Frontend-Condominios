@@ -16,6 +16,10 @@ export class AlquilerService {
     const url = environment.base_url + `alquileres`
     return this.http.get(url)
   }
+  public getAllAlquileru(token:any) {
+    const url = environment.base_url + `alquileresu/`+token
+    return this.http.get(url)
+  }
 
 
   public postCreateAlquiler(body: any) {
@@ -61,5 +65,12 @@ export class AlquilerService {
   }
 
 
-
+  public postCreateAlquileru(body: any) {
+    const url = environment.base_url + `alquileru`
+    return this.http.post(url, body)
+  }
+  public postCreateAlquilerv(body: any) {
+    const url = environment.base_url + `alquilerv`
+    return this.http.post(url, body)
+  }
 }
