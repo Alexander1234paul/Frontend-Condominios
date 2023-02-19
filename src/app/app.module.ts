@@ -51,6 +51,14 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { IndenmizacionComponent } from './components/indenmizacion/indenmizacion.component';
 import { AlicuotaComponent } from './components/alicuota/alicuota.component';
 import { EditalicuotaComponent } from './components/editalicuota/editalicuota.component';
+//prime ng
+import {TableModule} from 'primeng/table';
+import { Paginator, PaginatorModule } from 'primeng/paginator';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ButtonModule } from 'primeng/button';
+import { DataViewModule } from 'primeng/dataview';
+import { CheckboxModule } from 'primeng/checkbox';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 
 
@@ -112,7 +120,14 @@ import { EditalicuotaComponent } from './components/editalicuota/editalicuota.co
     MatSelectModule,
     MatInputModule,
     FormsModule,
-    DropdownModule
+    DropdownModule,
+    TableModule,
+    PaginatorModule,
+    InputNumberModule,
+    InputTextareaModule,
+    CheckboxModule,
+    DataViewModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

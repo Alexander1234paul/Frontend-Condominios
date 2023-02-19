@@ -10,59 +10,55 @@ import Swal from 'sweetalert2';
   styleUrls: ['./departamento.component.css']
 })
 export class DepartamentoComponent implements OnInit {
-  departamentos:ModelDepartamento[]=[];
+  departamentos: ModelDepartamento[] = [];
   public form!: FormGroup;
 
-  public informacionDepartamentos={
-    dep_id:"",
-    dep_telefono:"",
-    dep_estado:false,
-    dep_ocupacion:false
+  dep_id2:any
+  idUpdatedDepartamento:any
+
+  public informacionDepartamentos = {
+    dep_id: "",
+    dep_telefono: "",
+    dep_estado: false,
+    dep_ocupacion: false
   }
 
-  constructor(private departamentoService:DepartamentoService,private formBuilder:FormBuilder){}
+  constructor(private departamentoService: DepartamentoService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.cargarDepartamentos()
 
-    this.form=this.formBuilder.group({
-      txtdep_id:[''],
-      txtdep_telefono:[''],
-      txtdep_estado:[''],
-      txtdep_ocupacion:['']
+    this.form = this.formBuilder.group({
+      dep_id: [''],
+      dep_telefono: [''],
+      dep_estado: [false],
+      dep_ocupacion: [false]
     })
   }
 
-  public cargarDepartamentos(){
+  public cargarDepartamentos() {
     this.departamentoService.getAllDepartamento().subscribe(
-      (departamento:any)=>{
-        this.departamentos=departamento
+      (departamento: any) => {
+        this.departamentos = departamento
         console.log(this.departamentos)
       },
-      (error)=>console.warn(error)
+      (error) => console.warn(error)
     )
   }
 
-  public crearDepartamento(){
-
-    let estado=true;
-    let ocupacion=true;
-    if (this.form.value.txtdep_estado==null) {
-      estado=false;
-    }else if(this.form.value.txtdep_ocupacion==null){
-      ocupacion=false;
-    }
-
+  public crearDepartamento() {
     this.departamentoService.postCreateDepartamento({
-      dep_id:this.form.value.txtdep_id,
-      dep_telefono:this.form.value.txtdep_telefono,
-      dep_estado: estado,
-      dep_ocupacion:ocupacion
-    }).subscribe(res=>{
-      console.log('Nuevo Departamento insertado')
+      dep_id: this.form.value.dep_id,
+      dep_telefono: this.form.value.dep_telefono,
+      dep_estado: this.form.value.dep_estado,
+      dep_ocupacion: this.form.value.dep_ocupacion
+    }).subscribe((res: any) => {
+      this.form.reset()
+      this.cargarDepartamentos()
+      console.log('Nuevo departamento insertado')
+
     })
-    //this.form.reset();
-    this.cargarDepartamentos()
+
   }
 
   public eliminarDepartamento(dep_id: any) {
@@ -77,7 +73,7 @@ export class DepartamentoComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.departamentoService.deleteDepartamento(dep_id).subscribe(res=>console.log('El departamento se ha eliminado correctamente'))
+        this.departamentoService.deleteDepartamento(dep_id).subscribe(res => console.log('El departamento se ha eliminado correctamente'))
         this.cargarDepartamentos();
         Swal.fire(
           'Eliminado',
@@ -88,41 +84,59 @@ export class DepartamentoComponent implements OnInit {
     })
   }
 
-  public actualizarDepartamento(dep_id:any){
-
-    let estado=true;
-    let ocupacion=true;
-    if (this.form.value.txtdep_estado==null) {
-      estado=false;
-    }else if(this.form.value.txtdep_ocupacion==null){
-      ocupacion=false;
-    }
-
-    this.departamentoService.putUpdateDepartamento({
-      dep_id:dep_id,
-      dep_telefono:this.form.value.txtdep_telefono,
-      dep_estado:estado,
-      dep_ocupacion:ocupacion
-    }).subscribe(res=>{
-      this.cargarDepartamentos()
-      console.log('Datos del departamento actualizados')
+  public tomarId(dep_id:any){
+    this.idUpdatedDepartamento({
+      dep_id:dep_id
     })
-    Swal.fire({
-      position:'center',
-      icon:'success',
-      title:'Departamento actualizado exitosamente',
-      showConfirmButton:false,
-      timer:1500
-    })
-    //this.form.reset();
-    
   }
 
-  public infoUpdateDepartamento(dep_id:any,dep_telefono:any,dep_estado:any,dep_ocupacion:any){
-    this.informacionDepartamentos.dep_id=dep_id;
-    this.informacionDepartamentos.dep_telefono=dep_telefono;
-    this.informacionDepartamentos.dep_estado=dep_estado;
-    this.informacionDepartamentos.dep_ocupacion=dep_ocupacion;
+  public actualizarDepartamento() {
+    this.departamentoService.putUpdateDepartamento({
+      dep_id: this.idUpdatedDepartamento,
+      dep_telefono: this.form.value.dep_telefono,
+      dep_estado: this.form.value.dep_estado,
+      dep_ocupacion: this.form.value.dep_ocupacion
+    }).subscribe(res => {
+     
+    })
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Departamento actualizado exitosamente',
+      showConfirmButton: false,
+      timer: 1500
+    })
+    console.log('Datos del departamento actualizados')
+    this.cargarDepartamentos()
+    this.form.reset();
+
+  }
+
+  cambiarEstado(valor: any): String {
+    let resp = ""
+    if (valor == true) {
+      resp = "Correcto"
+    } else {
+      resp = "Mantenimiento"
+    }
+    return resp
+  }
+
+  cambiarOcupacion(valor: any): String {
+    let resp = ""
+    if (valor == true) {
+      resp = "En uso"
+    } else {
+      resp = "Disponible"
+    }
+    return resp
+  }
+
+  public infoUpdateDepartamento(departamento: any) {
+    this.informacionDepartamentos.dep_id=this.idUpdatedDepartamento=departamento.dep_id
+    this.form.controls["dep_telefono"].setValue(departamento.dep_telefono)
+    this.form.controls["dep_estado"].setValue(departamento.dep_estado)
+    this.form.controls["dep_ocupacion"].setValue(departamento.dep_ocupacion)
   }
 
 }

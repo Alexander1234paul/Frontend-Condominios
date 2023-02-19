@@ -1,20 +1,25 @@
 <div class="content-body">
 
-    <div class="heading_container heading_center" style="background-color: #4C4C6D; height: 150px;padding-top:2px;">
-        <h2 style="text-align: center; padding-top: 50px; color: white;font-style:italic;font-size: 70px;">
+    <div class="heading_container heading_center" style="background-color: #404258; height: 150px;padding-top:2px;">
+        <h2 style="text-align: center; padding-top: 50px; 
+        color: white;font-style:italic;font-size: 85px; font-family: Optima;">
             Bienes
         </h2>
+    </div>
+    <div class="flex align-items-center justify-content-between">
+        <br>
     </div>
     <div class="row">
         <div class="col-md-5">
             <div class="card">
-                <div class="card-header">
-                    <h2 style="text-align: center; padding-top: 20px;"> Administrador de Bienes</h2>
+                <div style="background-color: #f1f1f1;" class="card-header">
+                    <h2 style="text-align: center; padding-top: 20px; 
+                    font-family: Optima; font-size: 22px;"> Administrador de Bienes</h2>
                 </div>
                 <div class="card-body">
-                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
-                        style="background-color: #85C1E9; border-color: #4C4C6D; color: white; font-size: large;"
-                        data-target="#crearBien">Nuevo Bien</button>
+                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" style="background-color:#c2cbde;
+                         border-color:#404258; color:black; font-size: 20px; 
+                         font-family: Optima; font-weight: bold;" data-target="#crearBien">Nuevo Bien</button>
                 </div>
                 <div class="modal fade" id="crearBien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -29,11 +34,11 @@
                             <div class="modal-body">
                                 <form [formGroup]="form">
                                     <div class="form-group">
-                                        <input type="text" name="Descripción" formControlName="txtdescripcion"
+                                        <input type="text" name="Descripción" formControlName="bien_descripcion"
                                             placeholder="Insertar una descripción del bien" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" name="Costo" formControlName="txtcosto"
+                                        <input type="number" name="Costo" formControlName="bien_costo"
                                             placeholder="Insertar el costo del bien" class="form-control">
                                     </div>
                                     <div class="modal-footer">
@@ -50,78 +55,114 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
-            <table class="table table-bordered table-hover bg-white">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Descripción</th>
-                        <th>Costo</th>
-                        <th class="d-flex justify-content-center">Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let i of bienes">
-                        <td>
-                            {{i.bien_id}}
-                        </td>
-                        <td>
-                            {{i.bien_descripcion}}
-                        </td>
-                        <td>
-                            {{i.bien_costo}}
-                        </td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn btn-danger" (click)="eliminarBien(i.bien_id)">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
-                            <a class="btn btn-success" data-toggle="modal" data-target="#actualizarBien"
-                                (click)="infoUpdateBien(i.bien_id,i.bien_descripcion,i.bien_costo)">
-                                <i class="fas fa-edit"></i>
-                            </a>
 
-                            <div class="modal fade" id="actualizarBien" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Actualizar Bien</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form [formGroup]="form">
-                                                <div class="form-group">
-                                                    <label>
-                                                        <h6>Id Bien:{{informacionBienes.bien_id}}</h6>
-                                                    </label>
-                                                    <input type="text" name="Descripción del bien"
-                                                        formControlName="txtdescripcion" 
-                                                        placeholder="{{informacionBienes.bien_descripcion}}"
-                                                        class="form-control">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="number" name="Costo del Bien"
-                                                        formControlName="txtcosto" 
-                                                        placeholder="{{informacionBienes.bien_costo}}"class="form-control">
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Cerrar</button>
-                                                    <button type="button" class="btn btn-primary"
-                                                        (click)="actualizarBien(informacionBienes.bien_id)"
-                                                        data-dismiss="modal">Actualizar</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+        <!--    
+    probando
+-->
+        <p-table #dt [rows]="10" [value]="bienes" [paginator]="true" responsiveLayout="scroll" [rowHover]="true"
+            currentPageReportTemplate="Mostrando elementos {first} y {last} de {totalRecords} entradas totales"
+            [showCurrentPageReport]="true" [globalFilterFields]="['bien_descripcion']">
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="header">
+                <tr>
+
+                    <th pSortableColumn="bien_id">Id<p-sortIcon field="bien_id"></p-sortIcon>
+                        <div class="flex justify-content-center align-items-center">
+                            <p-columnFilter type="text" field="bien_id" display="bien_id"></p-columnFilter>
+                        </div>
+
+                    </th>
+                    <th>Descripción
+                        <div class="flex justify-content-center align-items-center">
+                            <p-columnFilter type="text" field="bien_descripcion"
+                                display="bien_descripcion"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="bien_costo">Costo<p-sortIcon field="bien_costo">
+                        </p-sortIcon>
+                        <div class="flex justify-content-center align-items-center">
+                            <p-columnFilter type="text" field="bien_costo" display="bien_costo"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th>Opciones</th>
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="body" let-bien>
+                <tr>
+
+                    <td>{{bien.bien_id}}</td>
+                    <td>
+                        {{bien.bien_descripcion}}
+                    </td>
+                    <td>
+                        {{bien.bien_costo}}
+                    </td>
+
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" style="height: 2.5rem; width: 2.5rem;"
+                            class="p-button-rounded p-button-success mr-1" data-toggle="modal"
+                            data-target="#actualizarBien"
+                            (click)="infoUpdateBien(bien)"></button>
+
+                        <button pButton pRipple type="button" icon="pi pi-trash"
+                            class="p-button-rounded p-button-danger" style="height: 2.5rem; width: 2.5rem;"
+                            (click)="eliminarBien(bien.bien_id)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">
+
+                </div>
+            </ng-template>
+        </p-table>
+
+        <!--    
+    probando
+-->
+        <div class="modal fade" id="actualizarBien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Actualizar Bien</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form">
+                            <div class="form-group">
+                                <label>
+                                    <h4 style="font-weight: bold;">Id Departamento:</h4>
+                                    {{informacionBienes.bien_id}}
+                                </label>
                             </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            <div class="form-group">
+                              
+                                <input type="text" name="Descripción del bien" formControlName="bien_descripcion"
+                                 class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="number" name="Costo del Bien" formControlName="bien_costo"
+                                    class="form-control">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary"
+                                    (click)="actualizarBien()"
+                                    data-dismiss="modal">Actualizar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
 </div>

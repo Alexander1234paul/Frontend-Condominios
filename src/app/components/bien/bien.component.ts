@@ -17,6 +17,8 @@ export class BienComponent implements OnInit{
 
   bien_id:any
 
+  idUpdatedBien:any
+
   public informacionBienes = {
     bien_id: -1,
     bien_descripcion: "",
@@ -29,8 +31,8 @@ export class BienComponent implements OnInit{
     this.cargarBienes();
 
     this.form = this.formBuilder.group({
-      txtdescripcion: [''],
-      txtcosto: ['']
+      bien_descripcion: [''],
+      bien_costo: ['']
     })
 
   }
@@ -47,8 +49,8 @@ export class BienComponent implements OnInit{
 
   public crearBien() {
     this.bienService.postCreateBien({
-      bien_descripcion: this.form.value.txtdescripcion,
-      bien_costo: this.form.value.txtcosto
+      bien_descripcion: this.form.value.bien_descripcion,
+      bien_costo: this.form.value.bien_costo
     }).subscribe(res => {
       console.log('Nuevo Bien insertado')
       this.form.reset()
@@ -80,15 +82,14 @@ export class BienComponent implements OnInit{
     })
   }
 
-  public actualizarBien(bien_id: any) {
+  public actualizarBien() {
+
     this.bienService.putUpdateBien({
-      bien_id: bien_id,
-      bien_descripcion: this.form.value.txtdescripcion,
-      bien_costo: this.form.value.txtcosto
+      bien_id: this.idUpdatedBien,
+      bien_descripcion: this.form.value.bien_descripcion,
+      bien_costo: this.form.value.bien_costo
     }).subscribe(res => {
-      console.log('Datos del bien actualizados')
-      this.form.reset()
-      this.cargarBienes()
+   
     })
     Swal.fire({
       position: 'center',
@@ -97,12 +98,16 @@ export class BienComponent implements OnInit{
       showConfirmButton: false,
       timer: 1500
     })
+    console.log('Datos del bien actualizados')
+    this.cargarBienes()
+    this.form.reset()
   }
 
-  public infoUpdateBien(bien_id: any, bien_descripcion: any, bien_costo: any) {
-    this.informacionBienes.bien_id = bien_id;
-    this.informacionBienes.bien_descripcion = bien_descripcion;
-    this.informacionBienes.bien_costo = bien_costo;
+  public infoUpdateBien(bien: any) {
+    this.informacionBienes.bien_id=this.idUpdatedBien =  bien.bien_id
+    this.form.controls["bien_descripcion"].setValue(bien.bien_descripcion)
+    this.form.controls["bien_costo"].setValue(bien.bien_costo)
+
   }
 
  
