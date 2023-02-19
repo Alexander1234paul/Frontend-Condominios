@@ -25,6 +25,12 @@ export class MultaService {
     return this.http.put(url, body)
   }
 
+  public putpagoMulta(body: any) {
+    console.log(body)
+    const url = environment.base_url + `multa/` + body.mul_id
+    return this.http.put(url, body)
+  }
+
   public deleteMulta(mul_id: any) {
     const url = environment.base_url + `multa/` + mul_id
     return this.http.delete(url)
