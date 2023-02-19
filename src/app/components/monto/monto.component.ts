@@ -15,12 +15,14 @@ export class MontoComponent{
 
   public informacionMonto={
     mon_id:-1,
-    mon_precio:0
+    mon_precio:0,
+    mon_fecha:""
   }
 
-  public infoUpdateMonto(mon_id:any, mon_precio:any){
+  public infoUpdateMonto(mon_id:any, mon_precio:any, mon_fecha:any){
     this.informacionMonto.mon_id=mon_id;
     this.informacionMonto.mon_precio=mon_precio;
+    this.informacionMonto.mon_fecha=mon_fecha;
   }
 
   constructor(private montoService:MontoService, private formBuilder:FormBuilder){}
@@ -29,7 +31,8 @@ export class MontoComponent{
       this.getmonto()
 
       this.form=this.formBuilder.group({
-        txtprecio:['']
+        txtprecio:[''],
+        txtfecha:['']
       })
   }
 
@@ -45,7 +48,8 @@ export class MontoComponent{
 
   public createMonto() {
     this.montoService.postCreateMonto({
-      mon_precio:this.form.value.txtprecio
+      mon_precio:this.form.value.txtprecio,
+      mon_fecha:this.form.value.txtfecha
     }).subscribe(res=>{
       console.log('Nuevo Monto insertado')
     })
@@ -56,7 +60,8 @@ export class MontoComponent{
   public updateMonto(mon_id:any){
     this.montoService.putUpdateMonto({
       mon_id:mon_id,
-      mon_precio:this.form.value.txtprecio
+      mon_precio:this.form.value.txtprecio,
+      mon_fecha:this.form.value.txtfecha
     }).subscribe(res=>{
       console.log('Datos del Monto actualizado')
     })

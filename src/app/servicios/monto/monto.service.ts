@@ -10,7 +10,7 @@ export class MontoService {
   constructor(private http: HttpClient) { }
 
   public getAllMonto(){
-    const url = environment.base_url + `monto`
+    const url = environment.base_url + `montos`
     return this.http.get(url)
   }
 
