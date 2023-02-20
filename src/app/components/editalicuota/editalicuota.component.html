@@ -1,1 +1,222 @@
-<p>editalicuota works!</p>
+<div class="row">
+    <div class="card col">
+        <div class="card-header">
+            <h2 style="text-align: center; padding-top: 20px;"> Nueva Alicuota</h2>
+        </div>
+        <form>
+            <div class="form-floating mb-3">
+                <input type="text" name="ali_descripcion" class="form-control" id="ali_descripcion" placeholder="Descripción de Alicuota" [(ngModel)]="alicuota.ali_descripcion">
+                <label for="ali_descripcion">Alicuota </label>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input type="text" name="ali_costo" [(ngModel)]="alicuota.ali_costo" class="form-control" id="ali_costo" placeholder="Costo" [(ngModel)]="alicuota.ali_costo" [readonly]="true">
+                <label for="ali_costo">Total </label>
+            </div>
+
+            <br>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descripción</th>
+                            <th>Costo</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let pago of alicuota.pagos; let i = index">
+                            <td>
+                                <input class="form-control" type="text" name="pag_descripcion_{{i}}" [(ngModel)]="pago.pag_descripcion">
+                            </td>
+                            <td>
+                                <input class="form-control" type="number" name="pag_costo_{{i}}" [(ngModel)]="pago.pag_costo" (input)="sumarCostos()">
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" type="button" (click)="eliminarPago(i)">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <div class="button-container">
+                <button class="btn btn-primary" type="button" (click)="agregarPago()">Agregar pago</button>
+            </div>
+            <div class="button-container">
+                <button class="btn btn-success" (click)="submitForm()">Guardar</button>
+            </div>
+            <br>
+            <br>
+        </form>
+    </div>
+    <div class="card col">
+        <div class="card-header">
+            <h2 style="text-align: center; padding-top: 20px;"> Gestión Pagos</h2>
+        </div>
+        <table class="table table-bordered table-hover bg-white">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripción</th>
+                    <th>Costo</th>
+                    <th>Alicuota Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of cuotasM | paginate: config">
+                    <td>
+                        {{i.pag_id}}
+                    </td>
+                    <td>
+                        {{i.pag_descripcion}}
+                    </td>
+                    <td>
+                        {{i.pag_costo}} $
+                    </td>
+                    <td>
+                        {{i.ali_descripcion}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination-controls (pageChange)="config.currentPage = $event"></pagination-controls>
+
+        <button class="btn btn-warning" type="button" (click)="recargar()">Recargar</button>
+
+    </div>
+</div>
+<br>
+<div class="col-md-12">
+    <table class="table table-bordered table-hover bg-white">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Total</th>
+                <th class="d-flex justify-content-center">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of alicuotasM">
+                <td>
+                    {{i.ali_id}}
+                </td>
+                <td>
+                    <input class="form-control" [(ngModel)]="i.ali_descripcion" type="text">
+                </td>
+                <td>
+                    {{i.ali_costo}} $
+                </td>
+
+                <td class="d-flex justify-content-center">
+
+                    <div class="button-container">
+                        <a class="btn btn-info" data-toggle="modal" data-target="#actualizarAC" (click)="infoUpdAlicuota(i.ali_id)">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </div>
+                    <div class="button-container">
+                        <a class="btn btn-success" data-toggle="modal" (click)="actualizarAlicuota(i.ali_id,i.ali_descripcion)">
+                            <i class="fas fa-save"></i>
+                        </a>
+                    </div>
+                    <div class="button-container">
+                        <a class="btn btn-danger" data-toggle="modal" (click)="deleteAlicuota(i.ali_id)">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="actualizarAC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title" id="exampleModalLabel2">Actualizar Pagos</h1>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-hover bg-white">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>DESCRIPCIÓN</th>
+                            <th>COSTO</th>
+                            <th>OPCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let d of pagoById">
+                        <tr>
+                            <td>{{d.pag_id}}</td>
+                            <td><input class="form-control" [(ngModel)]="d.pag_descripcion" type="text"></td>
+                            <td><input class="form-control" [(ngModel)]="d.pag_costo" (ngModelChange)="updateTotal()" type="number"></td>
+                            <td>
+                                <div class="button-container">
+                                    <a class="btn btn-success" data-toggle="modal" (click)="actualizarPago(d.pag_id, d.pag_descripcion, d.pag_costo)">
+                                        <i class="fas fa-save"></i>
+                                    </a>
+                                </div>
+
+                                <div class="button-container">
+                                    <a class="btn btn-danger" data-toggle="modal" (click)="deletePago(d.pag_id,d.ali_id)">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Total:</td>
+                            <td></td>
+                            <td>{{total}} $</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <form>
+                    <div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Descripción</th>
+                                    <th>Costo</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr *ngFor="let pago of alicuota.pagos; let i = index">
+                                    <td>
+                                        <input class="form-control" type="text" name="pag_descripcion_{{i}}" [(ngModel)]="pago.pag_descripcion">
+                                    </td>
+                                    <td>
+                                        <input class="form-control" type="number" name="pag_costo_{{i}}" [(ngModel)]="pago.pag_costo">
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger" type="button" (click)="eliminarPago(i)">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <div class="button-container">
+                        <button class="btn btn-primary" type="button" (click)="agregarPago()">Agregar pago</button>
+                    </div>
+                    <div class="button-container">
+                        <button class="btn btn-success" (click)="submitForm2()">Guardar</button>
+                    </div>
+                </form>
+                <br>
+                <div class=" modal-footer ">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
