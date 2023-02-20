@@ -1,10 +1,13 @@
 <div class="content-body">
 
-  <div class="heading_container heading_center" style="background-color: #4C4C6D; height: 150px;padding-top:2px;">
-    <h2 style="text-align: center; padding-top: 50px; color: white;font-style:italic;font-size: 70px;">
+  <div class="heading_container heading_center" style="background-color: #404258; height: 150px;padding-top:2px;">
+    <h2 style="text-align: center; padding-top: 50px; color: white;font-style:italic;font-size:85px; font-family: Optima;">
       Usuarios Externos
     </h2>
   </div>
+  <div class="flex align-items-center justify-content-between">
+    <br>
+</div>
   <div class="row">
     <div class="col-md-5">
       <div class="card">
@@ -13,7 +16,9 @@
         </div>
         <div class="card-body">
           <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
-            style="background-color: #85C1E9; border-color: #4C4C6D; color: white; font-size: large;"
+          style="background-color:#c2cbde;
+          border-color:#404258; color:black; font-size: 20px; 
+          font-family: Optima; font-weight: bold;"
             data-target="#crearUsuarioExterno">Nuevo Usuario Externo</button>
         </div>
         <div class="modal fade" id="crearUsuarioExterno" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -32,8 +37,12 @@
                   <div class="form-group">
                     <div class="form-inline">
                       <div class="form-group mb-2">
-                        <Label style="padding-right: 10px; font-weight: bold;">Cédula: </Label>
-                        <input type="text" name="Cédula" formControlName="per_id" class="form-control">
+                        <Label style="padding-right: 10px; font-weight: bold;">Cédula habitante: </Label>
+                        <select name="Cédula" placeholder="Seleccione la cédula" formControlName="per_id"
+                          class="form-control">
+                          <option *ngFor="let persona of personas" value="{{persona.per_id}}">
+                            {{persona.per_id}} </option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -42,7 +51,8 @@
                     <div class="form-inline">
                       <div class="form-group mb-2">
                         <Label style="padding-right: 10px; font-weight: bold;">Nombres: </Label>
-                        <input type="text" name="Nombres" formControlName="per_nombres" class="form-control">
+                        <input type="text" name="Nombres" formControlName="per_nombres" placeholder="Insertar nombres"
+                          class="form-control">
                       </div>
                     </div>
                   </div>
@@ -51,7 +61,8 @@
                     <div class="form-inline">
                       <div class="form-group mb-2">
                         <Label style="padding-right: 10px; font-weight: bold;">Apellidos: </Label>
-                        <input type="text" name="Apellidos" formControlName="per_apellidos" class="form-control">
+                        <input type="text" name="Apellidos" formControlName="per_apellidos"
+                          placeholder="Insertar apellidos" class="form-control">
                       </div>
                     </div>
                   </div>
@@ -87,100 +98,142 @@
         </div>
       </div>
     </div>
-    <div class="col-md-12">
-      <table class="table table-bordered table-hover bg-white">
-        <thead>
-          <tr>
-            <th>Id Usuario Externo</th>
-            <th>Fecha</th>
-            <th>Id Persona</th>
-            <th>Descripción</th>
-            <th class="d-flex justify-content-center">Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let i of usuariosexternos">
-            <td>
-              {{i.use_id}}
-            </td>
-            <td>
-              {{i.use_fecha}}
-            </td>
-            <td>
-              {{i.per_id}}
-            </td>
-            <td>
-              {{i.use_descripcion}}
-            </td>
-            <td class="d-flex justify-content-center">
-              <a class="btn btn-danger" (click)="eliminarUsuarioExterno(i.use_id)">
-                <i class="fas fa-trash-alt"></i>
-              </a>
-              <a class="btn btn-success" data-toggle="modal" data-target="#actualizarUsuarioExterno"
-                (click)="infoUpdateUsuarioExterno(i.use_id,i.per_id,i.per_nombres,i.per_apellidos,i.use_fecha,i.use_descripcion)">
-                <i class="fas fa-edit"></i>
-              </a>
+    <!--    
+    probando
+-->
+    <p-table #dt [rows]="5" [value]="usuariosexternos" [paginator]="true" responsiveLayout="scroll" [rowHover]="true"
+      currentPageReportTemplate="Mostrando elementos {first} hasta {last} de {totalRecords} entradas totales"
+      [showCurrentPageReport]="true" [globalFilterFields]="['use_id']">
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+        </div>
+      </ng-template>
 
-              <div class="modal fade" id="actualizarUsuarioExterno" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Actualizar Usuario Externo</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form [formGroup]="form">
-                        <div class="form-group">
-                          <label>
-                            <h6>Id Usuario Externo:{{informacionUsuariosExternos.use_id}}</h6>
-                          </label>
-                        </div>
+      <ng-template pTemplate="header">
+        <tr>
 
-                        <div class="form-group">
-                          <input type="text" name="Cédula" formControlName="per_id"
-                            placeholder="{{informacionUsuariosExternos.per_id}}" class="form-control">
-                        </div>
+          <th pSortableColumn="use_id">Id Usuario externo<p-sortIcon field="use_id"></p-sortIcon>
+            <div class="flex justify-content-center align-items-center">
+              <p-columnFilter type="text" field="use_id" display="use_id"></p-columnFilter>
+            </div>
+          </th>
 
-                        <div class="form-group">
-                          <input type="text" name="Nombres" formControlName="per_nombres"
-                            placeholder="{{informacionUsuariosExternos.per_nombres}}" class="form-control">
-                        </div>
+          <th pSortableColumn="per_id">Id Persona<p-sortIcon field="per_id"></p-sortIcon>
+            <div class="flex justify-content-center align-items-center">
+              <p-columnFilter type="text" field="per_id" display="per_id"></p-columnFilter>
+            </div>
+          </th>
+          <th>Nombre
+            <div class="flex justify-content-center align-items-center">
+              <p-columnFilter type="text" field="per_nombres" display="per_nombres"></p-columnFilter>
+            </div>
+          </th>
 
-                        <div class="form-group">
-                          <input type="text" name="Cédula" formControlName="per_apellidos"
-                            placeholder="{{informacionUsuariosExternos.per_apellidos}}" class="form-control">
-                        </div>
+          <th>Apellidos
+            <div class="flex justify-content-center align-items-center">
+              <p-columnFilter type="text" field="per_apellidos" display="per_apellidos"></p-columnFilter>
+            </div>
+          </th>
 
-                        <div class="form-group">
-                          <input type="date" name="Fecha" formControlName="use_fecha"
-                            placeholder="{{informacionUsuariosExternos.use_fecha}}"
-                            value="{{informacionUsuariosExternos.use_fecha}}" class="form-control">
-                        </div>
+          <th pSortableColumn="use_fecha">Fecha<p-sortIcon field="use_fecha">
+            </p-sortIcon>
+            <div class="flex justify-content-center align-items-center">
+              <p-columnFilter type="text" field="use_fecha" display="use_fecha"></p-columnFilter>
+            </div>
+          </th>
+          <th>Descripción de la visita
+            <div class="flex justify-content-center align-items-center">
+              <p-columnFilter type="text" field="use_descripcion" display="use_descripcion"></p-columnFilter>
+            </div>
+          </th>
+          <th>Opciones</th>
+        </tr>
 
-                        <div class="form-group">
-                          <input type="text" name="Descripción" formControlName="use_descripcion"
-                            placeholder="{{informacionUsuariosExternos.use_descripcion}}"
-                            value="{{informacionUsuariosExternos.use_descripcion}}" class="form-control">
-                        </div>
+      </ng-template>
+      <ng-template pTemplate="body" let-usuarioexterno>
+        <tr>
+          <td>{{usuarioexterno.use_id}}</td>
+          <td>{{usuarioexterno.per_id}}</td>
+          <td>{{usuarioexterno.per_nombres}}</td>
+          <td>{{usuarioexterno.per_apellidos}}</td>
+          <td>{{usuarioexterno.use_fecha | date:'dd-MM-yyyy'}}</td>
+          <td>{{usuarioexterno.use_descripcion}}</td>
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" style="height: 2.5rem; width: 2.5rem;"
+              class="p-button-rounded p-button-success mr-1" data-toggle="modal" data-target="#actualizarUsuarioExterno"
+              (click)="infoUpdateUsuarioExterno(usuarioexterno)"></button>
 
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                          <button type="button" class="btn btn-primary"
-                            (click)="actualizarUsuarioExterno(informacionUsuariosExternos.use_id)"
-                            data-dismiss="modal">Actualizar</button>
-                        </div>
-                      </form>
-                    </div>
+            <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"
+              style="height: 2.5rem; width: 2.5rem;" (click)="eliminarUsuarioExterno(usuarioexterno.use_id)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+
+        </div>
+      </ng-template>
+    </p-table>
+    <!--    
+probando
+-->
+
+    <div class="modal fade" id="actualizarUsuarioExterno" tabindex="-1" role="dialog"
+      aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Actualizar Usuario Externo</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="form">
+              <div class="form-group">
+                <label>
+                  <h6>Id Usuario Externo:{{informacionUsuariosExternos.use_id}}</h6>
+                </label>
+              </div>
+
+              <div class="form-group">
+                <div class="form-inline">
+                  <div class="form-group mb-2">
+                    <Label style="padding-right: 10px; font-weight: bold;">Cédula habitante: </Label>
+                    <select name="Cédula" placeholder="Seleccione la cédula" formControlName="per_id"
+                      class="form-control">
+                      <option *ngFor="let persona of personas" value="{{persona.per_id}}">
+                        {{persona.per_id}} </option>
+                    </select>
                   </div>
                 </div>
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+
+              <div class="form-group">
+                <input type="text" name="Nombres" formControlName="per_nombres" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <input type="text" name="Apellidos" formControlName="per_apellidos" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <input type="date" name="Fecha" formControlName="use_fecha" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <input type="text" name="Descripción" formControlName="use_descripcion" class="form-control">
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="actualizarUsuarioExterno()"
+                  data-dismiss="modal">Actualizar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

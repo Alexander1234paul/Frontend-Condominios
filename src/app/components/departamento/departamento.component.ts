@@ -13,8 +13,8 @@ export class DepartamentoComponent implements OnInit {
   departamentos: ModelDepartamento[] = [];
   public form!: FormGroup;
 
-  dep_id2:any
-  idUpdatedDepartamento:any
+  dep_id2: any
+  idUpdatedDepartamento: any
 
   public informacionDepartamentos = {
     dep_id: "",
@@ -53,10 +53,9 @@ export class DepartamentoComponent implements OnInit {
       dep_estado: this.form.value.dep_estado,
       dep_ocupacion: this.form.value.dep_ocupacion
     }).subscribe((res: any) => {
+      console.log('Nuevo departamento insertado')
       this.form.reset()
       this.cargarDepartamentos()
-      console.log('Nuevo departamento insertado')
-
     })
 
   }
@@ -84,9 +83,9 @@ export class DepartamentoComponent implements OnInit {
     })
   }
 
-  public tomarId(dep_id:any){
+  public tomarId(dep_id: any) {
     this.idUpdatedDepartamento({
-      dep_id:dep_id
+      dep_id: dep_id
     })
   }
 
@@ -97,7 +96,9 @@ export class DepartamentoComponent implements OnInit {
       dep_estado: this.form.value.dep_estado,
       dep_ocupacion: this.form.value.dep_ocupacion
     }).subscribe(res => {
-     
+      console.log('Datos del departamento actualizados')
+      this.form.reset()
+      this.cargarDepartamentos()
     })
     Swal.fire({
       position: 'center',
@@ -106,9 +107,7 @@ export class DepartamentoComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     })
-    console.log('Datos del departamento actualizados')
-    this.cargarDepartamentos()
-    this.form.reset();
+
 
   }
 
@@ -133,7 +132,7 @@ export class DepartamentoComponent implements OnInit {
   }
 
   public infoUpdateDepartamento(departamento: any) {
-    this.informacionDepartamentos.dep_id=this.idUpdatedDepartamento=departamento.dep_id
+    this.informacionDepartamentos.dep_id = this.idUpdatedDepartamento = departamento.dep_id
     this.form.controls["dep_telefono"].setValue(departamento.dep_telefono)
     this.form.controls["dep_estado"].setValue(departamento.dep_estado)
     this.form.controls["dep_ocupacion"].setValue(departamento.dep_ocupacion)

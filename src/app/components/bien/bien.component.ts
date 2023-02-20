@@ -10,14 +10,14 @@ import Swal from 'sweetalert2';
   templateUrl: './bien.component.html',
   styleUrls: ['./bien.component.css']
 })
-export class BienComponent implements OnInit{
+export class BienComponent implements OnInit {
 
   bienes: ModelBien[] = [];
   public form!: FormGroup;
 
-  bien_id:any
+  bien_id: any
 
-  idUpdatedBien:any
+  idUpdatedBien: any
 
   public informacionBienes = {
     bien_id: -1,
@@ -56,7 +56,7 @@ export class BienComponent implements OnInit{
       this.form.reset()
       this.cargarBienes()
     })
-    
+
   }
 
   public eliminarBien(bien_id: any) {
@@ -71,7 +71,7 @@ export class BienComponent implements OnInit{
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.bienService.deleteBien(bien_id).subscribe(res=>console.log('El bien se ha eliminado correctamente'))
+        this.bienService.deleteBien(bien_id).subscribe(res => console.log('El bien se ha eliminado correctamente'))
         this.cargarBienes();
         Swal.fire(
           'Eliminado',
@@ -89,7 +89,9 @@ export class BienComponent implements OnInit{
       bien_descripcion: this.form.value.bien_descripcion,
       bien_costo: this.form.value.bien_costo
     }).subscribe(res => {
-   
+      console.log('Datos del bien actualizados')
+      this.form.reset()
+      this.cargarBienes()
     })
     Swal.fire({
       position: 'center',
@@ -98,18 +100,16 @@ export class BienComponent implements OnInit{
       showConfirmButton: false,
       timer: 1500
     })
-    console.log('Datos del bien actualizados')
-    this.cargarBienes()
-    this.form.reset()
+
   }
 
   public infoUpdateBien(bien: any) {
-    this.informacionBienes.bien_id=this.idUpdatedBien =  bien.bien_id
+    this.informacionBienes.bien_id = this.idUpdatedBien = bien.bien_id
     this.form.controls["bien_descripcion"].setValue(bien.bien_descripcion)
     this.form.controls["bien_costo"].setValue(bien.bien_costo)
 
   }
 
- 
+
 
 }

@@ -59,7 +59,7 @@ import { ButtonModule } from 'primeng/button';
 import { DataViewModule } from 'primeng/dataview';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-
+import {TreeSelectModule} from 'primeng/treeselect';
 
 
 
@@ -127,7 +127,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     InputTextareaModule,
     CheckboxModule,
     DataViewModule,
-    ButtonModule
+    ButtonModule,
+    TreeSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
