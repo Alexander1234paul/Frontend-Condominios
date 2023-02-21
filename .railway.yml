@@ -1,0 +1,11 @@
+version: '1'
+environments:
+  production:
+    build:
+      env:
+        - NODE_ENV=production
+    routes:
+      main: 'public/index.html'
+    services:
+      web:
+        memory: 512MB
