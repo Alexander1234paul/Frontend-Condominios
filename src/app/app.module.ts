@@ -181,7 +181,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
   
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    // { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
     
