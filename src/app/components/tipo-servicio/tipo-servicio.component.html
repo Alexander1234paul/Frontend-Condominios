@@ -1,72 +1,106 @@
+<!--    
+    ESTO ES RESERVACIONES-TIPO DE SERVICIO 
+-->
 <div class="row">
     <div class="col-md-5">
         <div class="card">
             <div class="card-header">
-                <h2 style="text-align: center; padding-top: 20px;">Contratación</h2>
+                <h2 style="text-align: center; padding-top: 20px;">Servicio</h2>
             </div>
             <div class="card-body">
-                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" style="background-color: #0c1548; border-color: #4C4C6D; color: white; font-size: large;" data-target="#crearTipoServicio">Nueva Contratación</button>
+                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" style="background-color: #0c1548; border-color: #4C4C6D; color: white; font-size: large;" data-target="#crearTipoServicio">Nuevo Servicio</button>
                 <button type="button" class="btn btn-primary btn-block" data-toggle="modal" style="background-color: #ab6a2d; border-color: #4C4C6D; color: white; font-size: large;" (click)="cargarTipoServicio()">Recargar</button>
 
             </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <table class="table table-bordered table-hover bg-white">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Descripción</th>
-                    <th class="d-flex justify-content-center">Opciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let i of tipoServicios">
-                    <td>
-                        {{i.tser_id}}
-                    </td>
-                    <td>
-                        {{i.tser_descripcion}}
-                    </td>
 
-                    <td class="d-flex justify-content-center">
-                        <a class="btn btn-danger" (click)="eliminarTipoServicio(i.tser_id)">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                        <a class="btn btn-success" data-toggle="modal" data-target="#actualizarBien" (click)="infoUpdateTipoServicio(i.tser_id,i.tser_descripcion)">
-                            <i class="fas fa-edit"></i>
-                        </a>
+<!--    
+    probando
+-->
+<div class="col-md-12">
 
-                        <div class="modal fade" id="actualizarBien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title" id="exampleModalLabel">Actualizar Servicio</h1>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form [formGroup]="form">
-                                            <div class="form-group">
-                                                <input type="text" name="Descripción del bien" formControlName="txtdescripcion" placeholder="{{informacionTipoServicio.tser_descripcion}}" class="form-control">
+    <p-table #dt [rows]="5" [value]="tipoServicios" [paginator]="true" responsiveLayout="scroll" [rowHover]="true"
+        currentPageReportTemplate="Mostrando elementos {first} hasta {last} de {totalRecords} entradas totales"
+        [showCurrentPageReport]="true" [globalFilterFields]="['tser_id']">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+            </div>
+        </ng-template>
 
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                <button type="button" class="btn btn-primary" (click)="actualizarTipoServicio(informacionTipoServicio.tser_id)" data-dismiss="modal">Actualizar</button>
-                                            </div>
-                                        </form>
-                                    </div>
+        <ng-template pTemplate="header">
+            <tr>
+
+                <th pSortableColumn="bien_id">Id<p-sortIcon field="bien_id"></p-sortIcon>
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="bien_id" display="bien_id"></p-columnFilter>
+                    </div>
+                </th>
+                
+                <th>Descripción
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="rol_descripcion" display="rol_descripcion"></p-columnFilter>
+                    </div>
+                </th>
+                <th>Opciones</th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-i>
+            <tr>
+                <td>
+                    {{i.tser_id}}
+                </td>
+                <td>
+                    {{i.tser_descripcion}}
+                </td>
+
+                <td>
+                    <a class="btn btn-danger" (click)="eliminarTipoServicio(i.tser_id)">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <a class="btn btn-success" data-toggle="modal" data-target="#actualizarBien" (click)="infoUpdateTipoServicio(i.tser_id,i.tser_descripcion)">
+                        <i class="fas fa-edit"></i>
+                    </a>
+
+                    <div class="modal fade" id="actualizarBien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title" id="exampleModalLabel">Actualizar Servicio</h1>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form [formGroup]="form">
+                                        <div class="form-group">
+                                            <input type="text" name="Descripción del bien" formControlName="txtdescripcion" placeholder="{{informacionTipoServicio.tser_descripcion}}" class="form-control">
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                            <button type="button" class="btn btn-primary" (click)="actualizarTipoServicio(informacionTipoServicio.tser_id)" data-dismiss="modal">Actualizar</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                    </div>
+                </td>
+                
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+            </div>
+        </ng-template>
+    </p-table>
 </div>
+<!--    
+probando
+-->
+
 <!-- Crear Tipo Servicio -->
 <div class="modal fade" id="crearTipoServicio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
