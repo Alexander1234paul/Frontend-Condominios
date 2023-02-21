@@ -37,6 +37,7 @@ import { PagoComponent } from './components/pago/pago.component';
 import { IndenmizacionComponent } from './components/indenmizacion/indenmizacion.component';
 import { EditalicuotaComponent } from './components/editalicuota/editalicuota.component';
 import { AlicuotaComponent } from './components/alicuota/alicuota.component';
+import { AsignacionPagosComponent } from './components/asignacion-pagos/asignacion-pagos.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "login", pathMatch: "full" },
@@ -68,9 +69,13 @@ const routes: Routes = [
 
         ]
       }
-      // , {
-      //   path: "adminCondomino", component: a
-      // }
+      , {
+        path: "pagos", component: AsignacionPagosComponent, children: [
+          { path: "editAlicuota", component: EditalicuotaComponent },
+          { path: "detallePago", component: DetallePagoComponent }
+
+        ]
+      }
     ]
   },
   {

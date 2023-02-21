@@ -60,6 +60,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {TreeSelectModule} from 'primeng/treeselect';
+import { AsignacionPagosComponent } from './components/asignacion-pagos/asignacion-pagos.component';
 
 
 
@@ -102,7 +103,8 @@ import {TreeSelectModule} from 'primeng/treeselect';
     PagoComponent,
     IndenmizacionComponent,
     AlicuotaComponent,
-    EditalicuotaComponent
+    EditalicuotaComponent,
+    AsignacionPagosComponent
 
   ],
   imports: [
