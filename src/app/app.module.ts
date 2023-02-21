@@ -8,7 +8,7 @@ import { ResidenteComponent } from './components/residente/residente.component';
 import { UsuarioexternoComponent } from './components/usuarioexterno/usuarioexterno.component';
 import { HttpClientModule, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ROUTES } from '@angular/router';
 import { ContabilidadComponent } from './components/contabilidad/contabilidad.component';
 import { ReservacionesComponent } from './components/reservaciones/reservaciones.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
@@ -156,7 +156,6 @@ export class ErrorInterceptorService implements HttpInterceptor {
     
     BrowserModule,
     [MatDatepickerModule],
-
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
