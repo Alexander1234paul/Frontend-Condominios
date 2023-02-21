@@ -61,7 +61,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {TreeSelectModule} from 'primeng/treeselect';
 import { AsignacionPagosComponent } from './components/asignacion-pagos/asignacion-pagos.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { MainComponent } from './components/main/main.component';
 import { SubSeguridadComponent } from './components/sub-seguridad/sub-seguridad.component';
 import { catchError, Observable, throwError } from 'rxjs';
@@ -182,6 +182,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
   
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
     
