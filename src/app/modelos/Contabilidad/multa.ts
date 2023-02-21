@@ -6,4 +6,5 @@ export interface ModelMulta{
     mul_total:number;
     mul_fecha:Date;
     mul_estado:Boolean;
+    residente:string;
 }

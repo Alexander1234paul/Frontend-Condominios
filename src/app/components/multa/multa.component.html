@@ -16,8 +16,8 @@
     <table class="table table-bordered table-hover bg-white" style="text-align: center">
         <thead>
             <tr>
-                <th>Condomino</th>
-                <th>Descripcion de multa</th>
+                <th>Condómino</th>
+                <th>Descripción de multa</th>
                 <th>Monto</th>
                 <th>Fecha</th>
                 <th>Estado</th>
@@ -29,13 +29,13 @@
         <tbody>
             <tr *ngFor="let m of multas">
                 <td>
-                    {{m.res_id}}
+                    {{m.residente}}
                 </td>
                 <td>
                     {{m.mul_descripcion}}
                 </td>
                 <td>
-                    {{m.mon_id}}
+                    {{m.mul_total}}
                 </td>
                 <td>
                     {{m.mul_fecha | date:"dd-MM-yyyy"}}
@@ -47,8 +47,8 @@
                     <a class="btn btn-danger" (click)="deleteMulta(m.mul_id)">
                         <i class="fas fa-trash-alt"></i>
                     </a> 
-                    <a class="btn btn-danger" (click)="pagoMulta(m.mul_id)">
-                        <i class="fas fa-trash-alt"></i>
+                    <a class="btn btn-success" (click)="pagoMulta(m.mul_id)">
+                        <i class="fas fa-credit-card"></i>
                     </a>
                 </td>
             </tr>
@@ -73,29 +73,22 @@
                 <form [formGroup]="formMulta">
                     <!-- <div class="form_group"><label for="">Bienes</label></div> -->
                     <div class="form-group" style="text-align: center;justify-content: center;">
-                        <p-dropdown [options]="residentes" [(ngModel)]="selectedOptionA" optionLabel="per_id"
-                            formControlName="res_id" placeholder="Seleccione el residente" optionValue="res_id"
+                        <p-dropdown [options]="residentes" [(ngModel)]="selectedOptionA"
+                            optionLabel="per_nombres" formControlName="res_id"
+                            placeholder="Seleccione el residente" optionValue="res_id"
                             [filter]="true"></p-dropdown>
                     </div>
-                    <div class="form_group"><label for="">Descripcion de multa</label></div>
+                    <div class="form_group"><label for="">Descripción de multa</label></div>
                     <div class="form-group">
-                        <input type="text" formControlName="mul_descripcion" placeholder="Ingrese la descripcion"
+                        <input type="text" formControlName="mul_descripcion" placeholder="Ingrese la descripción"
                             class="form-control">
                     </div>
                     <!-- <div class="form_group"><label for="">Condónimo</label></div> -->
-                    <div class="form-group" style="text-align: center;justify-content: center;">
-                        <p-dropdown [options]="montos" [(ngModel)]="selectedOptionB" optionLabel="mon_precio"
-                            formControlName="mon_id" placeholder="Seleccione el monto" optionValue="mon_id"
-                            [filter]="true"></p-dropdown>
-                    </div>
-                    <div class="form_group"><label for="">Fecha</label></div>
+
+                    
+                    <div class="form_group"><label for="">Total</label></div>
                     <div class="form-group">
-                        <input type="date" formControlName="mul_fecha" placeholder="Ingrese la fecha"
-                            class="form-control">
-                    </div>
-                    <div class="form_group"><label for="">Estado</label></div>
-                    <div class="form-group">
-                        <input type="text" formControlName="mul_estado" placeholder="Ingrese el Estado"
+                        <input type="text" formControlName="mul_estado" placeholder="Ingrese el total"
                             class="form-control">
                     </div>
                     
