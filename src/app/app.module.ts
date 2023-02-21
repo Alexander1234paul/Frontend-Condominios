@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Injectable, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { ResidenteComponent } from './components/residente/residente.component';
 import { UsuarioexternoComponent } from './components/usuarioexterno/usuarioexterno.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ContabilidadComponent } from './components/contabilidad/contabilidad.component';
@@ -64,8 +64,48 @@ import { AsignacionPagosComponent } from './components/asignacion-pagos/asignaci
 import { CommonModule } from '@angular/common';
 import { MainComponent } from './components/main/main.component';
 import { SubSeguridadComponent } from './components/sub-seguridad/sub-seguridad.component';
+import { catchError, Observable, throwError } from 'rxjs';
 
+@Injectable()
+export class TokenInterceptorService implements HttpInterceptor {
 
+  constructor() { }
+
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const authReq = req.clone({
+        headers: req.headers.set('Authorization', `Bearer ${token}`)
+      });
+      return next.handle(authReq);
+    }
+    return next.handle(req);
+  }
+
+}
+@Injectable()
+export class ErrorInterceptorService implements HttpInterceptor {
+
+  constructor() { }
+
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = '';
+        if (error.error instanceof ErrorEvent) {
+          // Error del lado del cliente
+          errorMessage = `Error: ${error.error.message}`;
+        } else {
+          // Error del lado del servidor
+          errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+        }
+        console.log(errorMessage);
+        return throwError(errorMessage);
+      })
+    )
+  }
+
+}
 
 @NgModule({
   declarations: [
@@ -113,6 +153,7 @@ import { SubSeguridadComponent } from './components/sub-seguridad/sub-seguridad.
 
   ],
   imports: [
+    
     BrowserModule,
     [MatDatepickerModule],
 
@@ -138,7 +179,13 @@ import { SubSeguridadComponent } from './components/sub-seguridad/sub-seguridad.
     TreeSelectModule,
     CommonModule
   ],
-  providers: [],
+  
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es' },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
