@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 export class DetalleServicioService {
 
-  url: string = 'https://condominio-api.up.railway.app/';
+  url= environment.base_url;
   constructor(private http: HttpClient) { }
   
   public getAllDetalleServicio(){

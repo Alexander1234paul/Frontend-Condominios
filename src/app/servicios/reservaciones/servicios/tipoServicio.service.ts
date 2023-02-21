@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 import {tap} from 'rxjs/operators';
 import { Subject} from 'rxjs';
 
@@ -11,7 +12,7 @@ export class TipoServicioService {
 
   public _refresh$ = new Subject<void>()
 
-  url: string = 'https://condominio-api.up.railway.app/';
+  url= environment.base_url;
   constructor(private http: HttpClient) { }
   
   public getAllTipoServicio(){

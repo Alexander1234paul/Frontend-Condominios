@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 })
 export class MontoService {
 
-  url: string = 'https://condominio-api.up.railway.app/';
+  url= environment.base_url;
   constructor(private http: HttpClient) { }
 
   public getAllMonto(){

@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environment.prod';
 })
 export class LoginService {
 
-  url: string = 'https://condominio-api.up.railway.app/';
+  url= environment.base_url;
   constructor(private http: HttpClient) { }
 
   // getAllAutoridades() {

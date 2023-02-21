@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.prod';
 
 export class BienService {
 
-  url: string = 'https://condominio-api.up.railway.app/';
+  url= environment.base_url;
   constructor(private http: HttpClient) { }
   
   public getAllBien(){
