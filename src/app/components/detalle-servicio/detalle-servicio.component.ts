@@ -97,17 +97,11 @@ export class DetalleServicioComponent {
     let fd = new FormData();
     fd.append('name', this.form.value.txtname);
     fd.append('userImage', this.files[0]);
+    fd.append('ser_id', this.form.value.txtname);
     this.imgService.postCreateImg(fd).subscribe((res) => {
       console.log('Imagen insertada');
     });
-    this.detalleServicioService
-      .postCreateDetalleServicio({
-        dser_evidencia: this.form.value.txtname,
-        ser_id: this.form.value.txtser_id,
-      })
-      .subscribe((res) => {
-        console.log('Nuevo Detalle Servicio insertado');
-      });
+
     this.cargarImg();
     this.form.reset();
     this.cargardetalleServicio();

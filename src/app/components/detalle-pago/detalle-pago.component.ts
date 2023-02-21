@@ -91,19 +91,16 @@ export class DetallePagoComponent implements OnInit {
   }
 
   public crearDetallePago() {
+    const currentDate = new Date();
     this.detallePagoService
       .postCreateDetPago({
-        dpag_fecha: this.form.value.txtFecha,
-        res_id: this.form.value.txtResidente,
-        ali_id: this.form.value.txtAlicuota,
+        fecha: currentDate.toISOString(),
       })
       .subscribe((res) => {
-        console.log('Nuevo Tipo Servicio insertado');
+        console.log('Lista Insertada');
       });
     this.form.reset();
-    this.getDetallePago();
-    this.getAllPagos();
-    this.getResidente();
+    this.recargar();
   }
   public recargar() {
     this.getDetallePago();
