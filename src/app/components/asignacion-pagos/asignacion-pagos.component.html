@@ -3,10 +3,12 @@
 </div>
 <ul class="nav nav-tabs">
     <li class="nav-item" (click)="changeActiveA()">
-        <a class="nav-link" [ngClass]="{'active':activoA==true}" [routerLink]="['/administracion/pagos/editAlicuota']">Asignar Alícutas</a>
+        <a class="nav-link" [ngClass]="{'active':activoA==true}"
+            [routerLink]="['/administracion/pagos/editAlicuota']">Cuotas</a>
     </li>
     <li class="nav-item" (click)="changeActiveC()">
-        <a class="nav-link" [ngClass]="{'active':activoC==true}" [routerLink]="['/administracion/pagos/detallePago']">Pagos</a>
+        <a class="nav-link" [ngClass]="{'active':activoC==true}"
+            [routerLink]="['/administracion/pagos/monto']">Multas</a>
     </li>
 </ul>
 <br>

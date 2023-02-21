@@ -4,7 +4,11 @@
 <ul class="nav nav-tabs">
     <li class="nav-item" (click)="changeActiveA()">
         <a class="nav-link"  [ngClass]="{'active':activoA==true}"
-            [routerLink]="['/administracion/condomino/residente']">Habitante</a>
+            [routerLink]="['/administracion/Habitantes/Habitante']">Habitante</a>
+    </li>
+    <li class="nav-item" (click)="changeActiveA()">
+        <a class="nav-link"  [ngClass]="{'active':activoA==true}"
+            [routerLink]="['/administracion/Habitantes/departamento']">Departamento</a>
     </li>
     <!-- <li class="nav-item" (click)="changeActiveB()">
         <a class="nav-link" [ngClass]="{'active':activoB==true}" [routerLink]="['/administracion/condomino/rolCondomino']">Rol condomino</a>

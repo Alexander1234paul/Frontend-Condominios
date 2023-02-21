@@ -61,6 +61,9 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import {TreeSelectModule} from 'primeng/treeselect';
 import { AsignacionPagosComponent } from './components/asignacion-pagos/asignacion-pagos.component';
+import { CommonModule } from '@angular/common';
+import { MainComponent } from './components/main/main.component';
+import { SubSeguridadComponent } from './components/sub-seguridad/sub-seguridad.component';
 
 
 
@@ -104,7 +107,9 @@ import { AsignacionPagosComponent } from './components/asignacion-pagos/asignaci
     IndenmizacionComponent,
     AlicuotaComponent,
     EditalicuotaComponent,
-    AsignacionPagosComponent
+    AsignacionPagosComponent,
+    MainComponent,
+    SubSeguridadComponent
 
   ],
   imports: [
@@ -130,7 +135,8 @@ import { AsignacionPagosComponent } from './components/asignacion-pagos/asignaci
     CheckboxModule,
     DataViewModule,
     ButtonModule,
-    TreeSelectModule
+    TreeSelectModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
