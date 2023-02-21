@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { reporteService } from 'src/app/servicios/reporte/reporte.service';
 import { ModelReporte } from 'src/app/modelos/Contabilidad/reporte.module';
-import * as jsPDF from 'jspdf';
 
 @Component({
   selector: 'app-reporte',
