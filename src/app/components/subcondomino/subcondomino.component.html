@@ -1,25 +1,65 @@
 <div class="col-md-12">
 
     <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearCliente">Nueva
-        Tina</button> -->
+        Tina</button> 
+    // html de asignar acceso al sistema
+    -->
     <br><br>
-    <table class="table table-bordered table-hover bg-white" style="text-align: center">
-        <thead>
-            <tr>
-                <th>Cédula</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>Rol</th>
-                <th>Correo</th>
-                <th>Teléfono</th>
-                <!-- <th>Teléfono</th> -->
-                <th>Opciones</th>
 
+<!--    
+    probando
+-->
+<div class="col-md-12">
+
+    <p-table #dt [rows]="5" [value]="Condominos" [paginator]="true" responsiveLayout="scroll" [rowHover]="true"
+        currentPageReportTemplate="Mostrando elementos {first} hasta {last} de {totalRecords} entradas totales"
+        [showCurrentPageReport]="true" [globalFilterFields]="['ser_id']">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+
+                <th >Cédula
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="per_id" display="per_id"></p-columnFilter>
+                    </div>
+
+                </th>
+                <th>Nombres
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="per_nombres" display="per_nombres"></p-columnFilter>
+                    </div>
+                </th>
+                <th>Apellido
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="per_apellidos" display="per_apellidos"></p-columnFilter>
+                    </div>
+                </th>
+                <th>Rol
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="rol_descripcion" display="rol_descripcion"></p-columnFilter>
+                    </div>
+                </th>
+                <th >Correo
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="res_correo" display="res_correo"></p-columnFilter>
+                    </div>
+
+                </th>
+                <th>Teléfono
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="res_telefono" display="res_telefono"></p-columnFilter>
+                    </div>
+                </th>
+                <th>Opciones</th>
             </tr>
 
-        </thead>
-        <tbody>
-            <tr *ngFor="let i of Condominos">
+        </ng-template>
+        <ng-template pTemplate="body" let-i>
+            <tr>
                 <td>
                     {{i.per_id}}
                 </td>
@@ -84,8 +124,18 @@
                         </div>
                     </div>
                 </td>
-
+                
             </tr>
-        </tbody>
-    </table>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+<!--    
+probando
+-->
+
+   
 </div>

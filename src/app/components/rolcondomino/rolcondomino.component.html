@@ -4,78 +4,96 @@
         data-target="#crearRolResidente">Nuevo Rol</button>
 </div>
 
+<!--    
+    probando
+-->
 <div class="col-md-12">
 
-    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearCliente">Nueva
-        Tina</button> -->
-    <br><br>
-    <table class="table table-bordered table-hover bg-white" style="text-align: center">
-        <thead>
+    <p-table #dt [rows]="5" [value]="roles" [paginator]="true" responsiveLayout="scroll" [rowHover]="true"
+        currentPageReportTemplate="Mostrando elementos {first} hasta {last} de {totalRecords} entradas totales"
+        [showCurrentPageReport]="true" [globalFilterFields]="['rol_id']">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
             <tr>
-                <th style="width: 100px;">ID</th>
-                <th>Desccripción</th>
+
+                <th pSortableColumn="rol_id">Id<p-sortIcon field="rol_id"></p-sortIcon>
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="rol_id" display="rol_id"></p-columnFilter>
+                    </div>
+
+                </th>
+                <th>Descripción
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="rol_descripcion" display="rol_descripcion"></p-columnFilter>
+                    </div>
+                </th>
                 <th>Opciones</th>
-
-
             </tr>
 
-        </thead>
-        <tbody>
-            <tr *ngFor="let i of roles">
+        </ng-template>
+        <ng-template pTemplate="body" let-rol>
+            <tr>
+
+                <td>{{rol.rol_id}}</td>
                 <td>
-                    {{i.rol_id}}
+                    {{rol.rol_descripcion}}
                 </td>
+                <td >
 
-                <td>
-                    {{i.rol_descripcion}}
+                    <button pButton pRipple icon="pi pi-pencil" style="height: 2.5rem; width: 2.5rem;"
+                        class="p-button-rounded p-button-success mr-1" data-toggle="modal" data-target="#actualizarRol"
+                        (click)="getDataRol(rol.rol_id,rol.rol_descripcion)"></button>
+
+                    <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                        style="height: 2.5rem; width: 2.5rem;" (click)="eliminarRol(rol.rol_id)"></button>
+
                 </td>
+                <div class="modal fade" id="actualizarRol" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title" id="exampleModalLabel">Actualizar Rol Residente</h1>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form [formGroup]="formRolUpdate">
 
-                <td class="d-flex justify-content-center">
-                    <a class="btn btn-danger" (click)="eliminarRol(i.rol_id)">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
-                    <a class="btn btn-success" data-toggle="modal" data-target="#actualizarRol" (click)="getDataRol(i.rol_id,i.rol_descripcion)">
-                        
-                        <i class="fas fa-edit"></i>
-                    </a>
-
-                    <div class="modal fade" id="actualizarRol" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title" id="exampleModalLabel">Actualizar Rol Residente</h1>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form [formGroup]="formRolUpdate">
-
-                                        <div class="form-group">
-                                            <input type="text" name="Costo del Bien" formControlName="rol_descripcion"
-                                                class="form-control">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Cerrar</button>
-                                            <button type="button" class="btn btn-primary"
-                                                (click)="actualizarRol(formRolUpdate.value)"
-                                                data-dismiss="modal">Actualizar</button>
-                                        </div>
-                                    </form>
-                                </div>
+                                    <div class="form-group">
+                                        <input type="text" name="Costo del Bien" formControlName="rol_descripcion"
+                                            class="form-control">
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="actualizarRol(formRolUpdate.value)"
+                                            data-dismiss="modal">Actualizar</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </td>
-
+                </div>
 
             </tr>
-        </tbody>
-    </table>
-</div>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
 
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+<!--    
+probando
+-->
 
 <div class="modal fade" id="crearRolResidente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">

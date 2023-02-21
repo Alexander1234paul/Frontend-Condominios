@@ -51,11 +51,11 @@ export class RolcondominoComponent implements OnInit {
     if (this.formRol.valid) {
       this.rolServices.postCreateRol(form).subscribe(data => {
         this.showAllRol();
-        this.showModalMore('center', 'success', 'Registrado existoso', false, 2000);
+        this.showModalMore('center', 'success', 'Registrado exitosamente', false, 2000);
       })
 
     } else {
-      this.ShowModal('', 'El campo se encuentra vació', 'error');
+      this.ShowModal('', 'El campo se encuentra vacío', 'error');
 
     }
 
@@ -72,10 +72,10 @@ export class RolcondominoComponent implements OnInit {
     if (this.formRolUpdate.valid) {
       this.rolServices.putUpdateRol(form).subscribe(data => {
         this.showAllRol();
-        this.showModalMore('center', 'success', 'Registrado existoso', false, 2000);
+        this.showModalMore('center', 'success', 'Actualizado exitosamente', false, 2000);
       })
     } else {
-      this.ShowModal('', 'El campo se encuentra vació', 'error');
+      this.ShowModal('', 'El campo se encuentra vacío', 'error');
 
     }
   }

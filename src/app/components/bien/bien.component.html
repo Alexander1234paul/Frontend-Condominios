@@ -60,7 +60,7 @@
     probando
 -->
         <p-table #dt [rows]="10" [value]="bienes" [paginator]="true" responsiveLayout="scroll" [rowHover]="true"
-            currentPageReportTemplate="Mostrando elementos {first} y {last} de {totalRecords} entradas totales"
+            currentPageReportTemplate="Mostrando elementos {first} hasta {last} de {totalRecords} entradas totales"
             [showCurrentPageReport]="true" [globalFilterFields]="['bien_id']">
             <ng-template pTemplate="caption">
                 <div class="flex align-items-center justify-content-between">

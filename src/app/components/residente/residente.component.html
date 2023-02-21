@@ -9,146 +9,181 @@
 
 
 
+<!--    
+    probando esto es de habitante
+-->
+<p-table #dt [rows]="10" [value]="residentes" [paginator]="true" responsiveLayout="scroll" [rowHover]="true"
+    currentPageReportTemplate="Mostrando elementos {first} hasta {last} de {totalRecords} entradas totales"
+    [showCurrentPageReport]="true" [globalFilterFields]="['per_id']">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+        </div>
+    </ng-template>
 
-<div class="col-md-12">
+    <ng-template pTemplate="header">
+        <tr>
 
-    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearCliente">Nueva
-        Tina</button> -->
-    <br><br>
-    <table class="table table-bordered table-hover bg-white" style="text-align: center">
-        <thead>
-            <tr>
-                <th>Cédula</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>Rol</th>
-                <th>Correo</th>
-                <th>Teléfono</th>
-                <!-- <th>Teléfono</th> -->
-                <th>Opciones</th>
+            <th>Cédula
+                <div class="flex justify-content-center align-items-center">
+                    <p-columnFilter type="text" field="per_id" display="per_id"></p-columnFilter>
+                </div>
 
-            </tr>
+            </th>
+            <th>Nombres
+                <div class="flex justify-content-center align-items-center">
+                    <p-columnFilter type="text" field="per_nombres" display="per_nombres"></p-columnFilter>
+                </div>
 
-        </thead>
-        <tbody>
-            <tr *ngFor="let i of residentes">
-                <td>
-                    {{i.per_id}}
-                </td>
-                <td>
-                    {{i.per_nombres}}
-                </td>
-                <td>
-                    {{i.per_apellidos}}
-                </td>
-                <td>
-                    {{i.rol_descripcion}}
-                </td>
-                <td>
-                    {{i.res_correo}}
-                </td>
-                <td>
-                    {{i.res_telefono}}
-                </td>
-                <td class="d-flex justify-content-center">
-                    <!-- <a class="btn btn-danger" (click)="eliminarRol(i.rol_id)">
-                        <i class="fas fa-trash-alt"></i>
-                    </a> -->
-                    <a class="btn btn-success" data-toggle="modal" data-target="#actualizarRol"
-                        (click)="getDataResidente(i.per_id)">
+            </th>
+            <th>Apellidos
+                <div class="flex justify-content-center align-items-center">
+                    <p-columnFilter type="text" field="per_apellidos" display="per_apellidos"></p-columnFilter>
+                </div>
+            </th>
+            <th>Rol
+                <div class="flex justify-content-center align-items-center">
+                    <p-columnFilter type="text" field="rol_descripcion" display="rol_descripcion"></p-columnFilter>
+                </div>
+            </th>
+            <th>Correo
+                <div class="flex justify-content-center align-items-center">
+                    <p-columnFilter type="text" field="res_correo" display="res_correo"></p-columnFilter>
+                </div>
+            </th>
+            <th>Teléfono
+                <div class="flex justify-content-center align-items-center">
+                    <p-columnFilter type="text" field="res_telefono" display="res_telefono"></p-columnFilter>
+                </div>
+            </th>
+            <th>Opciones</th>
+        </tr>
 
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <div class="modal fade" id="actualizarRol" tabindex="-1" role="dialog"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title" id="exampleModalLabel">Actualizar Rol Residente</h1>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+    </ng-template>
+    <ng-template pTemplate="body" let-i>
+        <tr>
+            <td>
+                {{i.per_id}}
+            </td>
+            <td>
+                {{i.per_nombres}}
+            </td>
+            <td>
+                {{i.per_apellidos}}
+            </td>
+            <td>
+                {{i.rol_descripcion}}
+            </td>
+            <td>
+                {{i.res_correo}}
+            </td>
+            <td>
+                {{i.res_telefono}}
+            </td>
+
+            <td class="d-flex justify-content-center">
+                <!-- <a class="btn btn-danger" (click)="eliminarRol(i.rol_id)">
+                <i class="fas fa-trash-alt"></i>
+            </a> -->
+                <a class="btn btn-success" data-toggle="modal" data-target="#actualizarRol"
+                    (click)="getDataResidente(i.per_id)">
+
+                    <i class="fas fa-edit"></i>
+                </a>
+                <div class="modal fade" id="actualizarRol" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title" id="exampleModalLabel">Actualizar Rol Residente</h1>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <form [formGroup]="formResidenteUpdate">
+
+                                    <div class="form-group" style="text-align: center;justify-content: center;">
+                                        <p-dropdown [options]="departamento" [(ngModel)]="selectedOption"
+                                            optionLabel="dep_id" formControlName="departamento_id"
+                                            placeholder="Seleccione el departamento" optionValue="dep_id"
+                                            [filter]="true"></p-dropdown>
+                                    </div>
+
+
+                                    <!-- <div class="form-group " >
+                                    <input type="text" formControlName="per_id"
+                                        placeholder="Inngrese su número de cédula" class="form-control">
+                                </div> -->
+                                    <div class="form-group">
+                                        <input type="text" formControlName="per_nombres"
+                                            placeholder="Ingrese sus nombres" class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="text" formControlName="per_apellidos"
+                                            placeholder="Ingrese sus apellidos" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" formControlName="res_correo"
+                                            placeholder="Ingrese su correo electrónico (Opcional)" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" formControlName="res_telefono"
+                                            placeholder="Ingrese su número de teléfono (Opcional)" class="form-control">
+                                    </div>
+                                    <!-- <div class="form-group">
+                                    <h2>Opcional</h2>
+                                </div> -->
+                                    <!-- <div class="form-group">
+                                    <label>
+                                        <input type="radio" name="radio" (click)="changeActiveA()" />
+                                        <span class="radio-button"></span>
+                                        Asignar Credenciales
+                                    </label>
+                                    <div [ngClass]="{'d-none':activoA==true}"> <label>
+                                            <input type="radio" name="radio" (click)="changeActiveB()" />
+                                            <span class="radio-button"></span>
+                                            Cancel
+                                        </label></div>
+
+                                </div> -->
+                                    <!-- <div class="form-group" [ngClass]="{'d-none':activoA==true}">
+                                    <input type="text" formControlName="res_usuario"
+                                        placeholder="Ingrese el usuario" class="form-control">
                                 </div>
-                                <div class="modal-body">
+                                <div class="form-group" [ngClass]="{'d-none':activoA==true}">
+                                    <input type="password" formControlName="res_clave"
+                                        placeholder="Ingrese su contraseña" class="form-control">
+                                </div> -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                            (click)="updateResidente(formResidenteUpdate.value)">Actualizar</button>
+                                    </div>
 
-                                    <form [formGroup]="formResidenteUpdate">
-
-                                        <div class="form-group" style="text-align: center;justify-content: center;">
-                                            <p-dropdown [options]="departamento" [(ngModel)]="selectedOption"
-                                                optionLabel="dep_id" formControlName="departamento_id"
-                                                placeholder="Seleccione el departamento" optionValue="dep_id"
-                                                [filter]="true"></p-dropdown>
-                                        </div>
-
-
-                                        <!-- <div class="form-group " >
-                                            <input type="text" formControlName="per_id"
-                                                placeholder="Inngrese su número de cédula" class="form-control">
-                                        </div> -->
-                                        <div class="form-group">
-                                            <input type="text" formControlName="per_nombres"
-                                                placeholder="Ingrese sus nombres" class="form-control">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="text" formControlName="per_apellidos"
-                                                placeholder="Ingrese sus apellidos" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" formControlName="res_correo"
-                                                placeholder="Ingrese su correo electrónico (Opcional)"
-                                                class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" formControlName="res_telefono"
-                                                placeholder="Ingrese su número de teléfono (Opcional)"
-                                                class="form-control">
-                                        </div>
-                                        <!-- <div class="form-group">
-                                            <h2>Opcional</h2>
-                                        </div> -->
-                                        <!-- <div class="form-group">
-                                            <label>
-                                                <input type="radio" name="radio" (click)="changeActiveA()" />
-                                                <span class="radio-button"></span>
-                                                Asignar Credenciales
-                                            </label>
-                                            <div [ngClass]="{'d-none':activoA==true}"> <label>
-                                                    <input type="radio" name="radio" (click)="changeActiveB()" />
-                                                    <span class="radio-button"></span>
-                                                    Cancel
-                                                </label></div>
-
-                                        </div> -->
-                                        <!-- <div class="form-group" [ngClass]="{'d-none':activoA==true}">
-                                            <input type="text" formControlName="res_usuario"
-                                                placeholder="Ingrese el usuario" class="form-control">
-                                        </div>
-                                        <div class="form-group" [ngClass]="{'d-none':activoA==true}">
-                                            <input type="password" formControlName="res_clave"
-                                                placeholder="Ingrese su contraseña" class="form-control">
-                                        </div> -->
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Cerrar</button>
-                                            <button type="button" class="btn btn-primary" data-dismiss="modal"
-                                                (click)="updateResidente(formResidenteUpdate.value)">Actualizar</button>
-                                        </div>
-
-                                    </form>
+                                </form>
 
 
-                                </div>
                             </div>
                         </div>
                     </div>
-                </td>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
 
+        </div>
+    </ng-template>
+</p-table>
 
-            </tr>
-        </tbody>
-    </table>
-</div>
+<!--    
+probando
+-->
+
 
 <!-- Crear residente -->
 <div class="modal fade" id="crearResidente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -167,7 +202,8 @@
                     <div class="form-group" style="text-align: center;justify-content: center;">
                         <p-dropdown [options]="departamento" [(ngModel)]="selectedOption" optionLabel="dep_id"
                             formControlName="departamento_id" placeholder="Seleccione el departamento"
-                            optionValue="dep_id" [filter]="true"  [style]="{  'width':'460px','background-color': '#f1f1f1' }"></p-dropdown>
+                            optionValue="dep_id" [filter]="true"
+                            [style]="{  'width':'460px','background-color': '#f1f1f1' }"></p-dropdown>
                     </div>
 
 
