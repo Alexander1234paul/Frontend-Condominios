@@ -83,7 +83,8 @@ const routes: Routes = [
       {
         path: "subContabilidad", component: SubContabilidadComponent, children: [
           { path: "detPago", component: DetallePagoComponent },
-          { path: "multa", component: MultaComponent }
+          { path: "multa", component: MultaComponent },
+          {path: "monto", component: MontoComponent }
         ]
       },
       {

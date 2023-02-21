@@ -2,9 +2,14 @@
     <div class="row">
         <div class="col-md-5">
             <div class="card">
+                <div style="background-color: #f1f1f1;" class="card-header">
+                    <h2 style="text-align: center; padding-top: 20px; 
+                    font-family: Optima; font-size: 22px;"> Administrador de Monto</h2>
+                </div>
                 <div class="card-body">
-                    <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" style="background-color: #1138e6; border-color: #4C4C6D; color: white; font-size: large;"
-                        data-target="#crearMonto">Nuevo Monto</button>
+                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" style="background-color:#c2cbde;
+                         border-color:#404258; color:black; font-size: 20px; 
+                         font-family: Optima; font-weight: bold;" data-target="#crearMonto">Nuevo Monto</button>
                 </div>
                 <div class="modal fade" id="crearMonto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                     aria-hidden="true">
@@ -19,11 +24,11 @@
                             <div class="modal-body">
                                 <form [formGroup]="form">
                                     <div class="form-group">
-                                        <input type="number" name="Costo" formControlName="txtprecio"
-                                            placeholder="Insertar el precio " class="form-control">
+                                        <input type="number" name="Precio" formControlName="mon_precio"
+                                            placeholder="Insertar un monto" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <input type="date" name="Fecha" formControlName="txtfecha"
+                                        <input type="date" name="Fecha" formControlName="mon_fecha"
                                             placeholder="Insertar la fecha" class="form-control">
                                     </div>
                                     <div class="modal-footer">
@@ -40,75 +45,99 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
-            <table class="table table-bordered table-hover bg-white">
-                <thead>
-                    <tr>
-                        <th>Precio</th>
-                        <th>Fecha</th>
-                        <th class="d-flex justify-content-center">Opciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let i of montos">
-                        <td>
-                            {{i.mon_precio}
-                        </td>
-                        <td>
-                            {{i.mon_fecha}}
-                        </td>
-                        <td class="d-flex justify-content-center">
-                            <a class="btn btn-danger" (click)="deleteMonto(i.mon_id)">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
-                            <a class="btn btn-success" data-toggle="modal" data-target="#actualizarMonto"
-                                (click)="infoUpdateMonto(i.mon_id, i.mon_precio, i.mon_fecha)">
-                                <i class="fas fa-edit"></i>
-                            </a>
 
-                            <div class="modal fade" id="actualizarMonto" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Actualizar Monto</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form [formGroup]="form">
-                                                <div class="form-group">
-                                                    <label>
-                                                        <h6>ID monto:{{informacionMonto.mon_id}}</h6>
-                                                    </label>
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="number" name="Precio" formControlName="txtprecio"
-                                                        placeholder="{{informacionMonto.mon_precio}}"
-                                                        class="form-control">
-                                                </div>
-                                                <div class="form-group">
-                                                    <input type="date" name="Fecha" formControlName="txtfecha"
-                                                        placeholder="{{informacionMonto.mon_fecha}}"
-                                                        class="form-control">
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-dismiss="modal">Cerrar</button>
-                                                    <button type="button" class="btn btn-primary"
-                                                        (click)="updateMonto(informacionMonto.mon_id)"
-                                                        data-dismiss="modal">Actualizar</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+        <!--    
+    probando
+-->
+        <p-table #dt [rows]="10" [value]="montos" [paginator]="true" responsiveLayout="scroll" [rowHover]="true"
+            [showCurrentPageReport]="true" [globalFilterFields]="['mon_id']">
+            <ng-template pTemplate="caption">
+                <div class="flex align-items-center justify-content-between">
+                </div>
+            </ng-template>
+
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="mon_precio">Monto<p-sortIcon field="mon_precio">
+                    </p-sortIcon>
+                    </th>
+                    <th pSortableColumn="mon_fecha">Fecha <p-sortIcon field="mon_fecha">
+                    </p-sortIcon>
+                    </th>
+                    <th>Opciones</th>
+                </tr>
+
+            </ng-template>
+            <ng-template pTemplate="body" let-monto>
+                <tr>
+                    <td>
+                        {{monto.mon_precio}}
+                    </td>
+                    <td>
+                        {{monto.mon_fecha}}
+                    </td>
+
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" style="height: 2.5rem; width: 2.5rem;"
+                            class="p-button-rounded p-button-success mr-1" data-toggle="modal"
+                            data-target="#actualizarMonto" (click)="infoUpdateMonto(monto)"></button>
+
+                        <button pButton pRipple type="button" icon="pi pi-trash"
+                            class="p-button-rounded p-button-danger" style="height: 2.5rem; width: 2.5rem;"
+                            (click)="deleteMonto(monto.mon_id)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">
+
+                </div>
+            </ng-template>
+        </p-table>
+
+        <!--    
+    probando
+-->
+        <div class="modal fade" id="actualizarMonto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Actualizar Monto</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="form">
+                            <div class="form-group">
+                                <label>
+                                    <h4 style="font-weight: bold;">ID Monto:
+                                        {{informacionMonto.mon_id}}</h4>
+                                </label>
                             </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            <div class="form-group">
+                                <Label style="padding-right: 10px; font-weight: bold;">Precio: </Label>
+                                <input type="number" name="Monto" formControlName="mon_precio"
+                                    class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <Label style="padding-right: 10px; font-weight: bold;">Fecha: </Label>
+                                <input type="date" name="Fecha" formControlName="mon_fecha"
+                                    class="form-control">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" (click)="updateMonto()"
+                                    data-dismiss="modal">Actualizar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        
+            </div>
         </div>
-    </div>
 </div>
+
+    
