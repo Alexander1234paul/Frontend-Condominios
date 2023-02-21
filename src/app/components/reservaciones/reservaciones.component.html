@@ -8,22 +8,21 @@
     <li class="nav-item" style="margin-left:10px;margin-right: 10px;">
 
         <a style="border: solid 1px; border-radius: 7px; font-size: 20px;" class="nav-link active"
-            [routerLink]="['/main']">Inicio</a>
+            [routerLink]="['/main']">Regresar</a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" style="margin-left:10px;margin-right: 10px;">
 
-        <a style="border: solid 1px; border-radius: 7px;" class="nav-link active"
-            [routerLink]="['/reservaciones/servicios']">Servicio</a>
+        <a style="border: solid 1px; border-radius: 7px; font-size: 20px;" class="nav-link active"
+            [routerLink]="['/reservaciones/servicios/subServicio']">Servicio</a>
 
     </li>
-    <li class="nav-item">
+    <li class="nav-item" style="margin-left:10px;margin-right: 10px;">
 
-        <a style="border: solid 1px; border-radius: 7px;" class="nav-link active"
-            [routerLink]="['/reservaciones/alquiler']">Alquiler</a>
+        <a style="border: solid 1px; border-radius: 7px; font-size: 20px;" class="nav-link active"
+            [routerLink]="['/reservaciones/alquiler/subAlquiler']">Alquiler</a>
 
     </li>
 
 </ul>
 <br>
 <div class="container"><router-outlet></router-outlet></div>
-

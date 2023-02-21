@@ -19,19 +19,35 @@ export class UsuarioEService {
     return this.http.get(url)
   }
 
+  // public postCreateUsuarioExterno(body: any) {
+  //   const url = environment.base_url + `usuarioExterno`
+  //   return this.http.post(url, body)
+  // }
+
+  // public putUpdateUsuarioExterno(body: any) {
+  //   console.log(body)
+  //   const url = environment.base_url + `usuarioExterno/` + body.use_id
+  //   return this.http.put(url, body)
+  // }
+
+  public deleteUsuarioExterno(use_id: any) {
+    const url = environment.base_url + `usuarioExterno/` + use_id
+    return this.http.delete(url)
+  }
+  public getByIdusuarioExterno(id:any) {
+    const url = environment.base_url + `usuarioExterno/`+id;
+    return this.http.get(url)
+  }
+
   public postCreateUsuarioExterno(body: any) {
     const url = environment.base_url + `usuarioExterno`
     return this.http.post(url, body)
   }
 
   public putUpdateUsuarioExterno(body: any) {
-    console.log(body)
-    const url = environment.base_url + `usuarioExterno/` + body.use_id
+    
+    const url = environment.base_url + `usuarioExterno/` + body.per_id
     return this.http.put(url, body)
   }
-
-  public deleteUsuarioExterno(use_id: any) {
-    const url = environment.base_url + `usuarioExterno/` + use_id
-    return this.http.delete(url)
-  }
+  
 }

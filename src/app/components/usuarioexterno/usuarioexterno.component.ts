@@ -1,16 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { UsuarioEService } from 'src/app/servicios/UsuarioE/usuario-e.service';
 import { ModelUsuarioExterno } from 'src/app/modelos/usuarioexterno/usuarioexterno.module';
 import Swal from 'sweetalert2';
 import { ModelPersona } from 'src/app/modelos/persona/persona.module';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 @Component({
+
   selector: 'app-usuarioexterno',
   templateUrl: './usuarioexterno.component.html',
   styleUrls: ['./usuarioexterno.component.css']
 })
 export class UsuarioexternoComponent implements OnInit {
-
+  formUEUpdate = new FormGroup({
+    per_id: new FormControl('', Validators.required),
+    per_nombres: new FormControl('', Validators.required),
+    per_apellidos: new FormControl('', Validators.required),
+    use_fecha: new FormControl('', Validators.required),
+    use_descripcion: new FormControl(''),
+    // res_id: new FormControl('', Validators.required)
+  }
+  );
   usuariosexternos: ModelUsuarioExterno[] = [];
   personas: ModelPersona[] = [];
   public form!: FormGroup;
@@ -72,9 +83,11 @@ export class UsuarioexternoComponent implements OnInit {
       use_fecha: this.form.value.use_fecha,
       use_descripcion: this.form.value.use_descripcion
     }).subscribe(res => {
-      console.log('Nuevo usuario externo insertado')
+
       this.form.reset()
       this.cargarUsuariosExternos()
+      this.showModalMore('center', 'success', 'Registrado exisitosamente', false, 2000);
+
     })
   }
 
@@ -90,13 +103,15 @@ export class UsuarioexternoComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.usuarioEService.deleteUsuarioExterno(use_id).subscribe(res => console.log('El usuario externo se ha eliminado correctamente'))
-        this.cargarUsuariosExternos()
-        Swal.fire(
-          'Eliminado',
-          'El usuario externo ha sido eliminado',
-          'success'
-        )
+        this.usuarioEService.deleteUsuarioExterno(use_id).subscribe((resp: any) => {
+          this.cargarUsuariosExternos()
+          Swal.fire(
+            'Eliminado',
+            'El usuario externo ha sido eliminado',
+            'success'
+          )
+        })
+
       }
     })
   }
@@ -145,4 +160,47 @@ export class UsuarioexternoComponent implements OnInit {
   // }
 
   selectedOption: string = ""
+
+  getdataUsuarioExterno(per_id: any) {
+
+    this.usuarioEService.getByIdusuarioExterno(per_id).subscribe((data: any) => {
+      console.log(data)
+      this.formUEUpdate.setValue({
+        per_id: per_id,
+        per_nombres: data.per_nombres,
+        per_apellidos: data.per_apellidos,
+        use_fecha: data.use_fecha,
+        use_descripcion: data.use_descripcion
+      })
+    })
+
+
+  }
+
+  actualizarUExterno(form: any) {
+
+    this.usuarioEService.putUpdateUsuarioExterno(form.value).subscribe((data: any) => {
+      this.cargarUsuariosExternos()
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Usuario Externo actualizado exitosamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
+  }
+
+  ShowModal(title: any, infor: any, tipo: any) {
+    Swal.fire(title, infor, tipo);
+  }
+  showModalMore(position: any, icon: any, title: any, showConfirmButton: any, timer: any) {
+    Swal.fire({
+      position: position,
+      icon: icon,
+      title: title,
+      showConfirmButton: showConfirmButton,
+      timer: timer
+    });
+  }
 }

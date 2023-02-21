@@ -34,7 +34,7 @@
               <div class="modal-body">
                 <form [formGroup]="form">
 
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <div class="form-inline">
                       <div class="form-group mb-2">
                         <Label style="padding-right: 10px; font-weight: bold;">Cédula habitante: </Label>
@@ -43,6 +43,16 @@
                           <option *ngFor="let persona of personas" value="{{persona.per_id}}">
                             {{persona.per_id}} </option>
                         </select>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <div class="form-group">
+                    <div class="form-inline">
+                      <div class="form-group mb-2">
+                        <Label style="padding-right: 10px; font-weight: bold;">Cédula: </Label>
+                        <input type="text" name="cédula" formControlName="per_id" placeholder="Insertar la cédula"
+                          class="form-control">
                       </div>
                     </div>
                   </div>
@@ -112,13 +122,13 @@
       <ng-template pTemplate="header">
         <tr>
 
-          <th pSortableColumn="use_id">Id Usuario externo<p-sortIcon field="use_id"></p-sortIcon>
+          <!-- <th pSortableColumn="use_id">I<p-sortIcon field="use_id"></p-sortIcon>
             <div class="flex justify-content-center align-items-center">
               <p-columnFilter type="text" field="use_id" display="use_id"></p-columnFilter>
             </div>
-          </th>
+          </th> -->
 
-          <th pSortableColumn="per_id">Id Persona<p-sortIcon field="per_id"></p-sortIcon>
+          <th pSortableColumn="per_id">Cédula<p-sortIcon field="per_id"></p-sortIcon>
             <div class="flex justify-content-center align-items-center">
               <p-columnFilter type="text" field="per_id" display="per_id"></p-columnFilter>
             </div>
@@ -152,7 +162,7 @@
       </ng-template>
       <ng-template pTemplate="body" let-usuarioexterno>
         <tr>
-          <td>{{usuarioexterno.use_id}}</td>
+         
           <td>{{usuarioexterno.per_id}}</td>
           <td>{{usuarioexterno.per_nombres}}</td>
           <td>{{usuarioexterno.per_apellidos}}</td>
@@ -161,7 +171,7 @@
           <td>
             <button pButton pRipple icon="pi pi-pencil" style="height: 2.5rem; width: 2.5rem;"
               class="p-button-rounded p-button-success mr-1" data-toggle="modal" data-target="#actualizarUsuarioExterno"
-              (click)="infoUpdateUsuarioExterno(usuarioexterno)"></button>
+              (click)="getdataUsuarioExterno(usuarioexterno.per_id)"></button>
 
             <button pButton pRipple type="button" icon="pi pi-trash" class="p-button-rounded p-button-danger"
               style="height: 2.5rem; width: 2.5rem;" (click)="eliminarUsuarioExterno(usuarioexterno.use_id)"></button>
@@ -183,20 +193,16 @@ probando
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Actualizar Usuario Externo</h5>
+            <h1 class="modal-title" id="exampleModalLabel">Actualizar Usuario Externo</h1>
             <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <form [formGroup]="form">
-              <div class="form-group">
-                <label>
-                  <h6>Id Usuario Externo:{{informacionUsuariosExternos.use_id}}</h6>
-                </label>
-              </div>
+            <form [formGroup]="formUEUpdate">
+              
 
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <div class="form-inline">
                   <div class="form-group mb-2">
                     <Label style="padding-right: 10px; font-weight: bold;">Cédula habitante: </Label>
@@ -207,27 +213,41 @@ probando
                     </select>
                   </div>
                 </div>
-              </div>
+              </div> -->
+
+              <!-- <div class="form-group">
+                <div class="form-inline">
+                  <div class="form-group mb-2">
+                    <Label style="padding-right: 10px; font-weight: bold;">Cédula habitante: </Label>
+                    <select name="Cédula" placeholder="Seleccione la cédula" formControlName="per_id"
+                      class="form-control">
+                      <option *ngFor="let persona of personas" value="{{persona.per_id}}">
+                        {{persona.per_id}} </option>
+                    </select>
+                  </div>
+                </div>
+              </div> -->
 
               <div class="form-group">
+                <label for="Nombres">Nombres</label>
                 <input type="text" name="Nombres" formControlName="per_nombres" class="form-control">
               </div>
-
+              <label for="Nombres">Apellidos</label>
               <div class="form-group">
                 <input type="text" name="Apellidos" formControlName="per_apellidos" class="form-control">
               </div>
-
+              <label for="Nombres">Fecha</label>
               <div class="form-group">
                 <input type="date" name="Fecha" formControlName="use_fecha" class="form-control">
               </div>
-
+              <label for="Nombres">Descripción</label>
               <div class="form-group">
                 <input type="text" name="Descripción" formControlName="use_descripcion" class="form-control">
               </div>
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" (click)="actualizarUsuarioExterno()"
+                <button type="button" class="btn btn-primary" (click)="actualizarUExterno(formUEUpdate)"
                   data-dismiss="modal">Actualizar</button>
               </div>
             </form>
