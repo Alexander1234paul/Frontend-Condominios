@@ -26,6 +26,10 @@ export class AlquilerService {
     const url = environment.base_url + `alquileres`
     return this.http.post(url, body)
   }
+  public postCreateAlquilervr(body: any) {
+    const url = environment.base_url + `alqv`
+    return this.http.post(url, body)
+  }
 
   public putUpdateAlquiler(body: any) {
     console.log(body)
@@ -43,6 +47,7 @@ export class AlquilerService {
   }
   public getPagoAlicuota(token: any) {
     const url = environment.base_url + `alicuota/` + token
+    console.log(url)
     return this.http.get(url)
   }
   public getPagoReservaciones(token: any) {
@@ -69,8 +74,31 @@ export class AlquilerService {
     const url = environment.base_url + `alquileru`
     return this.http.post(url, body)
   }
+  
   public postCreateAlquilerv(body: any) {
     const url = environment.base_url + `alquilerv`
     return this.http.post(url, body)
+  }
+
+
+  // MULTAS
+
+  public getTotalMulta(token:any) {
+    const url = environment.base_url + `totalmulta/`+token
+    return this.http.get(url)
+  }
+  public getDetMulta(token:any) {
+    const url = environment.base_url + `detmulta/`+token
+    console.log(url)
+    return this.http.get(url)
+  }
+
+
+  //USER
+  getUser(token: any) {
+    // alert(form)
+    let direccion =environment.base_url + "getUser/" + token;
+    // alert(direccion)
+    return this.http.get(direccion);
   }
 }

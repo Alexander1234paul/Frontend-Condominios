@@ -71,7 +71,7 @@
                 <td>
                     {{i.alq_total}}
                 </td>
-                <td><a class="btn btn-success" data-toggle="modal" data-target="#actualizarRol"
+                <td><a class="btn btn-info" data-toggle="modal" data-target="#actualizarRol"
                         (click)="getDataAlquiler(i.alq_id)">
 
                         <i class="fas fa-edit"></i>
@@ -85,7 +85,7 @@
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h1 class="modal-title" id="exampleModalLabel">Actualizar Rol Residente</h1>
+                                    <h1 class="modal-title" id="exampleModalLabel">Actualizar</h1>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -110,8 +110,10 @@
                                         </div>
                                         <div class="form_group"><label for="">Fecha</label></div>
                                         <div class="form-group">
+
                                             <input type="date" formControlName="alq_fecha"
                                                 placeholder="Ingrese sus apellidos" class="form-control">
+
                                         </div>
                                         <div class="form_group"><label for="">Hora de inicio</label></div>
                                         <div class="form-group">
@@ -181,27 +183,34 @@
                             formControlName="res_id" placeholder="Seleccione el condómino" optionValue="res_id"
                             [filter]="true" [style]="{  'width':'460px','background-color': '#f1f1f1' }"></p-dropdown>
                     </div>
-                    <div class="form_group"><label for="">Fecha</label></div>
+
                     <div class="form-group">
-                        <input type="date" formControlName="alq_fecha" placeholder="Ingrese sus apellidos"
-                            class="form-control">
-                    </div>
-                    <div class="form_group"><label for="">Hora de inicio</label></div>
-                    <div class="form-group">
-                        <input type="time" formControlName="alq_hora_inicio" placeholder="Inngrese hora de inicio"
-                            class="form-control">
-                    </div>
-                    <div class="form_group"><label for="">Hora de fin</label></div>
-                    <div class="form-group">
-                        <input type="time" formControlName="alq_hora_fin" placeholder="Ingrese sus nombres"
-                            class="form-control">
+                        <div class="form-floating mb-3">
+
+                            <input type="date" formControlName="alq_fecha" placeholder="Ingrese sus apellidos"
+                                class="form-control">
+                            <label for="ali_costo">Fecha </label>
+                        </div>
                     </div>
 
-                    <div class="form_group"><label for="">Precio total</label></div>
+
                     <div class="form-group">
-                        <input type="number" formControlName="alq_total" placeholder="Ingrese el total"
-                            class="form-control">
+                        <div class="form-floating mb-3">
+                            <input type="time" formControlName="alq_hora_inicio" placeholder="Inngrese hora de inicio"
+                                class="form-control">
+                            <label for="ali_costo">Hora de inicio </label>
+                        </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="form-floating mb-3">
+                            <input type="time" formControlName="alq_hora_fin" placeholder="Ingrese sus nombres"
+                                class="form-control">
+                            <label for="ali_costo">Hora de fin </label>
+                        </div>
+                    </div>
+
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal"

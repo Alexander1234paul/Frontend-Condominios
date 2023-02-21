@@ -132,10 +132,11 @@
                                                         value="{{informacionVehiculos.veh_color}}"
                                                         class="form-control">
                                                 </div>
-                                                <div class="form-group">
-                                                    <input type="text" name="Residente del vehículo" formControlName="txtres"
-                                                        value="{{informacionVehiculos.res_id}}"
-                                                        class="form-control">
+                                                <div class="form-group" style="text-align: center;justify-content: center;">
+                                                    <p-dropdown [options]="residentes" [(ngModel)]="selectedOption"
+                                                        optionLabel="per_nombres" formControlName="txtresidente"
+                                                        placeholder="Seleccione el residente" optionValue="res_id"
+                                                        [filter]="true"></p-dropdown>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"

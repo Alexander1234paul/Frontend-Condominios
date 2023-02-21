@@ -38,9 +38,10 @@ import { IndenmizacionComponent } from './components/indenmizacion/indenmizacion
 import { EditalicuotaComponent } from './components/editalicuota/editalicuota.component';
 import { AlicuotaComponent } from './components/alicuota/alicuota.component';
 import { AsignacionPagosComponent } from './components/asignacion-pagos/asignacion-pagos.component';
+import { SubSeguridadComponent } from './components/sub-seguridad/sub-seguridad.component';
 
 const routes: Routes = [
-  { path: "", redirectTo: "login", pathMatch: "full" },
+  { path: "", redirectTo: "main", pathMatch: "full" },
   { path: "login", component: LoginComponent },
   { path: "monto", component: MontoComponent },
   { path: "indenmizacion", component: IndenmizacionComponent },
@@ -53,12 +54,13 @@ const routes: Routes = [
   { path: "alicuota", component: AlicuotaComponent },
   { path: "footer", component: FooterComponent },
   { path: "residente", component: ResidenteComponent, canActivate: [UserGuardGuard] },
-  { path: "main", component: MainComponent , canActivate: [UserGuardGuard]},
+  { path: "main", component: MainComponent, canActivate: [UserGuardGuard] },
   {
     path: "administracion", component: AdministracionComponent, children: [
       {
         path: "Habitantes", component: CondominoComponent, children: [
           { path: "Habitante", component: ResidenteComponent },
+          { path: "departamento", component: DepartamentoComponent },
 
         ]
       }, {
@@ -72,11 +74,11 @@ const routes: Routes = [
       , {
         path: "pagos", component: AsignacionPagosComponent, children: [
           { path: "editAlicuota", component: EditalicuotaComponent },
-          { path: "detallePago", component: DetallePagoComponent }
+          { path: "monto", component: MontoComponent }
 
         ]
       }
-    ]
+    ], canActivate: [UserGuardGuard]
   },
   {
     path: "contabilidad", component: ContabilidadComponent, children: [
@@ -93,7 +95,7 @@ const routes: Routes = [
         ]
       }
 
-    ]
+    ], canActivate: [UserGuardGuard]
   },
   {
     path: "reservaciones", component: ReservacionesComponent, children: [
@@ -111,21 +113,30 @@ const routes: Routes = [
           path: "subAlquiler", component: SubAlquilerComponent
         }]
       }
-    ]
+    ], canActivate: [UserGuardGuard]
   },
   {
-    path: "seguridad", component: SeguridadComponent, children: [{
-      path: "usuarioE", component: UsuarioexternoComponent
-    }]
+    path: "seguridad", component: SeguridadComponent, children: [
+      {
+        path: "sub", component: SubSeguridadComponent, children:
+          [{
+            path: "UsuarioE", component: UsuarioexternoComponent
+          },
+          {
+            path: "vehiculo", component: VehiculoComponent
+          }]
+      }
+
+    ], canActivate: [UserGuardGuard]
   },
   {
     path: "usuarios", component: UsuariosComponent, children: [
       { path: "cuentasPendientes", component: CuentasPendientesComponent },
       { path: "reservaciones", component: MovimientoContableComponent }
-    ]
+    ], canActivate: [UserGuardGuard]
   },
   { path: "bien", component: BienComponent },
-  {path: "usuarioE", component: UsuarioexternoComponent}
+  { path: "usuarioE", component: UsuarioexternoComponent }
 
 ];
 

@@ -23,7 +23,9 @@
         </div>
 
         <div class="container__categories" style="border-top: solid 1px;">
-            <a href="/contabilidad" class="card">
+
+            <a href="/contabilidad" class="card"
+                [ngClass]="{'d-none':userLogeado=='Condómino' || userLogeado === 'Guardía' || userLogeado === 'Secretario'}">
                 <div class="content">
                     <!-- <i  class=""></i> -->
                     <i style="height: 120px;width: 120px;" class="fa-solid fa-receipt"></i>
@@ -35,7 +37,8 @@
                 </div>
 
             </a>
-            <a href="/reservaciones" class="card">
+            <a href="/reservaciones" class="card"
+                [ngClass]="{'d-none':userLogeado=='Condómino' || userLogeado === 'Guardía' || userLogeado === 'Tesorero' }">
                 <div class="content">
 
                     <i class='fa-solid fa-calendar' style="height: 120px;width: 120px;"></i>
@@ -46,7 +49,8 @@
                 </div>
 
             </a>
-            <a href="/usuarios/cuentasPendientes" class="card">
+            <a href="/usuarios/cuentasPendientes" class="card"
+                [ngClass]="{'d-none': userLogeado === 'Guardía' }">
                 <div class="content">
                     <i style="height: 120px;width: 120px;" class="fas fa-user-friends"></i>
                 </div>
@@ -56,9 +60,10 @@
                 </div>
 
             </a>
-            <a href="/administracion" class="card">
+            <a href="/administracion" class="card"
+                [ngClass]="{'d-none':userLogeado=='Condómino' || userLogeado === 'Guardía' || userLogeado === 'Tesorero'  || userLogeado === 'Secretario'}">
                 <div class="content">
-                    <i style="height: 120px;width: 120px;" class="fas fa-air-freshener"></i>
+                    <i style="height: 120px;width: 120px;" class="fas fa-desktop"></i>
                 </div>
                 <div class="title">
                     <p>Administración</p>
@@ -66,9 +71,10 @@
                 </div>
 
             </a>
-            <a href="/seguridad" class="card">
+            <a href="/seguridad/sub/UsuarioE" class="card"
+                [ngClass]="{'d-none':userLogeado=='Condómino' || userLogeado === 'Tesorero'  || userLogeado === 'Secretario'}">
                 <div class="content">
-                    <i style="height: 120px;width: 120px;" class="fas fa-air-freshener"></i>
+                    <i style="height: 120px;width: 120px;" class="fas fa-home"></i>
                 </div>
                 <div class="title">
                     <p>Seguridad</p>

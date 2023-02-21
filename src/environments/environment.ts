@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  base_url: 'https://condominio-api.up.railway.app/'
+  base_url: 'backend-condominios-production.up.railway.app/'
 };
 
 /*

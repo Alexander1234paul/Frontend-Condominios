@@ -29,7 +29,7 @@ export class SubAlquilerComponent implements OnInit {
     alq_fecha: new FormControl('', Validators.required),
     alq_hora_inicio: new FormControl('', Validators.required),
     alq_hora_fin: new FormControl('', Validators.required),
-    alq_total: new FormControl('', Validators.required),
+
 
   });
 
@@ -86,13 +86,34 @@ export class SubAlquilerComponent implements OnInit {
   }
   createAlquiler(form: any) {
     if (this.formAlquiler.valid) {
-      this.aquilerServices.postCreateAlquiler(form).subscribe((data: any) => {
+      this.aquilerServices.postCreateAlquilervr(form).subscribe((data: any) => {
         if (data.status == "Error") {
           this.showModalMore('center', 'info', data.resp, false, 2000);
         } else {
-          this.showModalMore('center', 'success', data.resp, false, 2000);
-          this.showAllAlquileres();
-          this.formAlquiler.reset();
+          Swal.fire({
+            title: data.resp,
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Continuar',
+            denyButtonText: `No continuar`,
+          }).then((result) => {
+
+            if (result.isConfirmed) {
+              this.aquilerServices.postCreateAlquiler(form).subscribe((data: any) => {
+                if (data.status == "Error") {
+                  this.showModalMore('center', 'info', data.resp, false, 3000);
+                } else {
+                  this.showAllAlquileres();
+                  this.formAlquiler.reset();
+                  this.showModalMore('center', 'success', data.resp, false, 2000);
+                }
+              })
+
+            } else if (result.isDenied) {
+              this.formAlquiler.reset();
+              this.ShowModal('Información', 'Proceso finalizado', 'info');
+            }
+          })
         }
       })
     } else {

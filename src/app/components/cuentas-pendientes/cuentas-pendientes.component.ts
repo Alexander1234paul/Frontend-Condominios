@@ -3,6 +3,7 @@ import { ResidenteService } from '../../servicios/residente/residente.service';
 import { AlquilerService } from '../../servicios/alquiler/alquiler.service';
 import { ModelDetAlicuotaI } from '../../modelos/modelo.detAli';
 import { ModelResServicioaI } from '../../modelos/modelo.resservicio';
+import { ModelDetMultasI } from '../../modelos/modelo.detMultas';
 
 @Component({
   selector: 'app-cuentas-pendientes',
@@ -13,6 +14,7 @@ export class CuentasPendientesComponent implements OnInit {
   // Alicuota
   detAlicuota: ModelDetAlicuotaI[] = [];
   resServicio: ModelResServicioaI[] = [];
+  detMultas: ModelDetMultasI[] = [];
 
 
   alicuota: any;
@@ -29,33 +31,74 @@ export class CuentasPendientesComponent implements OnInit {
   colorEstadoReservacionA: boolean = false;
   colorEstadoReservacionB: boolean = false;
   colorEstadoReservacionC: boolean = false;
+
+
+  //MULTAS
+
+  multa: any;
+  estadoMulta: any;
+  colorEstadoMultasA: boolean = false;
+  colorEstadoMultasB: boolean = false;
+  colorEstadoMultasC: boolean = false;
+
   ngOnInit(): void {
     this.showAlicuota()
     this.showReservaciones()
     this.getresServicio();
     this.getresServicioS()
+    this.showMulta()
   }
   constructor(private alquilerService: AlquilerService) { }
+
+  showMulta() {
+    const token = localStorage.getItem("tokenAC")
+    this.alquilerService.getTotalMulta(token).subscribe((data: any) => {
+     
+      
+      this.colorEstadoMultasC = true;
+      this.colorEstadoMultasB = false;
+      this.colorEstadoMultasA = false;
+      if (data.total == null) {
+        
+        this.multa = 0
+        this.estadoMulta = "SIN NOVEDAD"
+      } else {
+     
+          this.multa = data.total
+          this.estadoMulta = "PENDIENTE"
+          this.colorEstadoMultasB = true;
+          this.colorEstadoMultasA = false;
+          this.colorEstadoMultasC = false;
+       
+      }
+
+    })
+  }
 
   showAlicuota() {
     const token = localStorage.getItem("tokenAC")
     this.alquilerService.getPagoAlicuota(token).subscribe((data: any) => {
-      this.alicuota = data.total
-      this.idalicuota = data.ali_id;
+    
+      
       this.colorEstadoAlicuotaC = true;
       this.colorEstadoAlicuotaB = false;
       this.colorEstadoAlicuotaA = false;
       if (data == null) {
-        this.reservaciones = 0
+        // this.reservaciones = 0
+        this.alicuota = 0
         this.estadoAlicuota = "SIN NOVEDAD"
       } else {
         if (data.dpag_estado) {
           this.estadoAlicuota = "CANCELADO"
+          this.alicuota = data.total
+          this.idalicuota = data.ali_id;
           this.colorEstadoAlicuotaA = true;
           this.colorEstadoAlicuotaB = false;
           this.colorEstadoAlicuotaC = false;
         } else {
           this.estadoAlicuota = "PENDIENTE"
+          this.alicuota = data.total
+          this.idalicuota = data.ali_id;
           this.colorEstadoAlicuotaB = true;
           this.colorEstadoAlicuotaA = false;
           this.colorEstadoAlicuotaC = false;
@@ -68,7 +111,7 @@ export class CuentasPendientesComponent implements OnInit {
   showReservaciones() {
     const token = localStorage.getItem("tokenAC")
     this.alquilerService.getPagoReservaciones(token).subscribe((data: any) => {
-      console.log(data)
+      // console.log(data)
 
       if (data == null) {
         this.reservaciones = 0
@@ -105,6 +148,19 @@ export class CuentasPendientesComponent implements OnInit {
       (error) => console.log(error)
     );
   }
+
+  getDataMultas() {
+    console.log("haceidno esto")
+    const token = localStorage.getItem("tokenAC")
+    this.alquilerService.getDetMulta(token).subscribe(
+      (detMultas: any) => {
+        // console.log(detMultas)
+        this.detMultas = detMultas
+
+      },
+      (error) => console.log(error)
+    );
+  }
   getresServicio() {
     this.alquilerService.getResServicios().subscribe(
       (resServicio: any) => {
@@ -124,9 +180,7 @@ export class CuentasPendientesComponent implements OnInit {
       (error) => console.log(error)
     );
   }
-  // getDataAlicuota() {
-  //   console.log("asd",this.idalicuota)
-  // }
+  
 
 
 
