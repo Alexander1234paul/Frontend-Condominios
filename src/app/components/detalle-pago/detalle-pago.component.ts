@@ -91,24 +91,41 @@ export class DetallePagoComponent implements OnInit {
   }
 
   public crearDetallePago() {
-    const currentDate = new Date();
-    this.detallePagoService
-      .postCreateDetPago({
-        fecha: currentDate.toISOString(),
-      })
-      .subscribe((res) => {
-        console.log('Lista Insertada');
-      });
-    this.form.reset();
-    this.recargar();
     Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'El detalle del pago se insertó correctamente',
-      showConfirmButton: false,
-      timer: 1500
-    })
+      title: '¿Está seguro de que desea crear los detalles de pago?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, crear'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.detallePagoService
+          .postCreateDetPago({
+            fecha: this.form.value.txtFecha
+          })
+          .subscribe((res) => {
+            console.log('Lista Insertada');
+            Swal.fire({
+              title: 'Detalles de pago creados',
+              text: 'Los detalles de pago se han creado correctamente.',
+              icon: 'success'
+            });
+            this.form.reset();
+            this.recargar();
+          }, (error) => {
+            console.error(error);
+            Swal.fire({
+              title: 'Error al crear detalles de pago',
+              text: 'Ha ocurrido un error al crear los detalles de pago. Por favor, inténtelo de nuevo.',
+              icon: 'error'
+            });
+          });
+      }
+    });
   }
+  
   public recargar() {
     this.getDetallePago();
     this.getAllPagos();
