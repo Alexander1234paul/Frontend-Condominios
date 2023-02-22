@@ -6,6 +6,7 @@ import { Pago, Alicuota, PagoById } from 'src/app/modelos/pago/pago.module';
 import { AlicuotaM } from 'src/app/modelos/pago/alicuota.module';
 import { CuotaM } from 'src/app/modelos/pago/cuota.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editalicuota',
@@ -82,23 +83,79 @@ export class EditalicuotaComponent implements OnInit {
   }
 
   submitForm() {
-    this.detallepagoService
-      .postCreateCuota(this.alicuota)
-      .subscribe((response) => {
-        console.log('Nueva Cuota insertada');
-      });
-  }
-
-  submitForm2() {
-    console.log(this.alicuota.pagos);
-    this.detallepagoService
-    .postPagoById({
-      ali_id: this.aliId,
-      pagos: this.alicuota.pagos
-    }).subscribe((response) => {
-      console.log('Nueva Cuota insertada');
+    Swal.fire({
+      title: '¿Desea agregar la cuota?',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No',
+      icon: 'question'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.detallepagoService.postCreateCuota(this.alicuota)
+          .subscribe((response) => {
+            Swal.fire({
+              icon: 'success',
+              title: '¡Alicuota agregada!',
+              showConfirmButton: false,
+              timer: 1500
+            });
+            console.log('Nueva Cuota insertada');
+            this.cargarAlicuota(); 
+            this.cargarCuota()// función que recarga la API
+          }, (error) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error al agregar alicuota',
+              text: error.message
+            });
+            console.log('Error al insertar nueva Cuota', error);
+          });
+      }
     });
   }
+  
+  
+
+  submitForm2() {
+    // Display a SweetAlert confirmation dialog
+    Swal.fire({
+      title: '¿Está seguro de que desea agregar más pagos?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, agregar pagos',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // If the user confirms, send the request to add the payments
+        this.detallepagoService.postPagoById({
+          ali_id: this.aliId,
+          pagos: this.alicuota.pagos
+        }).subscribe(
+          (response) => {
+            // Display a success notification message
+            Swal.fire({
+              title: 'Pago agregado correctamente',
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 1500
+            }).then(() => {
+              window.location.reload();
+            });
+          },
+          (error) => {
+            // Display an error notification message
+            Swal.fire({
+              title: 'Error al agregar el pago',
+              text: error.message,
+              icon: 'error',
+              confirmButtonText: 'Aceptar'
+            });
+          }
+        );
+      }
+    });
+  }
+  
 
 
   public cargarAlicuota() {
@@ -138,40 +195,147 @@ export class EditalicuotaComponent implements OnInit {
       (error) => console.warn(error)
     );
   }
+
   public actualizarPago(pag_id: number, pag_descripcion: string, pag_costo: number) {
-    this.detallepagoService.putUpdatePago({
-      pag_id: pag_id,
-      pag_descripcion: pag_descripcion,
-      pag_costo: pag_costo,
-    }).subscribe(res=>{
-      
-    })
-    console.log('Datos actualizados')
+    Swal.fire({
+      title: '¿Está seguro de que desea actualizar este pago?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, actualizar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.detallepagoService.putUpdatePago({
+          pag_id: pag_id,
+          pag_descripcion: pag_descripcion,
+          pag_costo: pag_costo,
+        }).subscribe(res=>{
+          Swal.fire({
+            title: 'Pago actualizado',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => {
+          });
+        }, error => {
+          Swal.fire({
+            title: 'Error al actualizar el pago',
+            text: error.message,
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
+        });
+      }
+    });
   }
+  
+
   public actualizarAlicuota(ali_id: number, ali_descripcion: string){
-    this.detallepagoService.putUpdateAlicuota({
-      ali_id: ali_id,
-      ali_descripcion: ali_descripcion,
-    }).subscribe(res=>{
-      
-    })
-    console.log('Alicuota actualizados')
+    Swal.fire({
+      title: '¿Está seguro de que desea actualizar la descripción de la alicuota?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, actualizar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.detallepagoService.putUpdateAlicuota({
+          ali_id: ali_id,
+          ali_descripcion: ali_descripcion,
+        }).subscribe(res=>{
+          Swal.fire({
+            title: 'Alicuota actualizada',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => {
+            window.location.reload();
+          });
+        }, error => {
+          Swal.fire({
+            title: 'Error al actualizar la alicuota',
+            text: error.message,
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
+        });
+      }
+    });
+    this.cargarAlicuota();
+    this.cargarCuota();
   }
+  
 
   public deletePago(pag_id: number, ali_id: number) {
-    this.detallepagoService.deletePago({
-      pag_id: pag_id,
-      ali_id: ali_id
-    }).subscribe(res=>{
-      
-    })
-    console.log('Datos Eliminados')
+    Swal.fire({
+      title: '¿Está seguro de que desea eliminar este pago?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.detallepagoService.deletePago({
+          pag_id: pag_id,
+          ali_id: ali_id
+        }).subscribe(res=>{
+          Swal.fire({
+            title: 'Pago eliminado',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => {
+          });
+        }, error => {
+          Swal.fire({
+            title: 'Error al eliminar el pago',
+            text: error.message,
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
+        });
+      }
+    });
   }
+  
 
   public deleteAlicuota(ali_id: number) {
-    this.detallepagoService.deleteAlicuota({ali_id: ali_id}).subscribe(res=>{
-      
-    })
-    console.log('Datos Eliminados')
+    Swal.fire({
+      title: '¿Está seguro de que desea eliminar esta alicuota?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.detallepagoService.deleteAlicuota({ali_id: ali_id}).subscribe(res=>{
+          Swal.fire({
+            title: 'Alicuota eliminada',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => {
+            window.location.reload();
+          });
+        }, error => {
+          Swal.fire({
+            title: 'Error al eliminar la alicuota',
+            text: error.message,
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
+        });
+      }
+    });
+    this.cargarAlicuota();
+    this.cargarCuota();
   }
 }
