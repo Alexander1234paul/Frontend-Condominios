@@ -68,6 +68,8 @@ import { catchError, Observable, throwError } from 'rxjs';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 
+import { MatNativeDateModule } from '@angular/material/core';
+
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {
 
@@ -157,6 +159,7 @@ export class ErrorInterceptorService implements HttpInterceptor {
   imports: [
     
     BrowserModule,
+    MatNativeDateModule,
     [MatDatepickerModule],
     AppRoutingModule,
     HttpClientModule,

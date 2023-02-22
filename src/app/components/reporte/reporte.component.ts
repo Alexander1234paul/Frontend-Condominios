@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { reporteService } from 'src/app/servicios/reporte/reporte.service';
 import { ModelReporte } from 'src/app/modelos/Contabilidad/reporte.module';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,6 +16,30 @@ export class ReporteComponent {
   exportColumns: any[] = [];
   public form!: FormGroup;
 
+  formReporte = new FormGroup({
+    rep_anio: new FormControl('', Validators.required),
+    rep_total_gastos: new FormControl('', Validators.required),
+    rep_total_multas: new FormControl('', Validators.required),
+    rep_total_alquileres: new FormControl(''),
+    rep_total_cuotas: new FormControl(''),
+  }
+  );
+
+  public getCuotas() {
+
+    this.reporteService.getCuotas(this.selectedYear).subscribe(
+      (Reporte: any) => {
+        this.formReporte.setValue({
+          rep_anio: this.selectedYear,
+          rep_total_gastos: Reporte.servicios,
+          rep_total_multas: Reporte.multas,
+          rep_total_alquileres: Reporte.reservaciones,
+          rep_total_cuotas: Reporte.cuotas,
+        })
+      },
+      (error) => console.warn(error)
+    )
+  }
   public informacionReportes = {
     rep_id: '',
     rep_total_cuotas: '',
@@ -37,6 +63,8 @@ export class ReporteComponent {
 
   }
 
+
+  selectedYear: any;
   // imprimirReporte() {import('jspdf').then(jsPDF => {
   //   import("jspdf-autotable").then(x => {
   //     const doc = new jsPDF.default();
@@ -62,28 +90,47 @@ export class ReporteComponent {
     )
   }
 
-  public crearReporte() {
-    this.reporteService.postCreatereporte({
-      rep_id: this.form.value.txtid,
-      rep_total_cuotas: this.form.value.txtcuotas,
-      rep_total_alquileres: this.form.value.txtalquileres,
-      rep_total_multas: this.form.value.txtmultas,
-      res_id: this.form.value.txtgastos
-    }).subscribe(res => {
-      console.log('Nuevo reporte insertado')
-      this.form.reset();
-      this.cargarReportes()
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'El reporte se insertó correctamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
+  public crearReporte(form: any) {
+    this.reporteService.postCreatereporte(
+      form
+    ).subscribe((data: any) => {
+      if (data.status == "Error") {
+        this.showModalMore('center', 'info', data.resp, false, 2000);
+      } else {
+        this.showModalMore('center', 'success', data.resp, false, 2000);
+        this.cargarReportes();
+      }
+
     })
+
+    // subscribe(res => {
+    //   console.log('Nuevo reporte insertado')
+    //   this.form.reset();
+    //   this.cargarReportes()
+    //   Swal.fire({
+    //     position: 'center',
+    //     icon: 'success',
+    //     title: 'El reporte se insertó correctamente',
+    //     showConfirmButton: false,
+    //     timer: 1500
+    //   })
+    // })
 
   }
 
+  
+  ShowModal(title: any, infor: any, tipo: any) {
+    Swal.fire(title, infor, tipo);
+  }
+  showModalMore(position: any, icon: any, title: any, showConfirmButton: any, timer: any) {
+    Swal.fire({
+      position: position,
+      icon: icon,
+      title: title,
+      showConfirmButton: showConfirmButton,
+      timer: timer
+    });
+  }
   public eliminarReporte(rep_id: any) {
     Swal.fire({
       title: '¿Está seguro de borrar?',
@@ -129,21 +176,13 @@ export class ReporteComponent {
 
   }
 
-  public getCuotas(dpag_fecha: any) {
-    this.reporteService.getCuotas(dpag_fecha).subscribe(
-      (Reporte: any) => {
-        this.Reportes = Reporte
-        console.log(this.Reportes)
-      },
-      (error) => console.warn(error)
-    )
-  }
+
 
   public getAlquileres(alq_fecha: any) {
     this.reporteService.getAlquileres(alq_fecha).subscribe(
       (Reporte: any) => {
         this.Reportes = Reporte
-        console.log(this.Reportes)
+        // console.log(this.Reportes)
       },
       (error) => console.warn(error)
     )
@@ -153,7 +192,7 @@ export class ReporteComponent {
     this.reporteService.getMultas(mul_fecha).subscribe(
       (Reporte: any) => {
         this.Reportes = Reporte
-        console.log(this.Reportes)
+        // console.log(this.Reportes)
       },
       (error) => console.warn(error)
     )
@@ -163,7 +202,7 @@ export class ReporteComponent {
     this.reporteService.getGastos(ser_fecha).subscribe(
       (Reporte: any) => {
         this.Reportes = Reporte
-        console.log(this.Reportes)
+        // console.log(this.Reportes)
       },
       (error) => console.warn(error)
     )

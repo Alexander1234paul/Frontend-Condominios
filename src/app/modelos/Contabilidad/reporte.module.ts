@@ -4,4 +4,5 @@ export interface ModelReporte{
     rep_total_alquileres:number;
     rep_total_multas:number;
     rep_total_gastos:number;
+    rep_anio:number;
 }

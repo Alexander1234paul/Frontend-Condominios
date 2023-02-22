@@ -33,8 +33,9 @@ export class reporteService {
   }
 
   public getCuotas(ind_id:any){
+    
     const url= this.url+`reportecuota/`+ind_id
-    return this.http.delete(url)
+    return this.http.get(url)
   }
   public getAlquileres(ind_id:any){
     const url= this.url+`reportealquiler/`+ind_id
@@ -42,6 +43,7 @@ export class reporteService {
   }
   
   public getMultas(ind_id:any){
+    alert("azsdads")
     const url= this.url+`reportemulta/`+ind_id
     return this.http.get(url)
   }

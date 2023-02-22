@@ -3,152 +3,167 @@
         <a class="nav-link active" [routerLink]="['/contabilidad/reporte/subReporte']">Reporte</a>
     </li>
 </ul>
-    <div class="content-body">
+<div class="content-body">
 
-        <div class="heading_container heading_center" style="background-color: #4C4C6D; height: 150px;padding-top:2px;">
-            <h2 style="text-align: center; padding-top: 50px; color: white;font-style:italic;font-size: 70px;">
-                Reportes
-            </h2>
-        </div>
-        <div class="row">
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-header" >
-                        <h2 style="text-align: center; padding-top: 20px;"> Administrador de Reportes</h2>
-                    </div>
-                    <div class="card-body">
-                        <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" style="background-color: #85C1E9; border-color: #4C4C6D; color: white; font-size: large;"
-                            data-target="#crearCuota">Nuevo Reportes</button>
-                        <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" style="background-color: #85C1E9; border-color: #4C4C6D; color: white; font-size: large;"
-                            >Imprimir Reportes</button>
-                    </div>
-                    <div class="modal fade" id="crearCuota" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Crear nuevo Reportes</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form [formGroup]="form">
-                                        <div class="form-group">
-                                            <input type="text" name="Cuotas" formControlName="txtcuotas"
-                                                placeholder="Insertar un total de cuotas" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" name="Alquileres" formControlName="txtalquileres"
-                                                placeholder="Insertar un total de alquileres" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" name="Multas" formControlName="txtmultas"
-                                                placeholder="Insertar un Total de multas" class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" name="Gastos" formControlName="txtgastos"
-                                                placeholder="Insertar un Total de gastos" class="form-control">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Cerrar</button>
-                                            <button type="button" class="btn btn-primary" (click)="crearReporte()"
-                                                data-dismiss="modal">Crear</button>
-                                        </div>
-                                    </form>
-    
-                                </div>
+    <div class="heading_container heading_center" style="background-color: #4C4C6D; height: 150px;padding-top:2px;">
+        <h2 style="text-align: center; padding-top: 50px; color: white;font-style:italic;font-size: 70px;">
+            Reportes
+        </h2>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    <h2 style="text-align: center; padding-top: 20px;"> Administrador de Reportes</h2>
+                </div>
+                <div class="card-body">
+                    <div class="" style="display: flex;justify-content: center;"> <mat-form-field>
+                            <input matInput type="number" placeholder="Año" [(ngModel)]="selectedYear">
+                        </mat-form-field></div>
+
+                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" (click)="getCuotas()"
+                        style="background-color: #85C1E9; border-color: #4C4C6D; color: white; font-size: large;"
+                        data-target="#crearCuota">Nuevo Reporte</button>
+                    <!-- <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" style="background-color: #85C1E9; border-color: #4C4C6D; color: white; font-size: large;"
+                            >Imprimir Reportes</button> -->
+                </div>
+                <div class="modal fade" id="crearCuota" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title" id="exampleModalLabel">Detalle nuevo Reporte</h1>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form [formGroup]="formReporte">
+                                    <div class="form-group">
+                                        <h3>Total gastos</h3>
+                                        <input [disabled]="true"  formControlName="rep_total_gastos"
+                                            class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <h3>Total multas</h3>
+                                        <input [disabled]="true"  type="text" name="Alquileres" formControlName="rep_total_multas"
+                                            class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <h3>Total alquileres</h3>
+                                        <input  [disabled]="true" type="text" name="Multas" formControlName="rep_total_alquileres"
+                                            class="form-control" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <h3>Total cuotas</h3>
+                                        <input [disabled]="true" type="text" name="Gastos" formControlName="rep_total_cuotas"
+                                            class="form-control" readonly>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary" (click)="crearReporte(formReporte.value)"
+                                            data-dismiss="modal">Crear</button>
+                                    </div>
+                                </form>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="Reports" class="col-md-12">
-                <table class="table table-bordered table-hover bg-white">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Total Cuotas</th>
-                            <th>Total Alquileres</th>
-                            <th>Total Multas</th>
-                            <th>Total Gastos</th>
-                            <th class="d-flex justify-content-center">Opciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let i of Reportes">
-                            <td>
-                                {{i.rep_id}}
-                            </td>
-                            <td>
-                                {{i.rep_total_cuotas}}
-                            </td>
-                            <td>
-                                {{i.rep_total_alquileres}}
-                            </td>
-                            <td>
-                                {{i.rep_total_multas}}
-                            </td>
-                            <td>
-                                {{i.rep_total_gastos}}
-                            </td>
-                            <td class="d-flex justify-content-center">
-                                <a class="btn btn-danger" (click)="eliminarReporte(i.rep_id)">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                                <a class="btn btn-success" data-toggle="modal" data-target="#actualizarReporte"
-                                    (click)="infoUpdateReporte(i.rep_id,i.rep_total_cuotas,i.rep_total_alquileres,i.rep_total_multas,i.rep_total_gastos)">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-    
-                                <div class="modal fade" id="actualizarReporte" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Actualizar Reporte</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form [formGroup]="form">
-                                                    <div class="form-group">
-                                                        <label>
-                                                            <h6>ID Reportes:{{informacionReportes.rep_id}}</h6>
-                                                        </label>
-                                                        <input type="text" name="Total de cuotas"
-                                                            formControlName="txtalquileres"
-                                                            value="{{informacionReportes.rep_total_cuotas}}"
-                                                            class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" name="Total de multas" formControlName="txtmultas"
-                                                            value="{{informacionReportes.rep_total_alquileres}}"
-                                                            class="form-control">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input type="text" name="Total de gastos" formControlName="txtgastos"
-                                                            value="{{informacionReportes.rep_total_multas}}"
-                                                            class="form-control">
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Cerrar</button>
-                                                        <button type="button" class="btn btn-primary"
-                                                            (click)="actualizarReporte(informacionReportes.rep_id)"
-                                                            data-dismiss="modal">Actualizar</button>
-                                                    </div>
-                                                </form>
-                                            </div>
+        </div>
+        <div id="Reports" class="col-md-12">
+            <table class="table table-bordered table-hover bg-white">
+                <thead>
+                    <tr>
+                        <!-- <th>ID</th> -->
+                        <th>Año</th>
+                        <th>Total Cuotas</th>
+                        <th>Total Alquileres</th>
+                        <th>Total Multas</th>
+                        <th>Total Gastos</th>
+                        <th class="d-flex justify-content-center">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of Reportes">
+                        <!-- <td>
+                            {{i.rep_id}}
+                        </td> -->
+                        <td>
+                            {{i.rep_anio}}
+                        </td>
+                        <td>
+                            {{i.rep_total_cuotas}}
+                        </td>
+                        <td>
+                            {{i.rep_total_alquileres}}
+                        </td>
+                        <td>
+                            {{i.rep_total_multas}}
+                        </td>
+                        <td>
+                            {{i.rep_total_gastos}}
+                        </td>
+                        <td class="d-flex justify-content-center">
+                            <a class="btn btn-danger" (click)="eliminarReporte(i.rep_id)">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                            <a class="btn btn-success" data-toggle="modal" data-target="#actualizarReporte"
+                                (click)="infoUpdateReporte(i.rep_id,i.rep_total_cuotas,i.rep_total_alquileres,i.rep_total_multas,i.rep_total_gastos)">
+                                <i class="fas fa-edit"></i>
+                            </a>
+
+                            <div class="modal fade" id="actualizarReporte" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Actualizar Reporte</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form [formGroup]="form">
+                                                <div class="form-group">
+                                                    <label>
+                                                        <h6>ID Reportes:{{informacionReportes.rep_id}}</h6>
+                                                    </label>
+                                                    <input type="text" name="Total de cuotas"
+                                                        formControlName="txtalquileres"
+                                                        value="{{informacionReportes.rep_total_cuotas}}"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="Total de multas"
+                                                        formControlName="txtmultas"
+                                                        value="{{informacionReportes.rep_total_alquileres}}"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" name="Total de gastos"
+                                                        formControlName="txtgastos"
+                                                        value="{{informacionReportes.rep_total_multas}}"
+                                                        class="form-control">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Cerrar</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                        (click)="actualizarReporte(informacionReportes.rep_id)"
+                                                        data-dismiss="modal">Actualizar</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
