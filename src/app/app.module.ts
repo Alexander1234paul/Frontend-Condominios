@@ -65,6 +65,8 @@ import { CommonModule, HashLocationStrategy, LocationStrategy } from '@angular/c
 import { MainComponent } from './components/main/main.component';
 import { SubSeguridadComponent } from './components/sub-seguridad/sub-seguridad.component';
 import { catchError, Observable, throwError } from 'rxjs';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
 
 @Injectable()
 export class TokenInterceptorService implements HttpInterceptor {

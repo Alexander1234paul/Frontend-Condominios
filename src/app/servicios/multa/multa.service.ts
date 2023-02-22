@@ -14,9 +14,19 @@ export class MultaService {
     return this.http.get(url)
   }
 
+  public getAllRes(){
+    const url = environment.base_url + `resmulta`
+    return this.http.get(url)
+  }
+
   public postCreateMulta(body: any) {
     const url = environment.base_url + `multa`
     return this.http.post(url, body)
+  }
+
+  public verMultas() {
+    const url = environment.base_url + `vmulta`
+    return this.http.get(url)
   }
 
   public putUpdateMulta(body: any) {
@@ -25,10 +35,11 @@ export class MultaService {
     return this.http.put(url, body)
   }
 
-  public putpagoMulta(body: any) {
-    console.log(body)
-    const url = environment.base_url + `multa/` + body.mul_id
-    return this.http.put(url, body)
+  public pagarMulta(body: any) {
+    
+    const url = environment.base_url + `multae/` + body
+    // alert(url)
+    return this.http.get(url)
   }
 
   public deleteMulta(mul_id: any) {

@@ -38,11 +38,13 @@
                     {{m.mul_total}}
                 </td>
                 <td>
-                    {{m.mul_fecha | date:"dd-MM-yyyy"}}
+                    {{m.mul_fecha | date:"MM-dd-yyyy"}}
                 </td>
-                <td>
-                    {{m.mul_estado}}
+                <td style="color: red;">
+                    <span *ngIf="m.mul_estado; else pendiente"> {{m.mul_estado}} </span>
+                    <ng-template #pendiente> PENDIENTE </ng-template>
                 </td>
+                
                 <td class="d-flex justify-content-center">
                     <a class="btn btn-danger" (click)="deleteMulta(m.mul_id)">
                         <i class="fas fa-trash-alt"></i>
@@ -71,12 +73,14 @@
             </div>
             <div class="modal-body">
                 <form [formGroup]="formMulta">
-                    <!-- <div class="form_group"><label for="">Bienes</label></div> -->
+                 
                     <div class="form-group" style="text-align: center;justify-content: center;">
-                        <p-dropdown [options]="residentes" [(ngModel)]="selectedOptionA"
-                            optionLabel="per_nombres" formControlName="res_id"
-                            placeholder="Seleccione el residente" optionValue="res_id"
-                            [filter]="true"></p-dropdown>
+                        <div class="form-group" style="text-align: center;justify-content: center;">
+                            <p-dropdown [options]="residentes" [(ngModel)]="selectedOptionA"
+                                optionLabel="residente" formControlName="res_id"
+                                placeholder="Seleccione el condómino" optionValue="res_id" [filter]="true"
+                                [style]="{  'width':'460px','background-color': '#f1f1f1' }"></p-dropdown>
+                        </div>
                     </div>
                     <div class="form_group"><label for="">Descripción de multa</label></div>
                     <div class="form-group">
@@ -88,7 +92,7 @@
                     
                     <div class="form_group"><label for="">Total</label></div>
                     <div class="form-group">
-                        <input type="text" formControlName="mul_estado" placeholder="Ingrese el total"
+                        <input type="text" formControlName="mul_total" placeholder="Ingrese el total"
                             class="form-control">
                     </div>
                     
