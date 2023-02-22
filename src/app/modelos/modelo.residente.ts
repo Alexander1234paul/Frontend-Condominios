@@ -1,5 +1,5 @@
 export interface ModelResidenteI {
-    per_id: string,
+    per_id: number,
     per_nombres: string,
     per_apellidos: string,
     rol_descripcion: string,
@@ -7,5 +7,5 @@ export interface ModelResidenteI {
     res_telefono: string,
     res_clave: string,
     res_usuario: string,
-    res_id:string
+    res_id:number
 }

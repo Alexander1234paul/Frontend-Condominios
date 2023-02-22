@@ -65,26 +65,35 @@ export class VehiculoComponent {
 
   public crearVehiculo(){
     this.vehiculoService.postCreateVehiculo({
-      veh_placa:this.form.value.txtplaca,
-      veh_marca:this.form.value.txtmarca,
-      veh_modelo:this.form.value.txtmodelo,
-      veh_color:this.form.value.txtcolor,
-      res_id:this.form.value.txtresidente
+        veh_placa:this.form.value.txtplaca,
+        veh_marca:this.form.value.txtmarca,
+        veh_modelo:this.form.value.txtmodelo,
+        veh_color:this.form.value.txtcolor,
+        res_id:this.form.value.txtresidente
     }).subscribe(res=>{
-      console.log('Nuevo vehículo insertado')
-      this.form.reset();
-    this.cargarVehiculos()
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'El vehículo se insertó correctamente',
-        showConfirmButton: false,
-        timer: 1500
-      })
-      
-    })
-    
-  }
+        console.log('Nuevo vehículo insertado')
+        this.form.reset();
+        this.cargarVehiculos();
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'El vehículo se insertó correctamente',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    }, error => {
+        console.error('Error al insertar el vehículo', error);
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'No se pudo insertar el vehículo',
+            text: 'Por favor, revise los datos y vuelva a intentarlo',
+            showConfirmButton: true,
+            confirmButtonText: 'Cerrar'
+        });
+    });
+}
+
 
   public eliminarVehiculo(veh_placa:any){
     Swal.fire({
@@ -116,7 +125,7 @@ export class VehiculoComponent {
       veh_marca:this.form.value.txtmarca,
       veh_modelo:this.form.value.txtmodelo,
       veh_color:this.form.value.txtcolor,
-      res_id:this.form.value.txtres
+      res_id:this.form.value.txtresidente
     }).subscribe(res=>{
       console.log('Datos del vehículo actualizados')
       this.cargarVehiculos()
@@ -127,8 +136,7 @@ export class VehiculoComponent {
         showConfirmButton: false,
         timer: 1500
       })
-    })
-    
+    })    
   }
 
   public infoUpdateVehiculo(veh_placa:any,veh_marca:any,veh_modelo:any,veh_color:any,res_id:any){
