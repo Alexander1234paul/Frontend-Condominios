@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TipoServicioService } from 'src/app/servicios/reservaciones/servicios/tipoServicio.service';
 import { ModelTipoServicio} from 'src/app/modelos/reservaciones/servicios/tipoServicio.module';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tipo-servicio',
@@ -39,32 +40,91 @@ export class TipoServicioComponent {
     )
   }
 
-  public crearTipoServicio(){
-    this.tipoServicioService.postCreateTipoServicio({
-      tser_descripcion:this.form.value.txtdescripcion,
-    }).subscribe(res=>{
-      this.form.reset();
-      this.cargarTipoServicio()
-      console.log('Nuevo Tipo Servicio insertado')
-    })
-    this.cargarTipoServicio()
-  }
+  public crearTipoServicio() {
+    Swal.fire({
+      title: '¿Está seguro de querer agregar la contratación?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, agregar',
+      cancelButtonText: 'No, cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.tipoServicioService.postCreateTipoServicio({
+          tser_descripcion: this.form.value.txtdescripcion,
+        }).subscribe(res => {
+          Swal.fire(
+            'Agregado!',
+            'El tipo de contratación ha sido agregado.',
+            'success'
+          );
+          this.form.reset();
+          this.cargarTipoServicio();
+        },
+        err => {
+          Swal.fire(
+            'Error!',
+            'Ocurrió un error al agregar el tipo de contratación.',
+            'error'
+          );
+        });
+      }
+    });
+  }  
 
-  public eliminarTipoServicio(tser_id:any){
-    this.tipoServicioService.deleteTipoServicio(tser_id).subscribe(
-      res=>console.log('El tipo servicio se ha eliminado correctamente'))
-      this.cargarTipoServicio();
+  public eliminarTipoServicio(tser_id:any) {
+    Swal.fire({
+      title: '¿Está seguro de querer eliminar el tipo de contratación?',
+      text: 'Una vez eliminado, no se podrá recuperar',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'No, cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.tipoServicioService.deleteTipoServicio(tser_id).subscribe(
+          res => {
+            Swal.fire(
+              'Eliminado!',
+              'El tipo de contratación ha sido eliminado.',
+              'success'
+            );
+            this.cargarTipoServicio();
+          },
+          err => {
+            Swal.fire(
+              'Error!',
+              'Ocurrió un error al eliminar el tipo de contratación.',
+              'error'
+            );
+          }
+        );
+      }
+    });
   }
+  
 
-  public actualizarTipoServicio(tser_id:any){
-    this.tipoServicioService.putUpdateTipoServicio({
-      tser_id:tser_id,
-      tser_descripcion:this.form.value.txtdescripcion,
-    }).subscribe(res=>{
-      
-    })
-    console.log('Datos del tipo servicio actualizados')
-      this.cargarTipoServicio()
+  public actualizarTipoServicio(tser_id:any) {
+    Swal.fire({
+      title: '¿Está seguro de querer editar el tipo de contratación?',
+      text: 'Una vez editado, no se podrá recuperar la versión anterior',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, editar',
+      cancelButtonText: 'No, cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.tipoServicioService.putUpdateTipoServicio({
+          tser_id:tser_id,
+          tser_descripcion:this.form.value.txtdescripcion,
+        }).subscribe(res=>{
+          Swal.fire({
+            title: 'Tipo de contratación actualizado',
+            icon: 'success',
+          });
+          this.cargarTipoServicio();
+        });
+      }
+    });
   }
   public infoUpdateTipoServicio(tser_id:any,tser_descripcion:any){
     this.informacionTipoServicio.tser_id=tser_id;

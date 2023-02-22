@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,14 +23,14 @@ export class ImgService {
     return this.http.post(url,body)
   }
 
-  public putUpdateImg(body:any){
+  public putUpdateImg(id:any,body:FormData){
     console.log(body)
-    const url=this.url+`image/`+body.bien_id
+    const url=this.url+`image/`+id
     return this.http.put(url,body)
   }
   
-  public deleteImg(bien_id:any){
-    const url= this.url+`image/`+bien_id
+  public deleteImg(body:any){
+    const url= this.url+`image/`+body.id
     return this.http.delete(url)
   }
 

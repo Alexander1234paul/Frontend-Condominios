@@ -2,134 +2,95 @@
     <div class="col-md-5">
         <div class="card">
             <div class="card-header">
-                <h2 style="text-align: center; padding-top: 20px;"> Gestión Servicios</h2>
+                <h2 style="text-align: center; padding-top: 20px;"> Gestión Contratación</h2>
             </div>
             <div class="card-body">
                 <button type="button" class="btn btn-primary btn-block" data-toggle="modal" style="background-color: #0c1548; border-color: #4C4C6D; color: white; font-size: large;" data-target="#crearBien">Reservar</button>
-                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" style="background-color: #ab6a2d; border-color: #4C4C6D; color: white; font-size: large;" (click)="cargarServicio()">Recargar</button>
             </div>
         </div>
     </div>
+    <div class="col-md-12">
+        <table class="table table-bordered table-hover bg-white">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                    <th>Total</th>
+                    <th>Tipo Servicio</th>
+                    <th class="d-flex justify-content-center">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of Servicios">
+                    <td>
+                        {{i.ser_id}}
+                    </td>
+                    <td>
+                        {{i.ser_fecha | date: "dd/MM/yyyy"}}
+                    </td>
+                    <td>
+                        {{i.ser_descripcion}}
+                    </td>
+                    <td>
+                        {{i.ser_total}} $
+                    </td>
+                    <td>
+                        {{i.tser_descripcion}}
+                    </td>
+                    <td class="d-flex justify-content-center">
+                        <div class="button-container">
+                            <a class="btn btn-danger" (click)="eliminarServicio(i.ser_id)">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </div>
+                        <div class="button-container">
+                            <a class="btn btn-success" data-toggle="modal" data-target="#actualizarBien" (click)="infoUpdateServicio(i.ser_id,i.ser_fecha,i.ser_descripcion,i.ser_total,i.tser_id,i.tser_descripcion)">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </div>
+                        <div class="modal fade" id="actualizarBien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Actualizar Bien</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form [formGroup]="form">
+                                            <div class="form-group">
+                                                <label>
+                                                    <h6>Id Servicio:{{informacionServicio.ser_id}}</h6>
+                                                </label>
+                                                <input type="date" name="Fecha del Servicio" formControlName="txtfecha" [(ngModel)]="informacionServicio.ser_fecha" class="form-control">
 
-<!--    
-    probando
--->
-<div class="col-md-12">
+                                                <input type="text" name="Descripción del Servicio" formControlName="txtdescripcion" [(ngModel)]="informacionServicio.ser_descripcion" class="form-control">
 
-    <p-table #dt [rows]="5" [value]="Servicios" [paginator]="true" responsiveLayout="scroll" [rowHover]="true"
-        currentPageReportTemplate="Mostrando elementos {first} hasta {last} de {totalRecords} entradas totales"
-        [showCurrentPageReport]="true" [globalFilterFields]="['ser_id']">
-        <ng-template pTemplate="caption">
-            <div class="flex align-items-center justify-content-between">
-            </div>
-        </ng-template>
+                                                <input type="number" name="Total del Servicio" formControlName="txttotal" [(ngModel)]="informacionServicio.ser_total" class="form-control">
 
-        <ng-template pTemplate="header">
-            <tr>
+                                                <!-- <input type="number" name="Tipo Servicio" formControlName="txttser_id" [(ngModel)]="informacionServicio.tser_descripcion" class="form-control"> -->
+                                                <div class="form-group" style="text-align: center;justify-content: center;">
+                                                    <p-dropdown [options]="tipoServicio" [(ngModel)]="selectedOption" optionLabel="tser_descripcion" formControlName="txttser_id" placeholder="Seleccione el Tipo de servicio " optionValue="tser_id" [filter]="true"></p-dropdown>
+                                                </div>
+                                            </div>
 
-                <th pSortableColumn="ser_id">Id<p-sortIcon field="ser_id"></p-sortIcon>
-                    <div class="flex justify-content-center align-items-center">
-                        <p-columnFilter type="text" field="ser_id" display="ser_id"></p-columnFilter>
-                    </div>
-
-                </th>
-                <th>Fecha
-                    <div class="flex justify-content-center align-items-center">
-                        <p-columnFilter type="text" field="ser_fecha" display="ser_fecha"></p-columnFilter>
-                    </div>
-                </th>
-                <th>Descripción
-                    <div class="flex justify-content-center align-items-center">
-                        <p-columnFilter type="text" field="ser_descripcion" display="ser_descripcion"></p-columnFilter>
-                    </div>
-                </th>
-                <th pSortableColumn="rol_id">Total<p-sortIcon field="rol_id"></p-sortIcon>
-                    <div class="flex justify-content-center align-items-center">
-                        <p-columnFilter type="text" field="ser_total" display="ser_total"></p-columnFilter>
-                    </div>
-
-                </th>
-                <th>Tipo de servicio
-                    <div class="flex justify-content-center align-items-center">
-                        <p-columnFilter type="text" field="tser_descripcion" display="tser_descripcion"></p-columnFilter>
-                    </div>
-                </th>
-                <th>Opciones</th>
-            </tr>
-
-        </ng-template>
-        <ng-template pTemplate="body" let-i>
-            <tr>
-                <td>
-                    {{i.ser_id}}
-                </td>
-                <td>
-                    {{i.ser_fecha | date: "dd/MM/yyyy"}}
-                </td>
-                <td>
-                    {{i.ser_descripcion}}
-                </td>
-                <td>
-                    {{i.ser_total}} $
-                </td>
-                <td>
-                    {{i.tser_descripcion}}
-                </td>
-                <td class="d-flex justify-content-center">
-                    <a class="btn btn-danger" (click)="eliminarServicio(i.ser_id)">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
-                    <a class="btn btn-success" data-toggle="modal" data-target="#actualizarServicio" (click)="infoUpdateServicio(i.ser_id,i.ser_fecha,i.ser_descripcion,i.ser_total,i.tser_id,i.tser_descripcion)">
-                        <i class="fas fa-edit"></i>
-                    </a>
-
-                    <div class="modal fade" id="actualizarServicio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Actualizar Servicio</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form [formGroup]="form">
-                                        <div class="form-group">
-                                            <label>
-                                                <h6>Id Servicio:{{informacionServicio.ser_id}}</h6>
-                                            </label>
-                                            <input type="date" name="Fecha del Servicio" formControlName="txtfecha" placeholder="{{informacionServicio.ser_fecha}}" class="form-control">
-
-                                            <input type="text" name="Descripción del Servicio" formControlName="txtdescripcion" placeholder="{{informacionServicio.ser_descripcion}}" class="form-control">
-
-                                            <input type="number" name="Total del Servicio" formControlName="txttotal" placeholder="{{informacionServicio.ser_total}}" class="form-control">
-
-                                            <input type="number" name="Tipo Servicio" formControlName="txttser_id" placeholder="{{informacionServicio.tser_descripcion}}" class="form-control">
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                            <button type="button" class="btn btn-primary" (click)="actualizarServicio(informacionServicio.ser_id)" data-dismiss="modal">Actualizar</button>
-                                        </div>
-                                    </form>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-primary" (click)="actualizarServicio(informacionServicio.ser_id)" data-dismiss="modal">Actualizar</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-                
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="summary">
-            <div class="flex align-items-center justify-content-between">
-            </div>
-        </ng-template>
-    </p-table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-<!--    
-probando
--->
-
 
 <!-- Crear Servicio -->
 <div class="modal fade" id="crearBien" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -158,10 +119,6 @@ probando
                             <input type="text" name="Total" class="form-control" id="total_" formControlName="txttotal" placeholder="Total">
                             <label for="total_">Total $ </label>
                         </div>
-                        <!-- <div class="form-floating mb-3">
-                            <input type="text " name="tser_id" class="form-control" id="service_" formControlName="txttser_id" placeholder="Tipo servicio ">
-                            <label for="service_">Servicio</label>
-                        </div> -->
                         <div class="form-group" style="text-align: center;justify-content: center;">
                             <p-dropdown [options]="tipoServicio" [(ngModel)]="selectedOption" optionLabel="tser_descripcion" formControlName="txttser_id" placeholder="Seleccione el Tipo de servicio " optionValue="tser_id" [filter]="true"></p-dropdown>
                         </div>

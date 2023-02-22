@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ServicioService } from 'src/app/servicios/reservaciones/servicios/servicio.service';
 import { ModelServicio} from 'src/app/modelos/reservaciones/servicios/servicio.module';
 import { ModelTipoServicio} from 'src/app/modelos/reservaciones/servicios/tipoServicio.module';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -61,37 +62,111 @@ export class SubServicioComponent {
 
 
   public crearServicio(){
-    this.ServicioService.postCreateServicio({
-      ser_fecha:this.form.value.txtfecha,
-      ser_descripcion:this.form.value.txtdescripcion,
-      ser_total:this.form.value.txttotal,
-      tser_id:this.form.value.txttser_id,
-    }).subscribe(res=>{
-      console.log('Nuevo Tipo Servicio insertado')
-    })
-    this.form.reset();
-    this.cargarServicio()
+    Swal.fire({
+      title: '¿Está seguro de querer agregar el servicio?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, agregar',
+      cancelButtonText: 'No, cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.ServicioService.postCreateServicio({
+          ser_fecha:this.form.value.txtfecha,
+          ser_descripcion:this.form.value.txtdescripcion,
+          ser_total:this.form.value.txttotal,
+          tser_id:this.form.value.txttser_id,
+        }).subscribe(res=>{
+          this.form.reset();
+          this.cargarServicio();
+          Swal.fire({
+            title: '¡Servicio agregado correctamente!',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        },
+        err=>{
+          Swal.fire({
+            title: '¡Error!',
+            text: 'Ocurrió un error al agregar el servicio',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        });
+      }
+    });
   }
+  
 
   public eliminarServicio(ser_id:any){
-    this.ServicioService.deleteServicio(ser_id).subscribe(
-      res=>console.log('El servicio se ha eliminado correctamente'))
-      this.cargarServicio();
+    Swal.fire({
+      title: '¿Está seguro de querer eliminar el servicio?',
+      text: 'Una vez eliminado, no se podrá recuperar',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'No, cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.ServicioService.deleteServicio(ser_id).subscribe(
+          res => {
+            console.log('El servicio se ha eliminado correctamente');
+            Swal.fire(
+              'Eliminado!',
+              'El servicio se ha eliminado correctamente.',
+              'success'
+            );
+            this.cargarServicio();
+          },
+          error => {
+            console.log('Error al eliminar el servicio', error);
+          }
+        );
+      }
+    });
   }
 
+
   public actualizarServicio(ser_id:any){
-    this.ServicioService.putUpdateServicio({
-      ser_id:ser_id,
-      ser_fecha:this.form.value.txtfecha,
-      ser_descripcion:this.form.value.txtdescripcion,
-      ser_total:this.form.value.txttotal,
-      tser_id:this.form.value.txttser_id,
-    }).subscribe(res=>{
-      
-    })
-    console.log('Datos del tipo servicio actualizados')
-      this.cargarServicio()
+    Swal.fire({
+      title: '¿Está seguro de querer actualizar el servicio?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, actualizar',
+      cancelButtonText: 'No, cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.ServicioService.putUpdateServicio({
+          ser_id:ser_id,
+          ser_fecha:this.form.value.txtfecha,
+          ser_descripcion:this.form.value.txtdescripcion,
+          ser_total:this.form.value.txttotal,
+          tser_id:this.form.value.txttser_id,
+        }).subscribe(res=>{
+          Swal.fire({
+            title: '¡Servicio actualizado correctamente!',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          console.log('Datos del servicio actualizados')
+          this.cargarServicio();
+        },
+        err=>{
+          Swal.fire({
+            title: '¡Error!',
+            text: 'Ocurrió un error al actualizar el servicio',
+            icon: 'error',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        });
+      }
+    });
   }
+  
+
   public infoUpdateServicio(ser_id:any,ser_fecha:any,ser_descripcion:any, ser_total:any,tser_id:any,tser_descripcion:any){
     this.informacionServicio.ser_id=ser_id;
     this.informacionServicio.ser_fecha=ser_fecha;

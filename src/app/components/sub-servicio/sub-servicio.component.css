@@ -1,0 +1,6 @@
+.button-container {
+    margin-right: 10px;
+    /* Ajuste el margen derecho según sea necesario */
+    display: inline-block;
+    /* Mostrar cada contenedor de botón en línea */
+}

@@ -37,5 +37,6 @@ export class DetalleServicioService {
     const url= this.url+`detalle_servicio/`+dser_id
     return this.http.delete(url)
   }
+  
 
 }
