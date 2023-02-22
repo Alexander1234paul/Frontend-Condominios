@@ -62,6 +62,13 @@ export class MontoComponent implements OnInit{
       console.log('Nuevo Monto insertado')
       this.form.reset();
       this.cargarMonto()
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'El monto se insertó correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
   }
 

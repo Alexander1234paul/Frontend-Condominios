@@ -56,6 +56,13 @@ export class DepartamentoComponent implements OnInit {
       console.log('Nuevo departamento insertado')
       this.form.reset()
       this.cargarDepartamentos()
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'El departamento se insertó correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
 
   }
@@ -83,12 +90,6 @@ export class DepartamentoComponent implements OnInit {
     })
   }
 
-  public tomarId(dep_id: any) {
-    this.idUpdatedDepartamento({
-      dep_id: dep_id
-    })
-  }
-
   public actualizarDepartamento() {
     this.departamentoService.putUpdateDepartamento({
       dep_id: this.idUpdatedDepartamento,
@@ -99,16 +100,15 @@ export class DepartamentoComponent implements OnInit {
       console.log('Datos del departamento actualizados')
       this.form.reset()
       this.cargarDepartamentos()
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Departamento actualizado exitosamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Departamento actualizado exitosamente',
-      showConfirmButton: false,
-      timer: 1500
-    })
-
-
+    
   }
 
   cambiarEstado(valor: any): String {

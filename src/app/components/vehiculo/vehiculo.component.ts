@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { VehiculoService } from 'src/app/servicios/vehiculo/vehiculo.service';
 import { ModelVehiculo } from 'src/app/modelos/reservaciones/servicios/vehiculo.module';
 import { ModelResidenteI } from 'src/app/modelos/modelo.residente';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-vehiculo',
@@ -71,21 +72,43 @@ export class VehiculoComponent {
       res_id:this.form.value.txtresidente
     }).subscribe(res=>{
       console.log('Nuevo vehículo insertado')
-      //Formulario reseteado
-      
-      //Se cargue los datos despues de enviar
+      this.form.reset();
+    this.cargarVehiculos()
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'El vehículo se insertó correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
       
     })
-    this.form.reset();
-    this.cargarVehiculos()
+    
   }
 
   public eliminarVehiculo(veh_placa:any){
-    // console.log(veh_placa)
+    Swal.fire({
+      title: '¿Está seguro de borrar?',
+      text: 'No podrá revertir esta acción!',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#91C788',
+      cancelButtonColor: '#FFAAA7',
+      confirmButtonText: 'Sí, deseo eliminar!',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
     this.vehiculoService.deleteVehiculo(veh_placa).subscribe(
       res=>console.log('El vehículo se ha eliminado correctamente'))
       this.cargarVehiculos();
-  }
+      Swal.fire(
+        'Eliminado',
+        'El vehículo ha sido eliminado',
+        'success'
+      )
+    }
+  })
+}
 
   public actualizarVehiculo(veh_placa:any){
     this.vehiculoService.putUpdateVehiculo({
@@ -95,10 +118,17 @@ export class VehiculoComponent {
       veh_color:this.form.value.txtcolor,
       res_id:this.form.value.txtres
     }).subscribe(res=>{
-      
-    })
-    console.log('Datos del vehículo actualizados')
+      console.log('Datos del vehículo actualizados')
       this.cargarVehiculos()
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Vehículo actualizado exitosamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    })
+    
   }
 
   public infoUpdateVehiculo(veh_placa:any,veh_marca:any,veh_modelo:any,veh_color:any,res_id:any){

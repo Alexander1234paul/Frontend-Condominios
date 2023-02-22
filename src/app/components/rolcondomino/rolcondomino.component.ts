@@ -35,8 +35,6 @@ export class RolcondominoComponent implements OnInit {
 
   }
 
-
-
   //METODOS
   showAllRol() {
     this.rolServices.getAllRol().subscribe(

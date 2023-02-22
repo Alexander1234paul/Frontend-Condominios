@@ -55,6 +55,14 @@ export class BienComponent implements OnInit {
       console.log('Nuevo Bien insertado')
       this.form.reset()
       this.cargarBienes()
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'El bien se insertó correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
+
     })
 
   }
@@ -71,7 +79,8 @@ export class BienComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.bienService.deleteBien(bien_id).subscribe(res => console.log('El bien se ha eliminado correctamente'))
+        this.bienService.deleteBien(bien_id).
+        subscribe(res => console.log('El bien se ha eliminado correctamente'))
         this.cargarBienes();
         Swal.fire(
           'Eliminado',
@@ -92,15 +101,14 @@ export class BienComponent implements OnInit {
       console.log('Datos del bien actualizados')
       this.form.reset()
       this.cargarBienes()
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Bien actualizado exitosamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Departamento actualizado exitosamente',
-      showConfirmButton: false,
-      timer: 1500
-    })
-
   }
 
   public infoUpdateBien(bien: any) {

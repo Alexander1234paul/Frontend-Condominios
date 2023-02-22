@@ -86,7 +86,13 @@ export class UsuarioexternoComponent implements OnInit {
 
       this.form.reset()
       this.cargarUsuariosExternos()
-      this.showModalMore('center', 'success', 'Registrado exisitosamente', false, 2000);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'El usuario externo se insertó correctamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
 
     })
   }
@@ -128,17 +134,16 @@ export class UsuarioexternoComponent implements OnInit {
       use_descripcion: this.form.value.use_descripcion
     }).subscribe(res => {
       console.log('Datos del usuario externo actualizados')
-
+      this.form.reset()
+      this.cargarUsuariosExternos()
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Usuario externo actualizado exitosamente',
+        showConfirmButton: false,
+        timer: 1500
+      })
     })
-    Swal.fire({
-      position: 'center',
-      icon: 'success',
-      title: 'Usuario externo actualizado exitosamente',
-      showConfirmButton: false,
-      timer: 1500
-    })
-    this.form.reset()
-    this.cargarUsuariosExternos()
   }
 
   public infoUpdateUsuarioExterno(userExt: any) {

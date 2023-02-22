@@ -101,6 +101,13 @@ export class DetallePagoComponent implements OnInit {
       });
     this.form.reset();
     this.recargar();
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'El detalle del pago se insertó correctamente',
+      showConfirmButton: false,
+      timer: 1500
+    })
   }
   public recargar() {
     this.getDetallePago();
