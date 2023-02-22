@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { MontoService } from 'src/app/servicios/monto/monto.service';
 import { ModelMonto } from 'src/app/modelos/adminitración/monto';
 import Swal from 'sweetalert2';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es'
 
 @Component({
   selector: 'app-monto',
@@ -33,6 +35,7 @@ export class MontoComponent implements OnInit{
 
   ngOnInit(): void {
     this.cargarMonto();
+    registerLocaleData(localeEs);
 
     this.form = this.formBuilder.group({
       mon_precio: [''],
