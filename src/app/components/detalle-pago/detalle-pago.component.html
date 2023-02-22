@@ -5,57 +5,115 @@
                 <h2 style="text-align: center; padding-top: 20px;">Gestión Pagos Residentes</h2>
             </div>
             <div class="card-body">
-                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" style="background-color: #0c1548; border-color: #4C4C6D; color: white; font-size: large;" (click)="crearDetallePago()">Asignar</button>
-                <button type="button" class="btn btn-primary btn-block" data-toggle="modal" style="background-color: #ab6a2d; border-color: #4C4C6D; color: white; font-size: large;" (click)="recargar()">Recargar</button>
+                <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                    style="background-color: #4C4C6D; border-color: #4C4C6D; color: white; font-size: large; text-align: center;"
+                    (click)="crearDetallePago()">Asignar</button>
+                <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                    style="background-color: #85C1E9; border-color: #4C4C6D; color: white; font-size: large; text-align: center;"
+                    (click)="recargar()">Recargar</button>
             </div>
         </div>
     </div>
-    <div class="col-md-12">
-        <table class="table table-bordered table-hover bg-white">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>FECHA</th>
-                    <th>RESIDENTE</th>
-                    <th>ALÍCUOTA</th>
-                    <th>TOTAL</th>
-                    <th>ESTADO</th>
-                    <th class="d-flex justify-content-center">Opciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let i of detpagos">
-                    <td>
-                        {{i.dpag_id}}
-                    </td>
-                    <td>
-                        {{i.dpag_fecha | date: "dd/MM/yyyy"}}
-                    </td>
-                    <td>
-                        {{i.per_nombres}} {{i.per_apellidos}}
-                    </td>
-                    <td>
-                        {{i.ali_descripcion}}
-                    </td>
-                    <td>
-                        {{i.total}}
-                    </td>
-                    <td style="color: red;">
-                        <span *ngIf="i.dpag_estado; else pendiente"> {{i.dpag_estado}} </span>
-                        <ng-template #pendiente> pendiente </ng-template>
-                    </td>
-
-                    <td class="d-flex justify-content-center">
-                        <div class="button-container">
-                            <a class="btn btn-warning" data-toggle="modal" (click)="updateEstado(i.dpag_id,i.res_correo)">
-                                <i class="fas fa-check-circle"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="flex align-items-center justify-content-between">
+        <br>
     </div>
+
+
+    <!--    
+    probando
+-->
+    <p-table #dt [rows]="10" [value]="detpagos" [paginator]="true" responsiveLayout="scroll" [rowHover]="true"
+        currentPageReportTemplate="Mostrando elementos {first} hasta {last} de {totalRecords} entradas totales"
+        [showCurrentPageReport]="true" [globalFilterFields]="['dpag_id']">
+        <ng-template pTemplate="caption">
+            <div class="flex align-items-center justify-content-between">
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+            <tr>
+
+                <th pSortableColumn="dpag_id">Id<p-sortIcon field="dpag_id">
+                    </p-sortIcon>
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="dpag_id" display="dpag_id"></p-columnFilter>
+                    </div>
+                </th>
+
+                <th>Fecha
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="dpag_fecha" display="dpag_fecha"></p-columnFilter>
+                    </div>
+                </th>
+                <th>Residente
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="per_nombres+' '+per_apellidos" display="per_nombres+' '+per_apellidos"></p-columnFilter>
+                    </div>
+                </th>
+
+                <th pSortableColumn="ali_descripcion">Alícuota<p-sortIcon field="ali_descripcion">
+                    </p-sortIcon>
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="ali_descripcion" display="ali_descripcion"></p-columnFilter>
+                    </div>
+                </th>
+                <th pSortableColumn="total">Total<p-sortIcon field="total">
+                </p-sortIcon>
+                <div class="flex justify-content-center align-items-center">
+                    <p-columnFilter type="text" field="total" display="total"></p-columnFilter>
+                </div>
+            </th>
+                <th>Estado
+                    <div class="flex justify-content-center align-items-center">
+                        <p-columnFilter type="text" field="dpag_estado" display="dpag_estado"></p-columnFilter>
+                    </div>
+                </th>
+                <th>Opciones</th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-i>
+            <tr>
+                <td>
+                    {{i.dpag_id}}
+                </td>
+                <td>
+                    {{i.dpag_fecha | date: "dd/MM/yyyy"}}
+                </td>
+                <td>
+                    {{i.per_nombres+" "}} {{i.per_apellidos}}
+                </td>
+                <td>
+                    {{i.ali_descripcion}}
+                </td>
+                <td>
+                    {{i.total}}
+                </td>
+                <td style="color: red;">
+                    <span *ngIf="i.dpag_estado; else pendiente"> {{i.dpag_estado}} </span>
+                    <ng-template #pendiente> pendiente </ng-template>
+                </td>
+                <td class="d-flex justify-content-center">
+                    <div class="button-container">
+                        <a class="btn btn-warning" data-toggle="modal"
+                            (click)="updateEstado(i.dpag_id,i.res_correo)">
+                            <i class="fas fa-check-circle"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="flex align-items-center justify-content-between">
+
+            </div>
+        </ng-template>
+    </p-table>
+
+    <!--    
+probando
+-->
+
 </div>
 <br>
 <br>

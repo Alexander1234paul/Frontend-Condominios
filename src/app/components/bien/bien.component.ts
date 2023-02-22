@@ -28,7 +28,7 @@ export class BienComponent implements OnInit {
   constructor(private bienService: BienService, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this.cargarBienes();
+    this.cargarBienes()
 
     this.form = this.formBuilder.group({
       bien_descripcion: [''],
@@ -79,16 +79,17 @@ export class BienComponent implements OnInit {
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.bienService.deleteBien(bien_id).
-        subscribe(res => console.log('El bien se ha eliminado correctamente'))
-        this.cargarBienes();
+        this.bienService.deleteBien(bien_id).subscribe(res => console.log('El bien se ha eliminado correctamente'));
+          this.form.reset()
+          this.cargarBienes()
         Swal.fire(
           'Eliminado',
           'El bien ha sido eliminado',
           'success'
-        )
-      }
+        )}
     })
+    
+    //this.cargarBienes()
   }
 
   public actualizarBien() {
